@@ -5,4 +5,8 @@ export default defineNuxtConfig({
   pinia: {
     storesDirs: ['app/stores/**'],
   },
+  compatibilityDate: '2025-12-21',
+  runtimeConfig: {
+    backendAddress: 'http://directus:8055',
+  },
 })

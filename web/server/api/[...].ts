@@ -1,6 +1,7 @@
-export default defineEventHandler((event) => {
-  const newPath = event.path.replace(/^\/api/, 'http://directus:8055')
-  return $fetch(newPath, {
+export default defineEventHandler(async (event) => {
+  const address = useRuntimeConfig(event).backendAddress
+  const newPath = event.path.replace(/^\/api/, address)
+  return await $fetch(newPath, {
     method: event.method,
     headers: event.headers,
   })
