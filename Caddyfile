@@ -1,4 +1,4 @@
-:80 {
+:10034 {
     root * /usr/share/caddy
     handle /api/* {
         uri strip_prefix /api

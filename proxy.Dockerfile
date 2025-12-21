@@ -1,3 +1,3 @@
-FROM caddy:2.7.4-alpine
+FROM caddy:2.10-alpine
 COPY Caddyfile /etc/caddy/Caddyfile
-EXPOSE 80
+EXPOSE 10034
