@@ -14,6 +14,9 @@ importers:
       marked:
         specifier: ^17.0.1
         version: 17.0.1
+      marked-directive:
+        specifier: ^1.0.7
+        version: 1.0.7(marked@17.0.1)
       pinia:
         specifier: ^3.0.4
         version: 3.0.4(vue@3.5.26)
@@ -1422,6 +1425,9 @@ packages:
     resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
     engines: {node: '>= 4.0.0'}
 
+  attributes-parser@2.2.3:
+    resolution: {integrity: sha512-zjOUWt95la8AdUO+kP1GBOonWrV5jy9NjJP+z9tva/DSA6FIzGKcN/gk3tdqQf/pOeB8dkyd3FCPrjhELMmrkg==}
+
   autoprefixer@10.4.23:
     resolution: {integrity: sha512-YYTXSFulfwytnjAPlw8QHncHJmlvFKtczb8InXaAx9Q0LbfDnfEYDE55omerIJKihhmU61Ft+cAOSzQVaBUmeA==}
     engines: {node: ^10 || ^12 || >=14}
@@ -2309,6 +2315,9 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
+  json-loose@1.2.4:
+    resolution: {integrity: sha512-lwMWNC5pvVI33rhYWmAsmtICWE2IH7euDY/iIPeMFE5AuzAifYgqQrjqSMzwbrFV6MWPs41XD+CajElHI4cZMQ==}
+
   json5@2.2.3:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
@@ -2412,6 +2421,11 @@ packages:
   magicast@0.5.1:
     resolution: {integrity: sha512-xrHS24IxaLrvuo613F719wvOIv9xPHFWQHuvGUBmPnCA/3MQxKI3b+r7n1jAoDHmsbC5bRhTZYR77invLAxVnw==}
 
+  marked-directive@1.0.7:
+    resolution: {integrity: sha512-2OilBJg5kSM0b7ijKlmIne8k1eA1YrNAWasw84fmfihgWuOQJFPmI5GzZd3DgM8PSquAKnYx87Qt5j/2Sw7JNA==}
+    peerDependencies:
+      marked: '>=7.0.0'
+
   marked@17.0.1:
     resolution: {integrity: sha512-boeBdiS0ghpWcSwoNm/jJBwdpFaMnZWRzjA6SkUMYb40SVaN1x7mmfGKp0jvexGcx+7y2La5zRZsYFZI6Qpypg==}
     engines: {node: '>= 20'}
@@ -2503,6 +2517,9 @@ packages:
 
   mocked-exports@0.1.1:
     resolution: {integrity: sha512-aF7yRQr/Q0O2/4pIXm6PZ5G+jAd7QS4Yu8m+WEeEHGnbo+7mE36CbLSDQiXYV8bVL3NfmdeqPJct0tUlnjVSnA==}
+
+  moo@0.5.2:
+    resolution: {integrity: sha512-iSAJLHYKnX41mKcJKjqvnAN9sf0LMDTXDEvFv+ffuRR9a1MIuXLjMNL6EsnDHSkKLTWNqQQ5uo61P4EbU4NU+Q==}
 
   mrmime@2.0.1:
     resolution: {integrity: sha512-Y3wQdFg2Va6etvQ5I82yUhGdsKrcYox6p7FfL1LbK2J4V01F9TGlepTIhnK24t7koZibmg82KGglhA1XK5IsLQ==}
@@ -5202,6 +5219,10 @@ snapshots:
 
   at-least-node@1.0.0: {}
 
+  attributes-parser@2.2.3:
+    dependencies:
+      json-loose: 1.2.4
+
   autoprefixer@10.4.23(postcss@8.5.6):
     dependencies:
       browserslist: 4.28.1
@@ -6084,6 +6105,10 @@ snapshots:
 
   jsesc@3.1.0: {}
 
+  json-loose@1.2.4:
+    dependencies:
+      moo: 0.5.2
+
   json5@2.2.3: {}
 
   jsonfile@6.1.0:
@@ -6234,6 +6259,11 @@ snapshots:
       '@babel/types': 7.28.5
       source-map-js: 1.2.1
 
+  marked-directive@1.0.7(marked@17.0.1):
+    dependencies:
+      attributes-parser: 2.2.3
+      marked: 17.0.1
+
   marked@17.0.1: {}
 
   math-intrinsics@1.1.0: {}
@@ -6301,6 +6331,8 @@ snapshots:
       ufo: 1.6.1
 
   mocked-exports@0.1.1: {}
+
+  moo@0.5.2: {}
 
   mrmime@2.0.1: {}
 

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {marked} from 'marked'
-
-import SidebarExtension from '~/sidebar-extension'
+import {createDirectives} from 'marked-directive'
 import type {BackendResponse, ChapterData} from '@@/interfaces'
 
 const route = useRoute()
@@ -10,7 +9,7 @@ const bookId = ref(route.params.id)
 
 const backlink = computed(() => `/book-${bookId.value}/`)
 
-marked.use({extensions: [SidebarExtension]})
+marked.use(createDirectives())
 
 const response = await useFetch<BackendResponse<ChapterData>>(
   `/api/items/chapters/${chapterId.value}`
@@ -62,10 +61,10 @@ onMounted(() => {
   @apply mt-4;
 }
 
-.container-content :deep(h6) {
-  @apply text-xl;
+.container-content :deep(h4) {
+  @apply text-lg;
   @apply font-semibold;
-  @apply mt-2 mb-1;
+  @apply mt-4;
 }
 
 .container-content :deep(blockquote) {
