@@ -20,7 +20,7 @@ const renderedContent = await marked(data.content, {
   async: true,
 })
 
-const content = ref<HTMLDivElement | null>(null)
+const content = useTemplateRef('content')
 onMounted(() => {
   if (content.value) {
     content.value.innerHTML = renderedContent
@@ -29,25 +29,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <a :href="backlink" class="chapter-name">&lt;-- К оглавлению</a>
-  <p class="chapter-name">{{ data.title }}</p>
-  <div class="container-content" ref="content"></div>
+  <a
+    :href="backlink"
+    class="font-light text-gray-700 hover:underline">
+    &lt;-- К оглавлению
+  </a>
+  <p class="font-light text-gray-700">
+    {{ data.title }}
+  </p>
+  <div
+    class="container-content mb-16"
+    ref="content" />
 </template>
 
 <style scoped>
-.chapter-name {
-  @apply font-light;
-  @apply text-gray-700;
-}
-
-a.chapter-name {
-  @apply hover:underline;
-}
-
-.container-content {
-  @apply mb-16;
-}
-
 .container-content :deep(h1) {
   @apply text-4xl;
   @apply font-semibold;

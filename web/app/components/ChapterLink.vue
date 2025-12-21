@@ -1,27 +1,19 @@
 <script setup lang="ts">
 import type {ChapterData} from '@@/interfaces'
 
-const props = defineProps({
-  chapter: {
-    type: Object as PropType<ChapterData>,
-    required: true,
-  },
-})
+const {chapter} = defineProps<{
+  chapter: ChapterData
+}>()
 
 const chapterLink = computed(() => {
-  return `/book-${props.chapter.book_id}/chapter-${props.chapter.id}`
+  return `/book-${chapter.book_id}/chapter-${chapter.id}`
 })
 </script>
 
 <template>
-  <a class="chapter-link" :href="chapterLink">{{ props.chapter.title }}</a>
+  <a
+    class="text-xl font-medium hover:underline mt-2 block"
+    :href="chapterLink">
+    {{ chapter.title }}
+  </a>
 </template>
-
-<style scoped>
-.chapter-link {
-  @apply text-xl font-medium;
-  @apply hover:underline;
-  @apply mt-2;
-  @apply block;
-}
-</style>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {BackendArrayResponse} from '@@/interfaces'
 import Post from '~/components/Post.vue'
+import '~/assets/css/styles.css'
 
 interface PostData {
   id: number
@@ -30,12 +31,5 @@ const posts = response.data.value!.data
     v-for="post in posts"
     :key="post.id"
     :title="post.title"
-    :content="post.content"
-  />
+    :content="post.content" />
 </template>
-
-<style>
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-</style>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Book from '~/components/Book.vue'
-import {useAppStore} from '~/stores/store'
+import {useAppStore} from '~/stores/app_store'
 import type {BookTag} from '@@/interfaces'
 
 const store = useAppStore()
@@ -47,8 +47,7 @@ async function search(event: KeyboardEvent) {
         'bg-slate-200': !selectedTags.includes(tag),
         'bg-slate-400': selectedTags.includes(tag),
       }"
-      @click="toggleTag(tag)"
-    >
+      @click="toggleTag(tag)">
       {{ tag.name }}
     </button>
   </div>
@@ -56,9 +55,8 @@ async function search(event: KeyboardEvent) {
     type="text"
     class="w-full mt-4 p-2 border-2"
     v-model="searchText"
-    @keypress="(event) => search(event as KeyboardEvent)"
-    placeholder="Поиск материала"
-  />
+    @keypress="(event: KeyboardEvent) => search(event)"
+    placeholder="Поиск материала" />
   <Book
     v-for="book in books"
     :key="book.id"
@@ -67,8 +65,7 @@ async function search(event: KeyboardEvent) {
     :cover="book.cover"
     :tags="book.tags.map((tag) => tag.book_tags_id)"
     :description="book.description"
-    :download-link="book.file"
-  />
+    :download-link="book.file" />
 </template>
 
 <style scoped>

@@ -1,7 +1,15 @@
 <template>
   <div class="my-12 flex flex-row-reverse">
-    <NuxtLink class="mx-10" to="/books">Каталог материалов</NuxtLink>
-    <NuxtLink class="mr-10" to="/">Блог</NuxtLink>
+    <NuxtLink
+      class="mx-10"
+      to="/books">
+      Каталог материалов
+    </NuxtLink>
+    <NuxtLink
+      class="mr-10"
+      to="/">
+      Блог
+    </NuxtLink>
   </div>
 </template>
 
