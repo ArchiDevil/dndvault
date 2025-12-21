@@ -6,18 +6,21 @@ export interface BackendResponse<T> {
   data: T
 }
 
+export type DefaultStatus = 'published' | 'draft' | 'archived'
+
 export interface BookData {
   id: number
   title: string
   description: string
+  status: DefaultStatus
+  chapters: number[]
   tags: [
     {
       book_tags_id: BookTag
     }
   ]
-  finished: boolean
-  cover: string
-  file: string
+  cover: string | null
+  file: string | null
 }
 
 export interface BookTag {
@@ -27,7 +30,7 @@ export interface BookTag {
 
 export interface ChapterData {
   id: number
-  status: 'published' | 'draft'
+  status: DefaultStatus
   title: string
   content: string
   book_id: number

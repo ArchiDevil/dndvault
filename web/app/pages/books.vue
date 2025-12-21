@@ -37,7 +37,7 @@ async function search(event: KeyboardEvent) {
 </script>
 
 <template>
-  <PageTitle>Книги</PageTitle>
+  <PageTitle>Каталог материалов</PageTitle>
   <div class="flex flex-wrap">
     <button
       v-for="tag in filterTags"
@@ -60,12 +60,13 @@ async function search(event: KeyboardEvent) {
   <Book
     v-for="book in books"
     :key="book.id"
+    :id="book.id"
     :title="book.title"
-    :finished="book.finished"
     :cover="book.cover"
     :tags="book.tags.map((tag) => tag.book_tags_id)"
     :description="book.description"
-    :download-link="book.file" />
+    :download-link="book.file"
+    :chapters="book.chapters" />
 </template>
 
 <style scoped>

@@ -9,44 +9,41 @@ import type {
 const route = useRoute()
 const id = ref(route.params.id)
 
-const response = await useFetch<BackendResponse<BookData>>(
-  `/api/items/book/${id.value}`
+const bookResponse = await useFetch<BackendResponse<BookData>>(
+  `/api/items/books/${id.value}`
 )
-const data = response.data.value!.data
+const bookData = bookResponse.data.value!.data
 
-const chapter_response = await useFetch<BackendArrayResponse<ChapterData>>(
-  `/api/items/chapter`,
+const chaptersResponse = await useFetch<BackendArrayResponse<ChapterData>>(
+  `/api/items/chapters`,
   {
     query: {
       filter: {
         book_id: {
-          _eq: data.id,
+          _eq: bookData.id,
         },
       },
+      sort: 'sort',
     },
   }
 )
-const chapters = chapter_response.data.value!.data
+const chapters = chaptersResponse.data.value!.data
 </script>
 
 <template>
   <h1 class="text-3xl font-semibold mt-4">
-    {{ data.title }}
+    {{ bookData.title }}
   </h1>
   <p class="mt-2">
-    {{ data.description }}
+    {{ bookData.description }}
   </p>
-  <h2 class="chapters-title">Оглавление</h2>
+  <h2
+    class="text-2xl font-semibold mt-4 mb-2 border-b-2 border-solid border-gray-500">
+    Оглавление
+  </h2>
   <ul>
     <li v-for="chapter in chapters">
       <ChapterLink :chapter="chapter" />
     </li>
   </ul>
 </template>
-
-<style scoped>
-.chapters-title {
-  @apply text-2xl font-semibold mt-4 mb-2;
-  @apply border-b-2 border-solid border-gray-500;
-}
-</style>

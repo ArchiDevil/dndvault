@@ -13,7 +13,7 @@ const backlink = computed(() => `/book-${bookId.value}/`)
 marked.use({extensions: [SidebarExtension]})
 
 const response = await useFetch<BackendResponse<ChapterData>>(
-  `/api/items/chapter/${chapterId.value}`
+  `/api/items/chapters/${chapterId.value}`
 )
 const data = response.data.value!.data
 const renderedContent = await marked(data.content, {

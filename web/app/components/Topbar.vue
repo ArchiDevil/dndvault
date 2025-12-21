@@ -1,24 +1,20 @@
 <template>
-  <div class="my-12 flex flex-row-reverse">
+  <div
+    class="my-8 py-4 flex flex-row gap-8 border-b-2 text-slate-800 font-semibold">
     <NuxtLink
-      class="mx-10"
+      class="text-xl underline-offset-4 decoration-2 hover:underline"
+      to="/">
+      Главная страница
+    </NuxtLink>
+    <NuxtLink
+      class="text-xl underline-offset-4 decoration-2 hover:underline"
       to="/books">
       Каталог материалов
     </NuxtLink>
-    <NuxtLink
-      class="mr-10"
-      to="/">
+    <!-- <NuxtLink
+      class="text-xl underline-offset-4 decoration-2 hover:underline"
+      to="/blog">
       Блог
-    </NuxtLink>
+    </NuxtLink> -->
   </div>
 </template>
-
-<style scoped>
-a {
-  @apply text-slate-800 font-semibold text-xl;
-}
-
-a:hover {
-  @apply text-slate-900 underline underline-offset-4 decoration-2;
-}
-</style>
