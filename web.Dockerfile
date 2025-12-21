@@ -1,5 +1,5 @@
 # build app
-FROM node:22-slim AS build-web
+FROM node:20-slim AS build-web
 RUN npm install -g pnpm
 COPY ./web/package.json /app/package.json
 COPY ./web/pnpm-workspace.yaml /app/pnpm-workspace.yaml
@@ -10,7 +10,7 @@ COPY ./web /app
 RUN pnpm run build
 
 # build server image
-FROM node:22-alpine as web
+FROM node:22-alpine AS web
 WORKDIR /app
 COPY --from=build-web /app/.output /app/dist
 CMD node dist/server/index.mjs
