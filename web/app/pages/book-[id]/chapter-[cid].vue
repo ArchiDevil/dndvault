@@ -1,15 +1,36 @@
 <script setup lang="ts">
-import {marked} from 'marked'
+import {marked, type Tokens} from 'marked'
 import {createDirectives} from 'marked-directive'
 import type {BackendResponse, ChapterData} from '@@/interfaces'
 
 const route = useRoute()
 const chapterId = ref(route.params.cid)
 const bookId = ref(route.params.id)
-
 const backlink = computed(() => `/book-${bookId.value}/`)
+const toc: {text: string; level: number; link: string}[] = []
 
-marked.use(createDirectives())
+const isHeading = (token: Tokens.Generic): token is Tokens.Heading =>
+  token.type === 'heading'
+
+marked
+  .use({
+    extensions: [
+      {
+        name: 'heading',
+        renderer(token) {
+          if (!isHeading(token)) return
+          const transliteration = transliterate(token.text)
+          toc.push({
+            level: token.depth,
+            text: token.text,
+            link: `#${transliteration}`,
+          })
+          return `<h${token.depth} id="${transliteration}">${token.text}</h${token.depth}>`
+        },
+      },
+    ],
+  })
+  .use(createDirectives())
 
 const response = await useFetch<BackendResponse<ChapterData>>(
   `/api/items/chapters/${chapterId.value}`
@@ -36,9 +57,31 @@ onMounted(() => {
   <p class="font-light text-gray-700">
     {{ data.title }}
   </p>
-  <div
-    class="container-content mb-16"
-    ref="content" />
+  <article class="mb-16 grid grid-cols-[1fr_auto] gap-8">
+    <div
+      class="min-w-[300px] w-[300px] bg-slate-200 p-2 text-sm h-fit sticky top-4">
+      <ul>
+        <li
+          v-for="element in toc"
+          :key="element.text">
+          <a
+            class="hover:underline"
+            :href="element.link"
+            :class="{
+              'ml-1': element.level === 2,
+              'ml-2': element.level === 3,
+              'ml-3': element.level === 4,
+              'ml-4': element.level === 5,
+            }">
+            {{ element.text }}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="container-content max-w-600"
+      ref="content" />
+  </article>
 </template>
 
 <style scoped>
