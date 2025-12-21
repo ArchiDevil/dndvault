@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ChapterData} from '~/interfaces'
+import type {ChapterData} from '@@/interfaces'
 
 const props = defineProps({
   chapter: {

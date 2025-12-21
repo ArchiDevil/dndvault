@@ -2,7 +2,7 @@
 import {marked} from 'marked'
 
 import SidebarExtension from '~/sidebar-extension'
-import {BackendResponse, ChapterData} from '~/interfaces'
+import type {BackendResponse, ChapterData} from '@@/interfaces'
 
 const route = useRoute()
 const chapterId = ref(route.params.cid)

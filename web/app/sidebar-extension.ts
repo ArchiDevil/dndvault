@@ -1,4 +1,4 @@
-import {Token, TokenizerAndRendererExtension} from 'marked'
+import type {Token, TokenizerAndRendererExtension} from 'marked'
 
 export default {
   name: 'sidebarExtension',

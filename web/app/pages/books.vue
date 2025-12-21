@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Book from '../components/Book.vue'
-import {useAppStore} from '../stores/store'
-import {BookTag} from '../interfaces'
+import Book from '~/components/Book.vue'
+import {useAppStore} from '~/stores/store'
+import type {BookTag} from '@@/interfaces'
 
 const store = useAppStore()
 await store.getTags()

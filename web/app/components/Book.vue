@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {BookTag} from '../interfaces'
+import type {BookTag} from '@@/interfaces'
 
 const props = defineProps({
   title: {

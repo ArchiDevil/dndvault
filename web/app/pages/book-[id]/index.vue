@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {
+import type {
   BackendResponse,
   BackendArrayResponse,
   BookData,
   ChapterData,
-} from '~/interfaces'
+} from '@@/interfaces'
 
 const route = useRoute()
 const id = ref(route.params.id)

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type {BackendArrayResponse} from '../interfaces'
-import Post from '../components/Post.vue'
+import type {BackendArrayResponse} from '@@/interfaces'
+import Post from '~/components/Post.vue'
 
 interface PostData {
   id: number

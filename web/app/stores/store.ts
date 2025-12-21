@@ -1,4 +1,4 @@
-import {BackendArrayResponse, BookData, BookTag} from '../interfaces'
+import type {BackendArrayResponse, BookData, BookTag} from '@@/interfaces'
 
 export const useAppStore = defineStore('app', {
   state() {
@@ -10,7 +10,10 @@ export const useAppStore = defineStore('app', {
   actions: {
     async getTags() {
       const response = await useFetch<BackendArrayResponse<BookTag>>(
-        '/api/items/book_tags'
+        '/api/items/book_tags',
+        {
+          deep: true,
+        }
       )
       this.bookTags = response.data.value!.data
     },
