@@ -2,9 +2,9 @@
     root * /usr/share/caddy
     handle /api/* {
         uri strip_prefix /api
-        reverse_proxy directus:8055
+        reverse_proxy backend:8055
     }
     handle * {
-        reverse_proxy web:3000
+        reverse_proxy frontend:3000
     }
 }

@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2025-12-21',
   runtimeConfig: {
-    backendAddress: 'http://directus:8055',
+    backendAddress: 'http://backend:8055',
   },
   app: {
     head: {
