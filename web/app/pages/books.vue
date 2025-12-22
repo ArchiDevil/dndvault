@@ -25,24 +25,15 @@ function toggleTag(tag: BookTag) {
     searchText.value.length ? searchText.value : null
   )
 }
-
-async function search(event: KeyboardEvent) {
-  if (event.key != 'Enter') return
-  const store = useAppStore()
-  await store.getBooks(
-    selectedTags.value,
-    searchText.value.length ? searchText.value : null
-  )
-}
 </script>
 
 <template>
   <PageTitle>Каталог материалов</PageTitle>
-  <div class="flex flex-wrap">
+  <div class="flex flex-wrap mb-2 gap-2">
     <button
       v-for="tag in filterTags"
       :key="tag.id"
-      class="tag-button"
+      class="px-2 py-1 rounded hover:bg-slate-500 hover:text-slate-100 text-slate-800"
       :class="{
         'bg-slate-200': !selectedTags.includes(tag),
         'bg-slate-400': selectedTags.includes(tag),
@@ -51,12 +42,6 @@ async function search(event: KeyboardEvent) {
       {{ tag.name }}
     </button>
   </div>
-  <input
-    type="text"
-    class="w-full mt-4 p-2 border-2"
-    v-model="searchText"
-    @keypress="(event: KeyboardEvent) => search(event)"
-    placeholder="Поиск материала" />
   <Book
     v-for="book in books"
     :key="book.id"
@@ -68,9 +53,3 @@ async function search(event: KeyboardEvent) {
     :download-link="book.file"
     :chapters="book.chapters" />
 </template>
-
-<style scoped>
-.tag-button {
-  @apply mr-2 mb-2 text-slate-800 px-2 py-1 rounded hover:bg-slate-500 hover:text-slate-100;
-}
-</style>
