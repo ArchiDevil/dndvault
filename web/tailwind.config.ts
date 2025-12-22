@@ -8,5 +8,8 @@ export default <Partial<Config>>{
         center: true,
       },
     },
+    fontFamily: {
+      sans: ['Roboto', 'sans-serif'],
+    },
   },
 }
