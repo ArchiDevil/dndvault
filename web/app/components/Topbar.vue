@@ -4,11 +4,6 @@
     <NuxtLink
       class="text-xl underline-offset-4 decoration-2 hover:underline"
       to="/">
-      Главная страница
-    </NuxtLink>
-    <NuxtLink
-      class="text-xl underline-offset-4 decoration-2 hover:underline"
-      to="/books">
       Каталог материалов
     </NuxtLink>
     <!-- <NuxtLink
