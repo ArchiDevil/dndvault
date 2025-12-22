@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import type {ChapterData} from '@@/interfaces'
-
-const {bookSlug, chapter} = defineProps<{
+const {bookSlug, id, title} = defineProps<{
   bookSlug: string
-  chapter: ChapterData
+  id: number
+  title: string
 }>()
 
 const chapterLink = computed(() => {
-  return `/book-${bookSlug}/chapter-${chapter.id}`
+  return `/book-${bookSlug}/chapter-${id}`
 })
 </script>
 
 <template>
   <a
-    class="text-xl font-medium hover:underline mt-2 block"
+    class="text-xl hover:font-semibold mt-2 block"
     :href="chapterLink">
-    {{ chapter.title }}
+    {{ title }}
   </a>
 </template>

@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import type {
-  BackendResponse,
-  BackendArrayResponse,
-  BookData,
-  ChapterData,
-} from '@@/interfaces'
+import type {BackendArrayResponse, BookData, ChapterData} from '@@/interfaces'
 
 const route = useRoute()
 const slug = ref(route.params.slug)
@@ -31,6 +26,7 @@ const chaptersResponse = await useFetch<BackendArrayResponse<ChapterData>>(
         },
       },
       sort: 'sort',
+      fields: 'id,title',
     },
   }
 )
@@ -38,19 +34,19 @@ const chapters = chaptersResponse.data.value!.data
 </script>
 
 <template>
-  <h1 class="text-3xl font-semibold mt-4">
-    {{ bookData.title }}
-  </h1>
+  <PageTitle>{{ bookData.title }}</PageTitle>
   <p class="mt-2">
     {{ bookData.description }}
   </p>
   <h2
-    class="text-2xl font-semibold mt-4 mb-2 border-b-2 border-solid border-gray-500">
-    Оглавление
+    class="text-2xl font-semibold mt-4 mb-2 after:h-0.5 after:bg-slate-800 after:block">
+    Список глав
   </h2>
   <ul>
     <li v-for="chapter in chapters">
       <ChapterLink
+        :id="chapter.id"
+        :title="chapter.title"
         :book-slug="bookData.slug"
         :chapter="chapter" />
     </li>
