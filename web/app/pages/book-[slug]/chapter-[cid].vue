@@ -30,9 +30,9 @@ marked
   })
   .use(createDirectives())
 
-const chapterId = ref(route.params.cid)
+const cid = ref(route.params.cid)
 const response = await useFetch<BackendResponse<ChapterData>>(
-  `/api/items/chapters/${chapterId.value}`
+  `/api/items/chapters/${cid.value}`
 )
 const data = response.data.value!.data
 const renderedContent = await marked(data.content, {
@@ -47,6 +47,16 @@ onMounted(() => {
 })
 
 const backlink = computed(() => `/book-${bookSlug.value}/`)
+
+useSeoMeta({
+  title: `DnD Worlds - ${data.title}`,
+  description: `Содержимое главы: ${data.title}`,
+  ogTitle: `DnD Worlds - ${data.title}`,
+  ogDescription: `Содержимое главы: ${data.title}`,
+  ogType: 'article',
+  ogLocale: 'ru_RU',
+  ogUrl: `https://dndworlds.ru/book-${bookSlug.value}/chapter-${cid.value}/`,
+})
 </script>
 
 <template>

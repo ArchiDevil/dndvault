@@ -31,6 +31,16 @@ const chaptersResponse = await useFetch<BackendArrayResponse<ChapterData>>(
   }
 )
 const chapters = chaptersResponse.data.value!.data
+
+useSeoMeta({
+  title: `DnD Worlds - ${bookData.title}`,
+  description: `Оглавление и краткое описание книги ${bookData.title}`,
+  ogTitle: `DnD Worlds - ${bookData.title}`,
+  ogDescription: `Оглавление и краткое описание книги ${bookData.title}`,
+  ogType: 'book',
+  ogLocale: 'ru_RU',
+  ogUrl: `https://dndworlds.ru/book-${slug.value}/`,
+})
 </script>
 
 <template>
