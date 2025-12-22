@@ -55,32 +55,33 @@ const backlink = computed(() => `/book-${bookSlug.value}/`)
     class="text-slate-600 hover:font-semibold">
     &lt;-- К оглавлению
   </a>
-  <article class="mt-2 mb-16 grid grid-cols-[1fr_auto] gap-8 text-slate-800">
-    <div
-      class="min-w-[300px] w-[300px] bg-slate-100 text-sm h-fit sticky top-4">
+  <div
+    class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 text-slate-800">
+    <aside
+      class="w-full lg:min-w-[300px] lg:w-[300px] bg-slate-100 text-sm h-fit lg:sticky top-4">
       <ul>
         <li
           v-for="element in toc"
           :key="element.text">
           <a
-            class="block hover:font-semibold p-2"
+            class="hover:font-semibold p-2"
             :href="element.link"
             :class="{
-              'pl-1 bg-slate-50': element.level === 1,
-              'pl-3 bg-slate-100': element.level === 2,
-              'pl-5 bg-slate-200': element.level === 3,
-              'pl-7 bg-slate-300': element.level === 4,
-              'pl-9 bg-slate-400': element.level === 5,
+              'pl-1 bg-slate-50 block': element.level === 1,
+              'pl-3 bg-slate-100 block': element.level === 2,
+              'pl-5 bg-slate-200 block': element.level === 3,
+              'pl-7 bg-slate-300 hidden lg:block': element.level === 4,
+              'pl-9 bg-slate-400 hidden lg:block': element.level === 5,
             }">
             {{ element.text }}
           </a>
         </li>
       </ul>
-    </div>
-    <div
+    </aside>
+    <article
       class="chapter-content max-w-600"
       ref="content" />
-  </article>
+  </div>
 </template>
 
 <style>
@@ -122,7 +123,7 @@ const backlink = computed(() => `/book-${bookSlug.value}/`)
   }
 
   table {
-    @apply mb-6;
+    @apply mb-6 text-sm;
 
     th {
       @apply text-left;
