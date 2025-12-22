@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type {ChapterData} from '@@/interfaces'
 
-const {chapter} = defineProps<{
+const {bookSlug, chapter} = defineProps<{
+  bookSlug: string
   chapter: ChapterData
 }>()
 
 const chapterLink = computed(() => {
-  return `/book-${chapter.book_id}/chapter-${chapter.id}`
+  return `/book-${bookSlug}/chapter-${chapter.id}`
 })
 </script>
 

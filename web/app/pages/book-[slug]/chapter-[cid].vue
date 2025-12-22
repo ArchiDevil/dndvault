@@ -4,7 +4,7 @@ import {createDirectives} from 'marked-directive'
 import type {BackendResponse, ChapterData} from '@@/interfaces'
 
 const route = useRoute()
-const bookId = ref(route.params.id)
+const bookSlug = computed(() => route.params.slug)
 
 const isHeading = (token: Tokens.Generic): token is Tokens.Heading =>
   token.type === 'heading'
@@ -46,7 +46,7 @@ onMounted(() => {
   }
 })
 
-const backlink = computed(() => `/book-${bookId.value}/`)
+const backlink = computed(() => `/book-${bookSlug.value}/`)
 </script>
 
 <template>

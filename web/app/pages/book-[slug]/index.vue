@@ -7,12 +7,19 @@ import type {
 } from '@@/interfaces'
 
 const route = useRoute()
-const id = ref(route.params.id)
+const slug = ref(route.params.slug)
 
-const bookResponse = await useFetch<BackendResponse<BookData>>(
-  `/api/items/books/${id.value}`
+const booksResponse = await useFetch<BackendArrayResponse<BookData>>(
+  `/api/items/books/`,
+  {
+    query: {
+      slug: {
+        _eq: slug.value,
+      },
+    },
+  }
 )
-const bookData = bookResponse.data.value!.data
+const bookData = booksResponse.data.value!.data[0]!
 
 const chaptersResponse = await useFetch<BackendArrayResponse<ChapterData>>(
   `/api/items/chapters`,
@@ -43,7 +50,9 @@ const chapters = chaptersResponse.data.value!.data
   </h2>
   <ul>
     <li v-for="chapter in chapters">
-      <ChapterLink :chapter="chapter" />
+      <ChapterLink
+        :book-slug="bookData.slug"
+        :chapter="chapter" />
     </li>
   </ul>
 </template>

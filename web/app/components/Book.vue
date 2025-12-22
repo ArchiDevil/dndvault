@@ -2,7 +2,7 @@
 import type {BookTag} from '@@/interfaces'
 
 const {
-  id,
+  slug,
   title,
   description,
   tags = [],
@@ -10,7 +10,7 @@ const {
   downloadLink,
   chapters,
 } = defineProps<{
-  id: number
+  slug: string
   title: string
   description: string
   tags: BookTag[]
@@ -21,7 +21,7 @@ const {
 
 const coverPath = computed(() => `/api/assets/${cover}`)
 const downloadPath = computed(() => `/api/assets/${downloadLink}?download`)
-const openPath = computed(() => `/book-${id}/`)
+const openPath = computed(() => `/book-${slug}/`)
 </script>
 
 <template>
@@ -52,7 +52,7 @@ const openPath = computed(() => `/book-${id}/`)
       <a
         v-if="chapters.length > 0"
         :href="openPath">
-        Открыть
+        Читать
       </a>
     </div>
   </div>

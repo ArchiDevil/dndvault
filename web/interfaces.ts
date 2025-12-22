@@ -11,6 +11,7 @@ export type DefaultStatus = 'published' | 'draft' | 'archived'
 export interface BookData {
   id: number
   title: string
+  slug: string
   description: string
   status: DefaultStatus
   chapters: number[]

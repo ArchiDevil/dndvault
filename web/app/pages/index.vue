@@ -45,11 +45,11 @@ function toggleTag(tag: BookTag) {
   <Book
     v-for="book in books"
     :key="book.id"
-    :id="book.id"
     :title="book.title"
     :cover="book.cover"
     :tags="book.tags.map((tag) => tag.book_tags_id)"
     :description="book.description"
     :download-link="book.file"
-    :chapters="book.chapters" />
+    :chapters="book.chapters"
+    :slug="book.slug" />
 </template>
