@@ -44,6 +44,9 @@ services:
       PUBLIC_URL: https://dndworlds.ru
       EMAIL_VERIFY_SETUP: false
       MCP_ENABLED: false
+
+      CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "'self' https://dndworlds.ru"
+      QUERY_LIMIT_MAX: 100
     volumes:
       - uploads:/directus/uploads
 
