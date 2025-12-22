@@ -26,12 +26,12 @@ const openPath = computed(() => `/book-${slug}/`)
 
 <template>
   <div
-    class="bg-slate-200 mt-6 border-slate-400 border-l-4 p-4 gap-4 grid grid-cols-5">
+    class="bg-slate-200 mt-6 border-slate-400 border-l-4 p-4 gap-4 grid grid-cols-1 md:grid-cols-[1fr_auto] place-items-center md:place-items-start">
     <img
       v-if="cover !== null"
       :src="coverPath"
-      class="w-48 h-fit mr-4 col" />
-    <div class="col-span-4 text-slate-700">
+      class="min-w-24 md:min-w-48 h-fit max-h-72 md:max-h-full mr-4" />
+    <div class="text-slate-700">
       <h2 class="font-semibold text-2xl">
         {{ title }}
       </h2>
@@ -44,23 +44,25 @@ const openPath = computed(() => `/book-${slug}/`)
         >#{{ tag.name }}</span
       >
       <br />
-      <a
-        v-if="downloadLink !== null"
-        :href="downloadPath">
-        Скачать
-      </a>
-      <a
-        v-if="chapters.length > 0"
-        :href="openPath">
-        Читать
-      </a>
+      <div class="flex flex-row gap-2">
+        <a
+          v-if="downloadLink !== null"
+          :href="downloadPath">
+          Скачать
+        </a>
+        <a
+          v-if="chapters.length > 0"
+          :href="openPath">
+          Читать
+        </a>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 a {
-  @apply no-underline inline-block my-2 mr-2 px-2 py-1 rounded;
-  @apply bg-slate-300 hover:text-slate-800 hover:bg-slate-400;
+  @apply no-underline inline-block my-2 px-2 py-1 rounded;
+  @apply bg-slate-300 hover:bg-slate-500 hover:text-slate-100;
 }
 </style>

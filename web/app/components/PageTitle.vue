@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-slate-800 font-sans font-semibold text-5xl mb-8">
+  <h1 class="font-semibold text-3xl md:text-5xl mb-8">
     <slot />
   </h1>
 </template>

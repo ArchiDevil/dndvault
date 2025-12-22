@@ -33,7 +33,7 @@ function toggleTag(tag: BookTag) {
     <button
       v-for="tag in filterTags"
       :key="tag.id"
-      class="px-2 py-1 rounded hover:bg-slate-500 hover:text-slate-100 text-slate-800"
+      class="px-2 py-1 rounded hover:bg-slate-500 hover:text-slate-100"
       :class="{
         'bg-slate-200': !selectedTags.includes(tag),
         'bg-slate-400': selectedTags.includes(tag),
