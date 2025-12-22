@@ -52,27 +52,25 @@ const backlink = computed(() => `/book-${bookId.value}/`)
 <template>
   <a
     :href="backlink"
-    class="font-light text-gray-700 hover:underline">
+    class="text-slate-600 hover:font-semibold">
     &lt;-- К оглавлению
   </a>
-  <p class="font-light text-gray-700">
-    {{ data.title }}
-  </p>
-  <article class="mb-16 grid grid-cols-[1fr_auto] gap-8">
+  <article class="mt-2 mb-16 grid grid-cols-[1fr_auto] gap-8 text-slate-800">
     <div
-      class="min-w-[300px] w-[300px] bg-slate-200 p-2 text-sm h-fit sticky top-4">
+      class="min-w-[300px] w-[300px] bg-slate-100 text-sm h-fit sticky top-4">
       <ul>
         <li
           v-for="element in toc"
           :key="element.text">
           <a
-            class="hover:underline"
+            class="block hover:font-semibold p-2"
             :href="element.link"
             :class="{
-              'ml-1': element.level === 2,
-              'ml-2': element.level === 3,
-              'ml-3': element.level === 4,
-              'ml-4': element.level === 5,
+              'pl-1 bg-slate-50': element.level === 1,
+              'pl-3 bg-slate-100': element.level === 2,
+              'pl-5 bg-slate-200': element.level === 3,
+              'pl-7 bg-slate-300': element.level === 4,
+              'pl-9 bg-slate-400': element.level === 5,
             }">
             {{ element.text }}
           </a>
@@ -87,8 +85,6 @@ const backlink = computed(() => `/book-${bookId.value}/`)
 
 <style>
 .chapter-content {
-  @apply text-slate-800;
-
   h1,
   h2,
   h3,
@@ -169,19 +165,12 @@ const backlink = computed(() => `/book-${bookId.value}/`)
   blockquote {
     @apply border-red-900 border border-solid;
     @apply p-4 my-4;
-    @apply bg-gray-100;
     @apply text-sm;
-  }
 
-  .sidebar {
-    @apply bg-zinc-300;
-    @apply border border-solid border-zinc-400;
-    @apply p-4;
-
-    h1 {
-      @apply text-xl;
-      @apply font-semibold;
-      @apply mt-0 mb-2;
+    &.sidebar {
+      @apply bg-orange-100;
+      @apply border border-solid border-zinc-400;
+      @apply p-4;
     }
   }
 
