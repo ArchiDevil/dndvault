@@ -49,13 +49,13 @@ onMounted(() => {
 const backlink = computed(() => `/book-${bookSlug.value}/`)
 
 useSeoMeta({
-  title: `DnD Worlds - ${data.title}`,
+  title: `DnD Vault - ${data.title}`,
   description: `Содержимое главы: ${data.title}`,
-  ogTitle: `DnD Worlds - ${data.title}`,
+  ogTitle: `DnD Vault - ${data.title}`,
   ogDescription: `Содержимое главы: ${data.title}`,
   ogType: 'article',
   ogLocale: 'ru_RU',
-  ogUrl: `https://dndworlds.ru/book-${bookSlug.value}/chapter-${cid.value}/`,
+  ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${cid.value}/`,
 })
 </script>
 

@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'DnD Worlds',
+      title: 'DnD Vault',
       htmlAttrs: {
         lang: 'ru',
       },

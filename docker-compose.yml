@@ -41,11 +41,11 @@ services:
       ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
       ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
 
-      PUBLIC_URL: https://dndworlds.ru
+      PUBLIC_URL: https://dndvault.ru
       EMAIL_VERIFY_SETUP: false
       MCP_ENABLED: false
 
-      CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "'self' https://dndworlds.ru"
+      CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "'self' https://dndvault.ru"
       QUERY_LIMIT_MAX: 100
     volumes:
       - uploads:/directus/uploads

@@ -4,13 +4,13 @@ import {useAppStore} from '~/stores/app_store'
 import type {BookTag} from '@@/interfaces'
 
 useSeoMeta({
-  title: 'DnD Worlds - Каталог материалов',
+  title: 'DnD Vault - Каталог материалов',
   description: 'Здесь содержится каталог материалов для DnD 2024',
-  ogTitle: 'DnD Worlds - Каталог материалов',
+  ogTitle: 'DnD Vault - Каталог материалов',
   ogDescription: 'Здесь содержится каталог материалов для DnD 2024',
   ogType: 'website',
   ogLocale: 'ru_RU',
-  ogUrl: 'https://dndworlds.ru/',
+  ogUrl: 'https://dndvault.ru/',
 })
 
 const store = useAppStore()
