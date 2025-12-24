@@ -7,6 +7,7 @@
   src: url('~/assets/fonts/Roboto.ttf') format('truetype');
   font-style: normal;
   font-weight: 400 600;
+  font-display: swap;
 }
 
 @font-face {
@@ -14,6 +15,7 @@
   src: url('~/assets/fonts/Roboto-Italic.ttf') format('truetype');
   font-style: italic;
   font-weight: 400 600;
+  font-display: swap;
 }
 
 body {
