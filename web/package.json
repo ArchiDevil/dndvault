@@ -1,5 +1,5 @@
 {
-  "name": "dndworlds-frontend",
+  "name": "dndvault-frontend",
   "private": true,
   "scripts": {
     "build": "nuxt build",
