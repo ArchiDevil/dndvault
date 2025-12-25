@@ -5,54 +5,64 @@ import type {BackendResponse, ChapterData} from '#shared/types/backendTypes'
 
 const route = useRoute()
 const bookSlug = computed(() => route.params.slug)
-
-const isHeading = (token: Tokens.Generic): token is Tokens.Heading =>
-  token.type === 'heading'
-
-const toc: {text: string; level: number; link: string}[] = []
-marked
-  .use({
-    extensions: [
-      {
-        name: 'heading',
-        renderer(token) {
-          if (!isHeading(token)) return
-          const transliteration = transliterate(token.text)
-          toc.push({
-            level: token.depth,
-            text: token.text,
-            link: `#${transliteration}`,
-          })
-          return `<h${token.depth} id="${transliteration}">${token.text}</h${token.depth}>`
-        },
-      },
-    ],
-  })
-  .use(createDirectives())
-
 const cid = ref(route.params.cid)
-const response = await useFetch<BackendResponse<ChapterData>>(
-  `/api/items/chapters/${cid.value}`
-)
-const data = response.data.value!.data
-const renderedContent = await marked(data.content, {
-  async: true,
-})
 
-const content = useTemplateRef('content')
-onMounted(() => {
-  if (content.value) {
-    content.value.innerHTML = renderedContent
+let renderedContent = ''
+const toc = useState<{text: string; level: number; link: string}[]>(
+  'toc',
+  () => []
+)
+
+// prerender content on the server
+if (import.meta.server) {
+  const response = await $fetch<BackendResponse<ChapterData>>(
+    `/api/items/chapters/${cid.value}`
+  )
+
+  const isHeading = (token: Tokens.Generic): token is Tokens.Heading =>
+    token.type === 'heading'
+
+  marked
+    .use({
+      extensions: [
+        {
+          name: 'heading',
+          renderer(token) {
+            if (!isHeading(token)) return
+            const transliteration = transliterate(token.text)
+            toc.value.push({
+              level: token.depth,
+              text: token.text,
+              link: `#${transliteration}`,
+            })
+            return `<h${token.depth} id="${transliteration}">${token.text}</h${token.depth}>`
+          },
+        },
+      ],
+    })
+    .use(createDirectives())
+
+  renderedContent = marked(response.data.content, {
+    async: false,
+  })
+}
+
+const {data} = await useFetch<BackendResponse<ChapterData>>(
+  `/api/items/chapters/${cid.value}`,
+  {
+    query: {
+      fields: 'title',
+    },
   }
-})
+)
 
 const backlink = computed(() => `/book-${bookSlug.value}/`)
 
 useSeoMeta({
-  title: `DnD Vault - ${data.title}`,
-  description: `Содержимое главы: ${data.title}`,
-  ogTitle: `DnD Vault - ${data.title}`,
-  ogDescription: `Содержимое главы: ${data.title}`,
+  title: `DnD Vault - ${data.value!.data.title}`,
+  description: `Содержимое главы: ${data.value!.data.title}`,
+  ogTitle: `DnD Vault - ${data.value!.data.title}`,
+  ogDescription: `Содержимое главы: ${data.value!.data.title}`,
   ogType: 'article',
   ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${cid.value}/`,
 })
@@ -89,7 +99,8 @@ useSeoMeta({
     </aside>
     <article
       class="chapter-content max-w-600"
-      ref="content" />
+      v-html="renderedContent"
+      v-once />
   </div>
 </template>
 
