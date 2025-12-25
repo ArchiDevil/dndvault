@@ -12,13 +12,27 @@ const booksResponse = await useFetch<BackendArrayResponse<BookData>>(
   `/api/items/books/`,
   {
     query: {
-      slug: {
-        _eq: slug.value,
+      filter: {
+        slug: {
+          _eq: slug.value,
+        },
       },
     },
   }
 )
-const bookData = booksResponse.data.value!.data[0]!
+
+if (
+  !booksResponse.data.value ||
+  !booksResponse.data.value.data ||
+  !booksResponse.data.value.data.length
+) {
+  throw createError({
+    status: 404,
+    statusText: 'Page not found :('
+  })
+}
+
+const bookData = booksResponse.data.value.data[0]!
 
 const chaptersResponse = await useFetch<BackendArrayResponse<ChapterData>>(
   `/api/items/chapters`,
