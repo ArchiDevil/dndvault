@@ -1,4 +1,4 @@
-import type {BackendArrayResponse, BookData, BookTag} from '@@/interfaces'
+import type {BackendArrayResponse, BookData, BookTag} from '#shared/types/backendTypes'
 
 export const useAppStore = defineStore('app', {
   state() {

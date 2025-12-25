@@ -12,6 +12,7 @@ export interface BookData {
   id: number
   title: string
   slug: string
+  date_updated: string
   description: string
   status: DefaultStatus
   chapters: number[]
@@ -35,4 +36,5 @@ export interface ChapterData {
   title: string
   content: string
   book_id: number
+  date_updated: string
 }

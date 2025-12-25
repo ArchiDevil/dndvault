@@ -27,6 +27,9 @@ export default defineNuxtConfig({
           'data-website-id': 'a10ae2b7-497b-4b10-8b21-e2c1dac0bad3',
         },
       ],
+      meta: [
+        {property: 'og:locale', content: 'ru_RU'},
+      ],
     },
   },
   sitemap: {

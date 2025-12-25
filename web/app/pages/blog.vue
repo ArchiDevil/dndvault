@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {BackendArrayResponse} from '@@/interfaces'
+import type {BackendArrayResponse} from '#shared/types/backendTypes'
 import Post from '~/components/Post.vue'
 import '~/assets/css/styles.css'
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {BookTag} from '@@/interfaces'
+import type {BookTag} from '#shared/types/backendTypes'
 
 const {
   slug,

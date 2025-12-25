@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {marked, type Tokens} from 'marked'
 import {createDirectives} from 'marked-directive'
-import type {BackendResponse, ChapterData} from '@@/interfaces'
+import type {BackendResponse, ChapterData} from '#shared/types/backendTypes'
 
 const route = useRoute()
 const bookSlug = computed(() => route.params.slug)
@@ -54,7 +54,6 @@ useSeoMeta({
   ogTitle: `DnD Vault - ${data.title}`,
   ogDescription: `Содержимое главы: ${data.title}`,
   ogType: 'article',
-  ogLocale: 'ru_RU',
   ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${cid.value}/`,
 })
 </script>

@@ -1,17 +1,7 @@
 <script setup lang="ts">
 import Book from '~/components/Book.vue'
 import {useAppStore} from '~/stores/app_store'
-import type {BookTag} from '@@/interfaces'
-
-useSeoMeta({
-  title: 'DnD Vault - Каталог материалов',
-  description: 'Здесь содержится каталог материалов для DnD 2024',
-  ogTitle: 'DnD Vault - Каталог материалов',
-  ogDescription: 'Здесь содержится каталог материалов для DnD 2024',
-  ogType: 'website',
-  ogLocale: 'ru_RU',
-  ogUrl: 'https://dndvault.ru/',
-})
+import type {BookTag} from '#shared/types/backendTypes'
 
 const store = useAppStore()
 await store.getTags()
@@ -35,6 +25,15 @@ function toggleTag(tag: BookTag) {
     searchText.value.length ? searchText.value : null
   )
 }
+
+useSeoMeta({
+  title: 'DnD Vault - Каталог материалов',
+  description: 'Здесь содержится каталог материалов для DnD 2024',
+  ogTitle: 'DnD Vault - Каталог материалов',
+  ogDescription: 'Здесь содержится каталог материалов для DnD 2024',
+  ogType: 'website',
+  ogUrl: 'https://dndvault.ru/',
+})
 </script>
 
 <template>

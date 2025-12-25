@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import type {BackendArrayResponse, BookData, ChapterData} from '@@/interfaces'
+import type {
+  BackendArrayResponse,
+  BookData,
+  ChapterData,
+} from '#shared/types/backendTypes'
 
 const route = useRoute()
 const slug = ref(route.params.slug)
@@ -38,7 +42,6 @@ useSeoMeta({
   ogTitle: `DnD Vault - ${bookData.title}`,
   ogDescription: `Оглавление и краткое описание книги ${bookData.title}`,
   ogType: 'book',
-  ogLocale: 'ru_RU',
   ogUrl: `https://dndvault.ru/book-${slug.value}/`,
 })
 </script>
