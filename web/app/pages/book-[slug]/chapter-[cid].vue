@@ -203,5 +203,9 @@ useSeoMeta({
       @apply list-none -indent-4;
     }
   }
+
+  a {
+    @apply font-bold text-red-900 hover:text-red-950;
+  }
 }
 </style>
