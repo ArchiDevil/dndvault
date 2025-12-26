@@ -14,8 +14,8 @@ const {
   title: string
   description: string
   tags: BookTag[]
-  cover: string | null
-  downloadLink: string | null
+  cover?: string
+  downloadLink?: string
   chapters: any[]
 }>()
 
@@ -28,7 +28,7 @@ const openPath = computed(() => `/book-${slug}/`)
   <div
     class="bg-slate-200 mt-6 border-slate-400 border-l-4 p-4 gap-4 grid grid-cols-1 md:grid-cols-[1fr_auto] place-items-center md:place-items-start">
     <img
-      v-if="cover !== null"
+      v-if="cover !== undefined"
       :src="coverPath"
       class="min-w-24 md:min-w-48 h-fit max-h-72 md:max-h-full mr-4" />
     <div class="text-slate-700">
@@ -46,7 +46,7 @@ const openPath = computed(() => `/book-${slug}/`)
       <br />
       <div class="flex flex-row gap-2">
         <a
-          v-if="downloadLink !== null"
+          v-if="downloadLink !== undefined"
           :href="downloadPath">
           Скачать
         </a>
