@@ -1,6 +1,6 @@
 :10034 {
     root * /usr/share/caddy
-    handle /api/* {
+    handle /api/items/* {
         uri strip_prefix /api
         reverse_proxy backend:8055
     }

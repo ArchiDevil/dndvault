@@ -55,6 +55,9 @@ services:
       context: .
       dockerfile: web.Dockerfile
     restart: on-failure
+    environment:
+      NITRO_BACKEND_ADDRESS: http://backend:8055
+      NITRO_STATIC_TOKEN: ${SERVER_STATIC_TOKEN}
     depends_on:
       - backend
 
