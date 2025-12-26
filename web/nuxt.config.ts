@@ -1,15 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: {enabled: true},
-  modules: [
-    '@pinia/nuxt',
-    '@nuxtjs/tailwindcss',
-    '@nuxtjs/sitemap',
-    '@nuxtjs/robots',
-  ],
-  pinia: {
-    storesDirs: ['app/stores/**'],
-  },
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/sitemap', '@nuxtjs/robots'],
   compatibilityDate: '2025-12-21',
   runtimeConfig: {
     backendAddress: 'http://backend:8055',
