@@ -3,7 +3,6 @@ import {marked, type Tokens} from 'marked'
 import {createDirectives} from 'marked-directive'
 import type {
   BackendArrayResponse,
-  BookData,
   ChapterData,
 } from '#shared/types/backendTypes'
 
@@ -11,16 +10,8 @@ const route = useRoute()
 const bookSlug = computed(() => route.params.slug)
 const chapterSlug = ref(route.params.cslug)
 
-const {data: bookData} = await useFetch<BackendArrayResponse<BookData>>(
-  '/api/items/books/',
-  {
-    query: {
-      filter: {slug: {_eq: bookSlug.value}},
-      fields: 'id',
-    },
-  }
-)
-if (!bookData.value || !bookData.value.data || !bookData.value.data.length) {
+const {data: bookData} = await useFetch(`/api/books/${bookSlug.value}`)
+if (!bookData.value) {
   throw createError({
     status: 404,
     statusText: 'Page not found :(',
@@ -36,7 +27,7 @@ const {data: chapterData} = await useFetch<BackendArrayResponse<ChapterData>>(
           _eq: chapterSlug.value,
         },
         book_id: {
-          _eq: bookData.value.data[0]!.id,
+          _eq: bookData.value.id,
         },
       },
       fields: 'title',
@@ -63,16 +54,7 @@ const toc = useState<{text: string; level: number; link: string}[]>(
 // prerender content on the server
 // TODO: move it to Nitro endpoint
 if (import.meta.server) {
-  const bookResponse = await $fetch<BackendArrayResponse<BookData>>(
-    '/api/items/books/',
-    {
-      query: {
-        filter: {slug: {_eq: bookSlug.value}},
-        fields: 'id',
-      },
-    }
-  )
-
+  const bookResponse = await $fetch(`/api/books/${bookSlug.value}`)
   const chapterResponse = await $fetch<BackendArrayResponse<ChapterData>>(
     '/api/items/chapters/',
     {
@@ -82,7 +64,7 @@ if (import.meta.server) {
             _eq: chapterSlug.value,
           },
           book_id: {
-            _eq: bookResponse.data[0]!.id,
+            _eq: bookResponse.id,
           },
         },
       },
@@ -120,10 +102,10 @@ if (import.meta.server) {
 const backlink = computed(() => `/book-${bookSlug.value}/`)
 
 useSeoMeta({
-  title: `DnD Vault - ${bookData.value.data[0]!.title}`,
-  description: `Содержимое главы: ${bookData.value.data[0]!.title}`,
-  ogTitle: `DnD Vault - ${bookData.value.data[0]!.title}`,
-  ogDescription: `Содержимое главы: ${bookData.value.data[0]!.title}`,
+  title: `DnD Vault - ${bookData.value.title}`,
+  description: `Содержимое главы: ${bookData.value.title}`,
+  ogTitle: `DnD Vault - ${bookData.value.title}`,
+  ogDescription: `Содержимое главы: ${bookData.value.title}`,
   ogType: 'article',
   ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}/`,
 })
