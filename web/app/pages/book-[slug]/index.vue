@@ -28,7 +28,7 @@ if (
 ) {
   throw createError({
     status: 404,
-    statusText: 'Page not found :('
+    statusText: 'Page not found :(',
   })
 }
 
@@ -44,7 +44,7 @@ const chaptersResponse = await useFetch<BackendArrayResponse<ChapterData>>(
         },
       },
       sort: 'sort',
-      fields: 'id,title',
+      fields: 'title,slug',
     },
   }
 )
@@ -72,10 +72,9 @@ useSeoMeta({
   <ul>
     <li v-for="chapter in chapters">
       <ChapterLink
-        :id="chapter.id"
         :title="chapter.title"
         :book-slug="bookData.slug"
-        :chapter="chapter" />
+        :chapter-slug="chapter.slug" />
     </li>
   </ul>
 </template>

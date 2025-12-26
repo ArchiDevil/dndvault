@@ -37,4 +37,5 @@ export interface ChapterData {
   content: string
   book_id: number
   date_updated: string
+  slug: string
 }

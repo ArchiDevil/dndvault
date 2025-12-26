@@ -1,12 +1,12 @@
 <script setup lang="ts">
-const {bookSlug, id, title} = defineProps<{
+const {bookSlug, chapterSlug, title} = defineProps<{
   bookSlug: string
-  id: number
   title: string
+  chapterSlug: string
 }>()
 
 const chapterLink = computed(() => {
-  return `/book-${bookSlug}/chapter-${id}`
+  return `/book-${bookSlug}/chapter-${chapterSlug}`
 })
 </script>
 

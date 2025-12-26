@@ -1,11 +1,58 @@
 <script setup lang="ts">
 import {marked, type Tokens} from 'marked'
 import {createDirectives} from 'marked-directive'
-import type {BackendResponse, ChapterData} from '#shared/types/backendTypes'
+import type {
+  BackendArrayResponse,
+  BookData,
+  ChapterData,
+} from '#shared/types/backendTypes'
 
 const route = useRoute()
 const bookSlug = computed(() => route.params.slug)
-const cid = ref(route.params.cid)
+const chapterSlug = ref(route.params.cslug)
+
+const {data: bookData} = await useFetch<BackendArrayResponse<BookData>>(
+  '/api/items/books/',
+  {
+    query: {
+      filter: {slug: {_eq: bookSlug.value}},
+      fields: 'id',
+    },
+  }
+)
+if (!bookData.value || !bookData.value.data || !bookData.value.data.length) {
+  throw createError({
+    status: 404,
+    statusText: 'Page not found :(',
+  })
+}
+
+const {data: chapterData} = await useFetch<BackendArrayResponse<ChapterData>>(
+  '/api/items/chapters/',
+  {
+    query: {
+      filter: {
+        slug: {
+          _eq: chapterSlug.value,
+        },
+        book_id: {
+          _eq: bookData.value.data[0]!.id,
+        },
+      },
+      fields: 'title',
+    },
+  }
+)
+if (
+  !chapterData.value ||
+  !chapterData.value.data ||
+  !chapterData.value.data.length
+) {
+  throw createError({
+    status: 404,
+    statusText: 'Page not found :(',
+  })
+}
 
 let renderedContent = ''
 const toc = useState<{text: string; level: number; link: string}[]>(
@@ -14,9 +61,32 @@ const toc = useState<{text: string; level: number; link: string}[]>(
 )
 
 // prerender content on the server
+// TODO: move it to Nitro endpoint
 if (import.meta.server) {
-  const response = await $fetch<BackendResponse<ChapterData>>(
-    `/api/items/chapters/${cid.value}`
+  const bookResponse = await $fetch<BackendArrayResponse<BookData>>(
+    '/api/items/books/',
+    {
+      query: {
+        filter: {slug: {_eq: bookSlug.value}},
+        fields: 'id',
+      },
+    }
+  )
+
+  const chapterResponse = await $fetch<BackendArrayResponse<ChapterData>>(
+    '/api/items/chapters/',
+    {
+      query: {
+        filter: {
+          slug: {
+            _eq: chapterSlug.value,
+          },
+          book_id: {
+            _eq: bookResponse.data[0]!.id,
+          },
+        },
+      },
+    }
   )
 
   const isHeading = (token: Tokens.Generic): token is Tokens.Heading =>
@@ -42,29 +112,20 @@ if (import.meta.server) {
     })
     .use(createDirectives())
 
-  renderedContent = marked(response.data.content, {
+  renderedContent = marked(chapterResponse.data[0]!.content, {
     async: false,
   })
 }
 
-const {data} = await useFetch<BackendResponse<ChapterData>>(
-  `/api/items/chapters/${cid.value}`,
-  {
-    query: {
-      fields: 'title',
-    },
-  }
-)
-
 const backlink = computed(() => `/book-${bookSlug.value}/`)
 
 useSeoMeta({
-  title: `DnD Vault - ${data.value!.data.title}`,
-  description: `Содержимое главы: ${data.value!.data.title}`,
-  ogTitle: `DnD Vault - ${data.value!.data.title}`,
-  ogDescription: `Содержимое главы: ${data.value!.data.title}`,
+  title: `DnD Vault - ${bookData.value.data[0]!.title}`,
+  description: `Содержимое главы: ${bookData.value.data[0]!.title}`,
+  ogTitle: `DnD Vault - ${bookData.value.data[0]!.title}`,
+  ogDescription: `Содержимое главы: ${bookData.value.data[0]!.title}`,
   ogType: 'article',
-  ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${cid.value}/`,
+  ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}/`,
 })
 </script>
 
