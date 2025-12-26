@@ -1,44 +1,10 @@
 <script setup lang="ts">
-import {marked, type Tokens} from 'marked'
-import {createDirectives} from 'marked-directive'
-import type {
-  BackendArrayResponse,
-  ChapterData,
-} from '#shared/types/backendTypes'
-
 const route = useRoute()
 const bookSlug = computed(() => route.params.slug)
 const chapterSlug = ref(route.params.cslug)
 
 const {data: bookData} = await useFetch(`/api/books/${bookSlug.value}`)
 if (!bookData.value) {
-  throw createError({
-    status: 404,
-    statusText: 'Page not found :(',
-  })
-}
-
-const {data: chapterData} = await useFetch<BackendArrayResponse<ChapterData>>(
-  '/api/items/chapters/',
-  {
-    query: {
-      filter: {
-        slug: {
-          _eq: chapterSlug.value,
-        },
-        book_id: {
-          _eq: bookData.value.id,
-        },
-      },
-      fields: 'title',
-    },
-  }
-)
-if (
-  !chapterData.value ||
-  !chapterData.value.data ||
-  !chapterData.value.data.length
-) {
   throw createError({
     status: 404,
     statusText: 'Page not found :(',
@@ -52,51 +18,12 @@ const toc = useState<{text: string; level: number; link: string}[]>(
 )
 
 // prerender content on the server
-// TODO: move it to Nitro endpoint
 if (import.meta.server) {
-  const bookResponse = await $fetch(`/api/books/${bookSlug.value}`)
-  const chapterResponse = await $fetch<BackendArrayResponse<ChapterData>>(
-    '/api/items/chapters/',
-    {
-      query: {
-        filter: {
-          slug: {
-            _eq: chapterSlug.value,
-          },
-          book_id: {
-            _eq: bookResponse.id,
-          },
-        },
-      },
-    }
+  const chapter = await $fetch(
+    `/api/books/${bookSlug.value}/chapters/${chapterSlug.value}`
   )
-
-  const isHeading = (token: Tokens.Generic): token is Tokens.Heading =>
-    token.type === 'heading'
-
-  marked
-    .use({
-      extensions: [
-        {
-          name: 'heading',
-          renderer(token) {
-            if (!isHeading(token)) return
-            const transliteration = transliterate(token.text)
-            toc.value.push({
-              level: token.depth,
-              text: token.text,
-              link: `#${transliteration}`,
-            })
-            return `<h${token.depth} id="${transliteration}">${token.text}</h${token.depth}>`
-          },
-        },
-      ],
-    })
-    .use(createDirectives())
-
-  renderedContent = marked(chapterResponse.data[0]!.content, {
-    async: false,
-  })
+  renderedContent = chapter.content
+  toc.value = chapter.toc
 }
 
 const backlink = computed(() => `/book-${bookSlug.value}/`)
@@ -120,7 +47,8 @@ useSeoMeta({
   <div
     class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 text-slate-800">
     <aside
-      class="w-full lg:min-w-[300px] lg:w-[300px] bg-slate-100 text-sm h-fit lg:sticky top-4">
+      class="w-full lg:min-w-[300px] lg:w-[300px] bg-slate-100 text-sm h-fit lg:sticky top-4"
+      v-once>
       <ul>
         <li
           v-for="element in toc"

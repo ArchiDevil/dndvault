@@ -1,10 +1,12 @@
+import {DefaultStatus} from '#shared/types/backendTypes'
+
 type DirectusBook = {
   id: number
   slug: string
   title: string
   description: string
   chapters: number[] | null
-  status: 'draft' | 'published' | 'archived'
+  status: DefaultStatus
   file: string | null
   cover: string | null
   tags:

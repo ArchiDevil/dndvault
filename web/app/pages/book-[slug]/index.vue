@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import type {
-  BackendArrayResponse,
-  ChapterData,
-} from '#shared/types/backendTypes'
-
 const route = useRoute()
 const slug = ref(route.params.slug)
 
@@ -15,21 +10,7 @@ if (!bookData.value) {
   })
 }
 
-const chaptersResponse = await useFetch<BackendArrayResponse<ChapterData>>(
-  `/api/items/chapters`,
-  {
-    query: {
-      filter: {
-        book_id: {
-          _eq: bookData.value.id,
-        },
-      },
-      sort: 'sort',
-      fields: 'title,slug',
-    },
-  }
-)
-const chapters = chaptersResponse.data.value!.data
+const {data: chapterData} = await useFetch(`/api/books/${slug.value}/chapters`)
 
 useSeoMeta({
   title: `DnD Vault - ${bookData.value.title}`,
@@ -51,7 +32,7 @@ useSeoMeta({
     Список глав
   </h2>
   <ul>
-    <li v-for="chapter in chapters">
+    <li v-for="chapter in chapterData">
       <ChapterLink
         :title="chapter.title"
         :book-slug="bookData!.slug"
