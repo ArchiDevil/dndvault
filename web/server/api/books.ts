@@ -31,29 +31,26 @@ type ApiBook = {
 }
 
 export default defineEventHandler(async (): Promise<ApiBook[]> => {
-  const {backendAddress, staticToken} = useRuntimeConfig()
-  const books = await $fetch<{data: DirectusBook[]}>(
-    `${backendAddress}/items/books`,
-    {
-      headers: {
-        Authorization: `Bearer ${staticToken}`,
-      },
-      query: {
-        // This list must be in sync with DirectusBook type
-        fields:
-          'id,slug,title,description,status,file,cover,chapters,tags.book_tags_id.*',
-        deep: {
-          chapters: {
-            _filter: {
-              status: {
-                _eq: 'published',
-              },
+  const {staticToken} = useRuntimeConfig()
+  const books = await $fetch<{data: DirectusBook[]}>(`/api/items/books`, {
+    headers: {
+      Authorization: `Bearer ${staticToken}`,
+    },
+    query: {
+      // This list must be in sync with DirectusBook type
+      fields:
+        'id,slug,title,description,status,file,cover,chapters,tags.book_tags_id.*',
+      deep: {
+        chapters: {
+          _filter: {
+            status: {
+              _eq: 'published',
             },
           },
         },
       },
-    }
-  )
+    },
+  })
   return (
     books.data
       .filter((b) => b.status === 'published')
