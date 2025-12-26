@@ -42,6 +42,15 @@ export default defineEventHandler(async (): Promise<ApiBook[]> => {
         // This list must be in sync with DirectusBook type
         fields:
           'id,slug,title,description,status,file,cover,chapters,tags.book_tags_id.*',
+        deep: {
+          chapters: {
+            _filter: {
+              status: {
+                _eq: 'published',
+              },
+            },
+          },
+        },
       },
     }
   )
