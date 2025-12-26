@@ -13,7 +13,7 @@ export default defineSitemapEventHandler(async () => {
   for (const book of books.data) {
     // TODO: make it simpler, there are too many requests for now
     const chapters = await $fetch<{
-      data: {id: number; date_updated: string}[]
+      data: {id: number; slug: string; date_updated: string}[]
     }>('/api/items/chapters', {
       query: {
         filter: {
@@ -21,13 +21,13 @@ export default defineSitemapEventHandler(async () => {
             _eq: book.id,
           },
         },
-        fields: 'id,date_updated',
+        fields: 'id,slug,date_updated',
       },
     })
     for (const chapter of chapters.data) {
       const lastUpdate = new Date(chapter.date_updated)
       output.push({
-        loc: `/book-${book.slug}/chapter-${chapter.id}`,
+        loc: `/book-${book.slug}/chapter-${chapter.slug}`,
         changefreq: 'weekly',
         lastmod: lastUpdate,
         _sitemap: 'pages',
