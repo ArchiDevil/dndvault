@@ -13,6 +13,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-12-21',
   runtimeConfig: {
     backendAddress: 'http://backend:8055',
+    staticToken: '',
   },
   app: {
     head: {
