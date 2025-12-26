@@ -1,5 +1,6 @@
 <script>
 import '~/assets/css/styles.css'
+import '~/assets/css/chapters.css'
 </script>
 
 <template>
