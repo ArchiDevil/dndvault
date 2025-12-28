@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import '~/assets/css/generic.css'
+import '~/assets/css/phb.css'
 
 const route = useRoute()
 const bookSlug = computed(() => route.params.slug)
