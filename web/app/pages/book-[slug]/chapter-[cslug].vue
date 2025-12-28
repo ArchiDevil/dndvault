@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import '~/assets/css/generic.css'
+
 const route = useRoute()
 const bookSlug = computed(() => route.params.slug)
 const chapterSlug = ref(route.params.cslug)
@@ -45,9 +47,9 @@ useSeoMeta({
     &lt;-- К оглавлению
   </a>
   <div
-    class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 text-zinc-800">
+    class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-8 text-zinc-800">
     <aside
-      class="w-full lg:min-w-[300px] lg:w-[300px] bg-zinc-100 text-sm h-fit lg:sticky top-4"
+      class="w-full lg:min-w-[350px] lg:w-[350px] bg-zinc-100 text-sm h-fit lg:sticky top-4"
       v-once>
       <ul>
         <li
@@ -69,7 +71,7 @@ useSeoMeta({
       </ul>
     </aside>
     <article
-      class="chapter-content max-w-600"
+      class="cc max-w-[750px]"
       v-html="renderedContent"
       v-once />
   </div>

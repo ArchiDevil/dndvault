@@ -38,4 +38,20 @@ export default defineNuxtConfig({
   sitemap: {
     sources: ['/api/__sitemap__/urls'],
   },
+  tailwindcss: {
+    config: {
+      theme: {
+        extend: {
+          container: {
+            padding: '2rem',
+            center: true,
+          },
+        },
+        fontFamily: {
+          sans: ['Roboto', 'sans-serif'],
+        },
+      },
+    },
+    cssPath: ['~/assets/css/styles.css', {injectPosition: 'first'}],
+  },
 })

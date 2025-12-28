@@ -1,32 +1,37 @@
-.chapter-content {
-  h1,
-  h2,
-  h3,
-  h4 {
+.cc {
+  /* headings */
+  > h1,
+  > h2,
+  > h3,
+  > h4 {
     @apply font-semibold;
   }
 
-  h1 {
+  > h1 {
     @apply text-4xl mb-2;
   }
 
-  h2 {
+  > h2 {
     @apply text-2xl;
     @apply mt-4;
   }
-  h3 {
+  > h3 {
     @apply text-xl;
     @apply mt-4;
 
     &::after {
-      @apply h-0.5 w-full content-[""] block bg-gray-500;
+      @apply h-0.5 w-full content-[""] block;
+
+      /* TODO: this should a theme-specific */
+      @apply bg-gray-500;
     }
   }
-  h4 {
+  > h4 {
     @apply text-lg;
     @apply mt-4;
   }
 
+  /* lists */
   ul {
     @apply my-2 pl-4;
 
@@ -35,6 +40,13 @@
     }
   }
 
+  .rev-pad-list {
+    li {
+      @apply list-none -indent-4;
+    }
+  }
+
+  /* tables */
   table {
     @apply mb-6 text-sm;
 
@@ -47,6 +59,7 @@
       @apply py-1 px-2;
     }
 
+    /* TODO: this should a theme-specific */
     tbody {
       tr:nth-of-type(2n) {
         @apply bg-blue-50 hover:bg-blue-200;
@@ -58,6 +71,12 @@
     }
   }
 
+  /* links */
+  a {
+    @apply font-bold text-red-900 hover:text-red-950;
+  }
+
+  /* just text */
   p {
     @apply mb-2;
 
@@ -66,6 +85,7 @@
     }
   }
 
+  /* special blocks */
   .first-paragraph {
     p::first-line {
       @apply uppercase italic;
@@ -76,29 +96,21 @@
     }
   }
 
-  blockquote {
-    @apply border-red-900 border border-solid;
-    @apply p-4 my-4;
-    @apply text-sm;
+  aside {
+    @apply border border-solid p-4 my-4 text-sm;
+  }
 
-    &.sidebar {
-      @apply bg-orange-100;
-      @apply border border-solid border-zinc-400;
-      @apply p-4;
-    }
+  aside.rules {
+    /* TODO: this should a theme-specific */
+    @apply border-red-900 bg-orange-100;
 
-    p > strong {
-      @apply uppercase;
+    > p:first-of-type {
+      @apply font-semibold uppercase text-base;
     }
   }
 
-  .rev-pad-list {
-    li {
-      @apply list-none -indent-4;
-    }
+  /* TODO: add support when first such book created
+  aside.read-aloud {
   }
-
-  a {
-    @apply font-bold text-red-900 hover:text-red-950;
-  }
+  */
 }
