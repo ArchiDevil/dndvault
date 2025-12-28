@@ -48,8 +48,8 @@ useSeoMeta({
   </a>
   <div
     class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-8 text-zinc-800">
-    <aside
-      class="w-full lg:min-w-[350px] lg:w-[350px] bg-zinc-100 text-sm h-fit lg:sticky top-4"
+    <div
+      class="w-full lg:min-w-[320px] lg:w-[320px] bg-zinc-100 text-sm h-fit lg:sticky top-4"
       v-once>
       <ul>
         <li
@@ -69,9 +69,10 @@ useSeoMeta({
           </a>
         </li>
       </ul>
-    </aside>
+    </div>
     <article
       class="cc max-w-[750px]"
+      :class="bookData!.styling"
       v-html="renderedContent"
       v-once />
   </div>
