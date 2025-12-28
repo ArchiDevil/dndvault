@@ -41,13 +41,13 @@ useSeoMeta({
 <template>
   <a
     :href="backlink"
-    class="text-slate-600 hover:font-semibold">
+    class="text-zinc-600 hover:font-semibold">
     &lt;-- К оглавлению
   </a>
   <div
-    class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 text-slate-800">
+    class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 text-zinc-800">
     <aside
-      class="w-full lg:min-w-[300px] lg:w-[300px] bg-slate-100 text-sm h-fit lg:sticky top-4"
+      class="w-full lg:min-w-[300px] lg:w-[300px] bg-zinc-100 text-sm h-fit lg:sticky top-4"
       v-once>
       <ul>
         <li
@@ -57,11 +57,11 @@ useSeoMeta({
             class="hover:font-semibold p-2"
             :href="element.link"
             :class="{
-              'pl-1 bg-slate-50 block': element.level === 1,
-              'pl-3 bg-slate-100 block': element.level === 2,
-              'pl-5 bg-slate-200 block': element.level === 3,
-              'pl-7 bg-slate-300 hidden lg:block': element.level === 4,
-              'pl-9 bg-slate-400 hidden lg:block': element.level === 5,
+              'pl-1 bg-zinc-50 block': element.level === 1,
+              'pl-3 bg-zinc-100 block': element.level === 2,
+              'pl-5 bg-zinc-200 block': element.level === 3,
+              'pl-7 bg-zinc-300 hidden lg:block': element.level === 4,
+              'pl-9 bg-zinc-400 hidden lg:block': element.level === 5,
             }">
             {{ element.text }}
           </a>
