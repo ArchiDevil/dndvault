@@ -1,5 +1,5 @@
 import {marked, type Tokens} from 'marked'
-import {createDirectives} from 'marked-directive'
+import {createDirectives, presetDirectiveConfigs} from 'marked-directive'
 
 type DirectusChapter = {
   title: string
@@ -69,7 +69,12 @@ export default defineEventHandler(async (event): Promise<ChapterData> => {
         },
       ],
     })
-    .use(createDirectives())
+    .use(
+      createDirectives([
+        ...presetDirectiveConfigs,
+        {level: 'container', marker: '::::'},
+      ])
+    )
 
   const renderedContent = marked(data[0].content, {
     async: false,
