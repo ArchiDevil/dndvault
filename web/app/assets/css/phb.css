@@ -28,4 +28,8 @@
       background-color: rgba(222, 192, 133, 1);
     }
   }
+
+  .class-img {
+    @apply float-left md:-ml-16 mr-2 max-w-12;
+  }
 }
