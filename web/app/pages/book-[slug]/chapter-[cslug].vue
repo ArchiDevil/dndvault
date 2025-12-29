@@ -27,18 +27,18 @@ if (import.meta.server) {
   )
   renderedContent = chapter.content
   toc.value = chapter.toc
+
+  useSeoMeta({
+    title: `DnD Vault - ${bookData.value.title} - ${chapter.title}`,
+    description: `Содержимое главы: ${chapter.title}`,
+    ogTitle: `DnD Vault - ${bookData.value.title} - ${chapter.title}`,
+    ogDescription: `Содержимое главы: ${chapter.title}`,
+    ogType: 'article',
+    ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}/`,
+  })
 }
 
 const backlink = computed(() => `/book-${bookSlug.value}/`)
-
-useSeoMeta({
-  title: `DnD Vault - ${bookData.value.title}`,
-  description: `Содержимое главы: ${bookData.value.title}`,
-  ogTitle: `DnD Vault - ${bookData.value.title}`,
-  ogDescription: `Содержимое главы: ${bookData.value.title}`,
-  ogType: 'article',
-  ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}/`,
-})
 </script>
 
 <template>
