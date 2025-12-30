@@ -36,7 +36,7 @@ export default defineNuxtConfig({
     },
   },
   sitemap: {
-    sources: ['/api/__sitemap__/books'],
+    sources: ['/api/__sitemap__/books', '/api/__sitemap__/feats'],
   },
   tailwindcss: {
     config: {
