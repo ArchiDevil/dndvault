@@ -31,12 +31,8 @@ useSeoMeta({
     class="text-2xl font-semibold mt-4 mb-2 after:h-0.5 after:bg-zinc-800 after:block">
     Список глав
   </h2>
-  <ul>
-    <li v-for="chapter in chapterData">
-      <ChapterLink
-        :title="chapter.title"
-        :book-slug="bookData!.slug"
-        :chapter-slug="chapter.slug" />
-    </li>
-  </ul>
+  <ChaptersList
+    v-if="chapterData"
+    :book-slug="bookData!.slug"
+    :data="chapterData" />
 </template>

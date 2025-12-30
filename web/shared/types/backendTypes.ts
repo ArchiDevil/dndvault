@@ -29,13 +29,3 @@ export interface BookTag {
   id: number
   name: string
 }
-
-export interface ChapterData {
-  id: number
-  status: DefaultStatus
-  title: string
-  content: string
-  book_id: number
-  date_updated: string
-  slug: string
-}
