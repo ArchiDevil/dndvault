@@ -19,5 +19,5 @@
 }
 
 body {
-  @apply bg-zinc-50 font-sans text-zinc-800;
+  @apply bg-zinc-100 font-sans text-zinc-800;
 }

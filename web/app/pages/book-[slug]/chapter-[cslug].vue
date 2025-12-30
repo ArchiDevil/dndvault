@@ -47,8 +47,7 @@ const backlink = computed(() => `/book-${bookSlug.value}/`)
     class="text-zinc-600 hover:font-semibold">
     &lt;-- К оглавлению
   </a>
-  <div
-    class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-8 text-zinc-800">
+  <div class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-8">
     <div
       class="w-full lg:min-w-[320px] lg:w-[320px] bg-zinc-100 text-sm h-fit lg:sticky top-4"
       v-once>
