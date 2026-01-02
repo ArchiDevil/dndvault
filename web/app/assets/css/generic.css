@@ -126,4 +126,55 @@
   aside.read-aloud {
   }
   */
+
+  aside.statblock {
+    h5 {
+      @apply font-semibold text-xl text-amber-900;
+      @apply after:content-[''] after:w-full after:bg-amber-900 after:h-0.5 after:block;
+    }
+
+    h6 {
+      @apply font-semibold text-lg text-amber-900 pt-2 pb-1;
+      @apply after:content-[''] after:w-full after:bg-amber-900 after:h-0.5 after:block;
+    }
+
+    p {
+      @apply mb-0 text-amber-950;
+    }
+
+    p.creature-type {
+      @apply text-zinc-700 italic mb-2;
+    }
+
+    /* for initiative */
+    strong:nth-of-type(2) {
+      @apply ml-8;
+    }
+
+    .stats {
+      @apply grid grid-cols-3 gap-1;
+
+      table {
+        @apply mb-1;
+      }
+
+      thead {
+        @apply text-xs text-zinc-500;
+      }
+
+      tbody {
+        td:nth-of-type(1) {
+          @apply font-semibold text-amber-950;
+        }
+      }
+
+      td:nth-of-type(2),
+      td:nth-of-type(3),
+      td:nth-of-type(4) {
+        @apply text-right;
+      }
+    }
+
+    @apply rounded border border-zinc-500 shadow-lg py-2;
+  }
 }

@@ -3,7 +3,9 @@ const props = defineProps<{
   toc: {text: string; level: number; link: string}[]
 }>()
 
-const filteredChapters = computed(() => props.toc.filter((c) => c.level !== 1))
+const filteredChapters = computed(() =>
+  props.toc.filter((c) => c.level > 1 && c.level < 5)
+)
 </script>
 
 <template>
@@ -19,7 +21,6 @@ const filteredChapters = computed(() => props.toc.filter((c) => c.level !== 1))
             'pl-2 bg-zinc-50 block': element.level === 2,
             'pl-4 bg-zinc-100 block': element.level === 3,
             'pl-6 bg-zinc-200 hidden lg:block': element.level === 4,
-            'pl-8 bg-zinc-300 hidden lg:block': element.level === 5,
           }">
           {{ element.text }}
         </a>
