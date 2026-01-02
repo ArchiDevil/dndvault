@@ -48,28 +48,7 @@ const backlink = computed(() => `/book-${bookSlug.value}/`)
     &lt;-- К оглавлению
   </a>
   <div class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-8">
-    <div
-      class="w-full lg:min-w-[320px] lg:w-[320px] bg-zinc-100 text-sm h-fit lg:sticky top-4"
-      v-once>
-      <ul>
-        <li
-          v-for="element in toc"
-          :key="element.text">
-          <a
-            class="hover:font-semibold p-2"
-            :href="element.link"
-            :class="{
-              'pl-1 bg-zinc-50 block': element.level === 1,
-              'pl-3 bg-zinc-100 block': element.level === 2,
-              'pl-5 bg-zinc-200 block': element.level === 3,
-              'pl-7 bg-zinc-300 hidden lg:block': element.level === 4,
-              'pl-9 bg-zinc-400 hidden lg:block': element.level === 5,
-            }">
-            {{ element.text }}
-          </a>
-        </li>
-      </ul>
-    </div>
+    <ChapterToc :toc="toc" />
     <article
       class="cc max-w-[750px]"
       :class="bookData!.styling"
