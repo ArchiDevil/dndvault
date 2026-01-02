@@ -16,6 +16,8 @@ type ChapterData = {
   content: string
 }
 
+let toc: {text: string; level: number; link: string}[] = []
+
 const isHeading = (token: Tokens.Generic): token is Tokens.Heading =>
   token.type === 'heading'
 
@@ -24,7 +26,14 @@ const sbHeaderDirective: DirectiveConfig = {
   marker: '::',
   renderer(token) {
     if (token.meta.name !== 'sbheader' || !token.attrs) return false
-    const title = `<h5>${token.attrs.title}</h5>`
+    const transliteration = transliterate(token.attrs.title as string)
+    toc.push({
+      level: Number(token.attrs.level),
+      text: token.attrs.title as string,
+      link: `#${transliteration}`,
+    })
+
+    const title = `<h${token.attrs.level} id="${transliteration}">${token.attrs.title}</h${token.attrs.level}>`
     const type = `<p class="creature-type">${token.attrs.type}</p>`
     return `${title}${type}`
   },
@@ -57,42 +66,33 @@ const sbStatsDirective: DirectiveConfig = {
       return `${mod >= 0 ? '+' : ''}${mod.toFixed(0)}`
     }
 
+    const getRow = (name: string, stat: number, savemod?: string) => {
+      return `<tr><td>${name}</td><td>${stat}</td><td>${getModifier(
+        stat
+      )}</td><td>${getModifier(stat, savemod)}</td></tr>`
+    }
+
     const thead = `<thead><tr><td /><td /><td>МОД</td><td>СПАС</td></tr></thead>`
 
-    const t1 = `<table>${thead}<tbody><tr><td>Сил</td><td>${
-      attrs.str
-    }</td><td>${getModifier(attrs.str)}</td><td>${getModifier(
+    const t1 = `<table>${thead}<tbody>${getRow(
+      'Сил',
       attrs.str,
       attrs.strsave
-    )}</td></tr><tr><td>Инт</td><td>${attrs.int}</td><td>${getModifier(
-      attrs.int
-    )}</td><td>${getModifier(
-      attrs.int,
-      attrs.intsave
-    )}</td></tr></tbody></table>`
-    const t2 = `<table>${thead}<tbody><tr><td>Лов</td><td>${
-      attrs.dex
-    }</td><td>${getModifier(attrs.dex)}</td><td>${getModifier(
-      attrs.dex,
-      attrs.dexsave
-    )}</td></tr><tr><td>Мдр</td><td>${attrs.wis}</td><td>${getModifier(
-      attrs.wis
-    )}</td><td>${getModifier(
-      attrs.wis,
-      attrs.wissave
-    )}</td></tr></tbody></table>`
-    const t3 = `<table>${thead}<tbody><tr><td>Тел</td><td>${
-      attrs.con
-    }</td><td>${getModifier(attrs.con)}</td><td>${getModifier(
+    )}${getRow('Лов', attrs.dex, attrs.dexsave)}${getRow(
+      'Тел',
       attrs.con,
       attrs.consave
-    )}</td></tr><tr><td>Хар</td><td>${attrs.cha}</td><td>${getModifier(
-      attrs.cha
-    )}</td><td>${getModifier(
+    )}</tbody></table>`
+    const t2 = `<table>${thead}<tbody>${getRow(
+      'Инт',
+      attrs.int,
+      attrs.intsave
+    )}${getRow('Мдр', attrs.wis, attrs.wissave)}${getRow(
+      'Хар',
       attrs.cha,
       attrs.chasave
-    )}</td></tr></tbody></table>`
-    return `<div class="stats">${t1}${t2}${t3}</div>`
+    )}</tbody></table>`
+    return `<div class="stats">${t1}${t2}</div>`
   },
 }
 
@@ -130,7 +130,7 @@ export default defineEventHandler(async (event): Promise<ChapterData> => {
     })
   }
 
-  const toc: {text: string; level: number; link: string}[] = []
+  toc = []
 
   marked
     .use({

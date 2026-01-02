@@ -128,6 +128,10 @@
   */
 
   aside.statblock {
+    /* TODO: this is crap, it should be sone somehow better */
+    h2,
+    h3,
+    h4,
     h5 {
       @apply font-semibold text-xl text-amber-900;
       @apply after:content-[''] after:w-full after:bg-amber-900 after:h-0.5 after:block;
@@ -152,7 +156,7 @@
     }
 
     .stats {
-      @apply grid grid-cols-3 gap-1;
+      @apply grid grid-cols-2 gap-1;
 
       table {
         @apply mb-1;
@@ -175,6 +179,6 @@
       }
     }
 
-    @apply rounded border border-zinc-500 shadow-lg py-2;
+    @apply xl:columns-2 rounded border border-zinc-500 shadow-lg py-2;
   }
 }
