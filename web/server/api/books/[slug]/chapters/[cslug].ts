@@ -12,6 +12,9 @@ type ChapterData = {
   content: string
 }
 
+const isHeading = (token: Tokens.Generic): token is Tokens.Heading =>
+  token.type === 'heading'
+
 export default defineEventHandler(async (event): Promise<ChapterData> => {
   const {staticToken} = useRuntimeConfig()
   const bookSlug = getRouterParam(event, 'slug')
@@ -48,9 +51,6 @@ export default defineEventHandler(async (event): Promise<ChapterData> => {
 
   const toc: {text: string; level: number; link: string}[] = []
 
-  const isHeading = (token: Tokens.Generic): token is Tokens.Heading =>
-    token.type === 'heading'
-
   marked
     .use({
       extensions: [
@@ -64,7 +64,8 @@ export default defineEventHandler(async (event): Promise<ChapterData> => {
               text: token.text,
               link: `#${transliteration}`,
             })
-            return `<h${token.depth} id="${transliteration}">${token.text}</h${token.depth}>`
+            const link = `<a class="heading-link" href="#${transliteration}">#</a>`
+            return `<h${token.depth} id="${transliteration}">${token.text} ${link}</h${token.depth}>`
           },
         },
       ],

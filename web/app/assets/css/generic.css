@@ -76,6 +76,19 @@
     @apply font-bold text-red-900 hover:text-red-950;
   }
 
+  .heading-link {
+    @apply invisible;
+  }
+
+  h1:hover,
+  h2:hover,
+  h3:hover,
+  h4:hover {
+    .heading-link {
+      @apply visible;
+    }
+  }
+
   /* just text */
   p {
     @apply mb-2;
