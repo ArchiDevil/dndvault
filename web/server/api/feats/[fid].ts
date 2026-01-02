@@ -3,16 +3,22 @@ import {marked} from 'marked'
 type DirectusFeat = {
   id: number
   name: string
-  source: string
   category: string
   requirements: string | null
   description: string
+  source: {
+    title: string
+    description: string
+  }
 }
 
 type FeatData = {
   id: number
   name: string
-  source: string
+  source: {
+    title: string
+    description: string
+  }
   category: string
   requirements: string | null
   renderedDescription: string
@@ -33,7 +39,8 @@ export default defineEventHandler(async (event): Promise<FeatData> => {
             _eq: fid,
           },
         },
-        fields: 'id,name,source,category,requirements,description',
+        fields:
+          'id,name,source.title,source.description,category,requirements,description',
       },
     }
   )

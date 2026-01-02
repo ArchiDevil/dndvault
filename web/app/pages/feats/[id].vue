@@ -35,7 +35,10 @@ const featSubtext = computed(() => {
   return requirements ? `${category} (Требования: ${requirements})` : category
 })
 
-const featSource = computed(() => feat.value?.source || '')
+const featTitle = computed((): string => feat.value?.source.title || '')
+const featDescription = computed(
+  (): string => feat.value?.source.description || ''
+)
 </script>
 
 <template>
@@ -48,7 +51,11 @@ const featSource = computed(() => feat.value?.source || '')
     {{ feat?.name }}
   </h1>
   <h2 class="text-lg md:text-xl italic">{{ featSubtext }}</h2>
-  <h3 class="text-sm text-zinc-700">Источник: {{ featSource }}</h3>
+  <h3
+    class="text-sm text-zinc-700"
+    :title="featDescription">
+    Источник: {{ featTitle }}
+  </h3>
   <article
     class="cc mt-4"
     v-html="feat?.renderedDescription" />
