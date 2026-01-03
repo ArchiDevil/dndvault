@@ -7,9 +7,9 @@ const featId = computed(() => route.params.id)
 const {data: feat} = await useFetch(`/api/feats/${featId.value}`)
 
 useSeoMeta({
-  title: `DnD Vault - ${feat.value?.name}`,
+  title: `${feat.value?.name} | DnD Vault`,
   description: `Описание черты ${feat.value?.name}`,
-  ogTitle: `DnD Vault - ${feat.value?.name}`,
+  ogTitle: `${feat.value?.name} | DnD Vault`,
   ogDescription: `Описание черты ${feat.value?.name}`,
   ogType: 'article',
   ogUrl: 'https://dndvault.ru/',

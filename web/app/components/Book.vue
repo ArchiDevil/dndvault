@@ -21,7 +21,7 @@ const {
 
 const coverPath = computed(() => `/api/assets/${cover}`)
 const downloadPath = computed(() => `/api/assets/${downloadLink}?download`)
-const openPath = computed(() => `/book-${slug}/`)
+const openPath = computed(() => `/book-${slug}`)
 </script>
 
 <template>

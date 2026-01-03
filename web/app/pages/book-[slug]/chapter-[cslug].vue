@@ -29,9 +29,9 @@ if (import.meta.server) {
   toc.value = chapter.toc
 
   useSeoMeta({
-    title: `DnD Vault - ${bookData.value.title} - ${chapter.title}`,
+    title: `${bookData.value.title} - ${chapter.title} | DnD Vault`,
     description: `Содержимое главы: ${chapter.title}`,
-    ogTitle: `DnD Vault - ${bookData.value.title} - ${chapter.title}`,
+    ogTitle: `${bookData.value.title} - ${chapter.title} | DnD Vault`,
     ogDescription: `Содержимое главы: ${chapter.title}`,
     ogType: 'article',
     ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}/`,

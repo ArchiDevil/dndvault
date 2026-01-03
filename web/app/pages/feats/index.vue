@@ -3,9 +3,9 @@ const {data: feats} = await useFetch('/api/feats')
 
 if (import.meta.server) {
   useSeoMeta({
-    title: 'DnD Vault - Черты',
+    title: 'Черты | DnD Vault',
     description: 'Здесь содержится список черт для DnD 2024',
-    ogTitle: 'DnD Vault - Черты',
+    ogTitle: 'Черты | DnD Vault',
     ogDescription: 'Здесь содержится список черт для DnD 2024',
     ogType: 'website',
     ogUrl: 'https://dndvault.ru/',

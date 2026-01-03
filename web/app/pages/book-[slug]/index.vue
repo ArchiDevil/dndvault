@@ -13,9 +13,9 @@ if (!bookData.value) {
 const {data: chapterData} = await useFetch(`/api/books/${slug.value}/chapters`)
 
 useSeoMeta({
-  title: `DnD Vault - ${bookData.value.title}`,
+  title: `${bookData.value.title} | DnD Vault`,
   description: `Оглавление и краткое описание книги ${bookData.value.title}`,
-  ogTitle: `DnD Vault - ${bookData.value.title}`,
+  ogTitle: `${bookData.value.title} | DnD Vault`,
   ogDescription: `Оглавление и краткое описание книги ${bookData.value.title}`,
   ogType: 'book',
   ogUrl: `https://dndvault.ru/book-${slug.value}/`,

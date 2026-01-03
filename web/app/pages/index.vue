@@ -3,9 +3,9 @@ import Book from '~/components/Book.vue'
 const {data: books} = await useFetch('/api/books')
 
 useSeoMeta({
-  title: 'DnD Vault - Каталог материалов',
+  title: 'Каталог материалов | DnD Vault',
   description: 'Здесь содержится каталог материалов для DnD 2024',
-  ogTitle: 'DnD Vault - Каталог материалов',
+  ogTitle: 'Каталог материалов | DnD Vault',
   ogDescription: 'Здесь содержится каталог материалов для DnD 2024',
   ogType: 'website',
   ogUrl: 'https://dndvault.ru/',
