@@ -16,7 +16,11 @@
       </NuxtLink>
     </div>
     <div class="grow-0 flex flex-row gap-2 items-center">
-      <span class="text-xl invisible md:visible">Наши соцсети:</span>
+      <div class="size-9">
+        <a href="https://dungeonsanddragons.ru">
+          <img src="~/assets/images/dungeons_ru_logo.png" />
+        </a>
+      </div>
       <div class="size-9">
         <a href="https://t.me/dungeons_ru">
           <img src="~/assets/images/tg_logo.svg" />
