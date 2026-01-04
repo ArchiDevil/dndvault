@@ -24,6 +24,11 @@ export default defineNuxtConfig({
           rel: 'manifest',
           href: '/site.webmanifest',
         },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          href: '/favicon-32x32.png',
+        },
       ],
       meta: [
         {property: 'og:locale', content: 'ru_RU'},
