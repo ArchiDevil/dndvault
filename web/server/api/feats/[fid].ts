@@ -1,4 +1,5 @@
 import {marked} from 'marked'
+import {type FeatData} from '#shared/types/featTypes'
 
 type DirectusFeat = {
   id: number
@@ -10,18 +11,6 @@ type DirectusFeat = {
     title: string
     description: string
   }
-}
-
-type FeatData = {
-  id: number
-  name: string
-  source: {
-    title: string
-    description: string
-  }
-  category: string
-  requirements: string | null
-  renderedDescription: string
 }
 
 export default defineEventHandler(async (event): Promise<FeatData> => {
