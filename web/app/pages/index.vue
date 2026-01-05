@@ -14,14 +14,16 @@ useSeoMeta({
 
 <template>
   <PageTitle>Каталог материалов</PageTitle>
-  <Book
-    v-for="book in books"
-    :key="book.id"
-    :title="book.title"
-    :cover="book.cover"
-    :tags="book.tags"
-    :description="book.description"
-    :download-link="book.file"
-    :chapters="book.chapters"
-    :slug="book.slug" />
+  <main>
+    <Book
+      v-for="book in books"
+      :key="book.id"
+      :title="book.title"
+      :cover="book.cover"
+      :tags="book.tags"
+      :description="book.description"
+      :download-link="book.file"
+      :chapters="book.chapters"
+      :slug="book.slug" />
+  </main>
 </template>
