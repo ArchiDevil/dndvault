@@ -39,6 +39,9 @@ export default defineNuxtConfig({
       ],
     },
   },
+  robots: {
+    disallow: ['/_nuxt/builds/meta/*'],
+  },
   sitemap: {
     sources: ['/api/__sitemap__/books', '/api/__sitemap__/feats'],
   },
