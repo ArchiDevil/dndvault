@@ -38,9 +38,11 @@ export default defineNuxtConfig({
         },
       ],
     },
+    buildAssetsDir: '/_vault/',
+    rootId: '__vault',
   },
   robots: {
-    disallow: ['/_nuxt/builds/meta/*'],
+    disallow: ['/_vault/builds/meta/*'],
   },
   sitemap: {
     sources: ['/api/__sitemap__/books', '/api/__sitemap__/feats'],
