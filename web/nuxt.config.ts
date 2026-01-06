@@ -29,6 +29,14 @@ export default defineNuxtConfig({
           type: 'image/png',
           href: '/favicon-32x32.png',
         },
+        {
+          rel: 'preload',
+          as: 'font',
+          type: 'font/woff2',
+          crossorigin: 'anonymous',
+          href: '/fonts/Roboto.woff2',
+          fetchpriority: 'low',
+        },
       ],
       meta: [
         {property: 'og:locale', content: 'ru_RU'},
