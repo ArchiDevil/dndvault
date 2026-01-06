@@ -24,7 +24,9 @@
           target="_blank">
           <img
             src="~/assets/images/dungeons_ru_logo.png"
-            alt="Логотип dungeonsanddragons" />
+            alt="Логотип dungeonsanddragons"
+            width="36"
+            height="36" />
         </a>
       </div>
       <div class="size-9">
