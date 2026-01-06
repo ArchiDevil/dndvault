@@ -7,5 +7,6 @@
     handle * {
         reverse_proxy frontend:3000
         encode
+        header /fonts/* Cache-Control max-age=31536000
     }
 }
