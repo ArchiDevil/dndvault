@@ -1,13 +1,24 @@
 :10034 {
     root * /usr/share/caddy
+
     handle /api/assets/* {
         uri strip_prefix /api
         reverse_proxy backend:8055
         encode
     }
-    handle * {
+
+    @static {
+        file
+    }
+
+    handle @static {
+        file_server
+        encode
+        header Cache-Control "public, max-age=31536000, immutable"
+    }
+
+    handle {
         reverse_proxy frontend:3000
         encode
-        header /fonts/* Cache-Control max-age=31536000
     }
 }

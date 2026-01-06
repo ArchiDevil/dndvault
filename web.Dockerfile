@@ -12,6 +12,6 @@ RUN pnpm run build
 # build server image
 FROM node:22-alpine AS web
 WORKDIR /app
-COPY --from=build-web /app/.output /app/dist
-CMD node dist/server/index.mjs
+COPY --from=build-web /app/.output/server /app/dist
+CMD node dist/index.mjs
 EXPOSE 3000

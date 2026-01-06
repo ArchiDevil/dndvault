@@ -71,4 +71,7 @@ export default defineNuxtConfig({
     },
     cssPath: ['~/assets/css/styles.css', {injectPosition: 'first'}],
   },
+  nitro: {
+    serveStatic: false,
+  },
 })
