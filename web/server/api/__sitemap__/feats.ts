@@ -2,12 +2,12 @@ import {defineSitemapEventHandler} from '#imports'
 import type {SitemapUrlInput} from '#sitemap/types'
 
 export default defineSitemapEventHandler(async () => {
-  const {staticToken} = useRuntimeConfig()
+  const {staticToken, backendAddress} = useRuntimeConfig()
 
   const output: SitemapUrlInput[] = []
   const {data: feats} = await $fetch<{
     data: {id: number; date_updated: string}[]
-  }>('/api/items/feats', {
+  }>(`${backendAddress}/items/feats`, {
     headers: {Authorization: `Bearer ${staticToken}`},
     query: {fields: 'id,date_updated'},
   })
