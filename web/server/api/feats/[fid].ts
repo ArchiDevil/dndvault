@@ -14,10 +14,10 @@ type DirectusFeat = {
 }
 
 export default defineEventHandler(async (event): Promise<FeatData> => {
-  const {staticToken} = useRuntimeConfig()
+  const {staticToken, backendAddress} = useRuntimeConfig()
   const fid = Number(getRouterParam(event, 'fid'))
   const {data: feats} = await $fetch<{data: DirectusFeat[]}>(
-    `/api/items/feats`,
+    `${backendAddress}/items/feats`,
     {
       headers: {
         Authorization: `Bearer ${staticToken}`,

@@ -15,21 +15,24 @@ type ApiBook = {
 }
 
 export default defineEventHandler(async (event): Promise<ApiBook> => {
-  const {staticToken} = useRuntimeConfig()
+  const {staticToken, backendAddress} = useRuntimeConfig()
   const slug = getRouterParam(event, 'slug')
-  const {data} = await $fetch<{data: DirectusBook[]}>(`/api/items/books`, {
-    headers: {
-      Authorization: `Bearer ${staticToken}`,
-    },
-    query: {
-      filter: {
-        slug: {
-          _eq: slug,
-        },
+  const {data} = await $fetch<{data: DirectusBook[]}>(
+    `${backendAddress}/items/books`,
+    {
+      headers: {
+        Authorization: `Bearer ${staticToken}`,
       },
-      fields: 'id,slug,title,description,styling',
-    },
-  })
+      query: {
+        filter: {
+          slug: {
+            _eq: slug,
+          },
+        },
+        fields: 'id,slug,title,description,styling',
+      },
+    }
+  )
   if (data.length !== 1) {
     throw createError({
       statusCode: 404,

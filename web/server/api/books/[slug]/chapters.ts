@@ -15,12 +15,12 @@ export type ChapterData = {
 }
 
 export default defineEventHandler(async (event): Promise<ChapterData[]> => {
-  const {staticToken} = useRuntimeConfig()
+  const {staticToken, backendAddress} = useRuntimeConfig()
   const bookSlug = getRouterParam(event, 'slug')
   const bookData = await $fetch(`/api/books/${bookSlug}`)
 
   const {data} = await $fetch<{data: DirectusChapter[]}>(
-    `/api/items/chapters`,
+    `${backendAddress}/items/chapters`,
     {
       headers: {
         Authorization: `Bearer ${staticToken}`,
