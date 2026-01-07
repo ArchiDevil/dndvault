@@ -7,7 +7,7 @@ type DirectusFeat = {
   source: {
     title: string
     description: string
-  }
+  } | null
 }
 
 export default defineEventHandler(async (): Promise<ShortFeatData[]> => {

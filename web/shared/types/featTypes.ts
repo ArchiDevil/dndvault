@@ -4,7 +4,7 @@ export type ShortFeatData = {
   source: {
     title: string
     description: string
-  }
+  } | null
   category: string
 }
 
@@ -14,7 +14,7 @@ export type FeatData = {
   source: {
     title: string
     description: string
-  }
+  } | null
   category: string
   requirements: string | null
   renderedDescription: string

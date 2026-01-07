@@ -51,7 +51,9 @@ const groups = computed(() => {
             class="hover:font-semibold"
             :href="`/feats/${feat.id}`">
             {{ feat.title }}
-            <span class="text-sm text-zinc-600">
+            <span
+              v-if="feat.source?.title"
+              class="text-sm text-zinc-600">
               ({{ feat.source.title }})
             </span>
           </NuxtLink>
