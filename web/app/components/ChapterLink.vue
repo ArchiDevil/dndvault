@@ -16,7 +16,7 @@ const chapterLink = computed(() => {
 <template>
   <li>
     <a
-      class="text-xl hover:font-semibold mt-2 block"
+      class="text-xl hover:font-semibold mt-1 block"
       :href="chapterLink">
       {{ title }}
     </a>
