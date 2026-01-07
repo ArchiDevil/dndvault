@@ -1,4 +1,4 @@
-import {marked} from 'marked'
+import {Marked} from 'marked'
 import {type FeatData} from '#shared/types/featTypes'
 
 type DirectusFeat = {
@@ -41,7 +41,11 @@ export default defineEventHandler(async (event): Promise<FeatData> => {
     })
   }
 
-  const renderedContent = await marked(feats[0].description, {async: true})
+  const marked = new Marked()
+
+  const renderedContent = await marked.parse(feats[0].description, {
+    async: true,
+  })
 
   return {
     id: feats[0].id,

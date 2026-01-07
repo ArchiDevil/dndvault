@@ -1,4 +1,4 @@
-import {marked, type Tokens} from 'marked'
+import {type Tokens, Marked} from 'marked'
 import {
   createDirectives,
   DirectiveConfig,
@@ -132,8 +132,8 @@ export default defineEventHandler(async (event): Promise<ChapterData> => {
 
   toc = []
 
-  marked
-    .use({
+  const marked = new Marked(
+    {
       extensions: [
         {
           name: 'heading',
@@ -150,17 +150,16 @@ export default defineEventHandler(async (event): Promise<ChapterData> => {
           },
         },
       ],
-    })
-    .use(
-      createDirectives([
-        ...presetDirectiveConfigs,
-        {level: 'container', marker: '::::'},
-        sbHeaderDirective,
-        sbStatsDirective,
-      ])
-    )
+    },
+    createDirectives([
+      ...presetDirectiveConfigs,
+      {level: 'container', marker: '::::'},
+      sbHeaderDirective,
+      sbStatsDirective,
+    ])
+  )
 
-  const renderedContent = marked(data[0].content, {
+  const renderedContent = marked.parse(data[0].content, {
     async: false,
   })
 
