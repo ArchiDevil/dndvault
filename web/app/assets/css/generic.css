@@ -146,6 +146,10 @@
       @apply mb-0 text-amber-950;
     }
 
+    h6 ~ p {
+      @apply text-inherit;
+    }
+
     p.creature-type {
       @apply text-zinc-700 italic mb-2;
     }
