@@ -4,6 +4,7 @@ type DirectusBook = {
   title: string
   description: string
   styling: string | null
+  translators: string | null
 }
 
 type ApiBook = {
@@ -12,6 +13,7 @@ type ApiBook = {
   title: string
   description: string
   styling: string[]
+  translators: string | null
 }
 
 export default defineEventHandler(async (event): Promise<ApiBook> => {
@@ -29,7 +31,7 @@ export default defineEventHandler(async (event): Promise<ApiBook> => {
             _eq: slug,
           },
         },
-        fields: 'id,slug,title,description,styling',
+        fields: 'id,slug,title,description,styling,translators',
       },
     }
   )
@@ -52,5 +54,6 @@ export default defineEventHandler(async (event): Promise<ApiBook> => {
     title: data[0].title,
     description: data[0].description,
     styling,
+    translators: data[0].translators,
   }
 })
