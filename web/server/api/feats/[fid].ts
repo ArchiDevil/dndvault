@@ -3,7 +3,7 @@ import {type FeatData} from '#shared/types/featTypes'
 
 type DirectusFeat = {
   id: number
-  name: string
+  title: string
   category: string
   requirements: string | null
   description: string
@@ -29,7 +29,7 @@ export default defineEventHandler(async (event): Promise<FeatData> => {
           },
         },
         fields:
-          'id,name,source.title,source.description,category,requirements,description',
+          'id,title,source.title,source.description,category,requirements,description',
       },
     }
   )
@@ -50,7 +50,7 @@ export default defineEventHandler(async (event): Promise<FeatData> => {
   return {
     id: feats[0].id,
     category: feats[0].category,
-    name: feats[0].name,
+    title: feats[0].title,
     source: feats[0].source,
     requirements: feats[0].requirements,
     renderedDescription: renderedContent,

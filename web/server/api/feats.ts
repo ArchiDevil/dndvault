@@ -2,7 +2,7 @@ import {type ShortFeatData} from '#shared/types/featTypes'
 
 type DirectusFeat = {
   id: number
-  name: string
+  title: string
   category: string
   source: {
     title: string
@@ -19,8 +19,8 @@ export default defineEventHandler(async (): Promise<ShortFeatData[]> => {
         Authorization: `Bearer ${staticToken}`,
       },
       query: {
-        fields: 'id,name,source.title,source.description,category',
-        sort: 'name',
+        fields: 'id,title,source.title,source.description,category',
+        sort: 'title',
       },
     }
   )

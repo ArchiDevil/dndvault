@@ -50,7 +50,7 @@ const groups = computed(() => {
           <NuxtLink
             class="hover:font-semibold"
             :href="`/feats/${feat.id}`">
-            {{ feat.name }}
+            {{ feat.title }}
             <span class="text-sm text-zinc-600">
               ({{ feat.source.title }})
             </span>

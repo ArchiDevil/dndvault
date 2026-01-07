@@ -7,10 +7,10 @@ const featId = computed(() => route.params.id)
 const {data: feat} = await useFetch(`/api/feats/${featId.value}`)
 
 useSeoMeta({
-  title: `${feat.value?.name} | DnD Vault`,
-  description: `Описание черты ${feat.value?.name}`,
-  ogTitle: `${feat.value?.name} | DnD Vault`,
-  ogDescription: `Описание черты ${feat.value?.name}`,
+  title: `${feat.value?.title} | DnD Vault`,
+  description: `Описание черты ${feat.value?.title}`,
+  ogTitle: `${feat.value?.title} | DnD Vault`,
+  ogDescription: `Описание черты ${feat.value?.title}`,
   ogType: 'article',
   ogUrl: 'https://dndvault.ru/',
 })
@@ -48,7 +48,7 @@ const featDescription = computed(
     <-- Обратно к списку черт
   </NuxtLink>
   <h1 class="text-2xl md:text-3xl font-semibold mt-4">
-    {{ feat?.name }}
+    {{ feat?.title }}
   </h1>
   <h2 class="text-lg md:text-xl italic">{{ featSubtext }}</h2>
   <h3
