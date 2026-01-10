@@ -1,5 +1,10 @@
 import {Marked} from 'marked'
 import {type FeatData} from '#shared/types/featTypes'
+import {createDirectives, presetDirectiveConfigs} from 'marked-directive'
+import {
+  createSbHeaderDirective,
+  sbStatsDirective,
+} from '~~/shared/utils/markdown'
 
 type DirectusFeat = {
   id: number
@@ -41,7 +46,14 @@ export default defineEventHandler(async (event): Promise<FeatData> => {
     })
   }
 
-  const marked = new Marked()
+  const marked = new Marked(
+    createDirectives([
+      ...presetDirectiveConfigs,
+      {level: 'container', marker: '::::'},
+      createSbHeaderDirective([]),
+      sbStatsDirective,
+    ])
+  )
 
   const renderedContent = await marked.parse(feats[0].description, {
     async: true,
