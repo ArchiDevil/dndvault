@@ -53,7 +53,11 @@ export default defineNuxtConfig({
     disallow: ['/_vault/builds/meta/*'],
   },
   sitemap: {
-    sources: ['/api/__sitemap__/books', '/api/__sitemap__/feats'],
+    sources: [
+      '/api/__sitemap__/books',
+      '/api/__sitemap__/feats',
+      '/api/__sitemap__/spells',
+    ],
   },
   tailwindcss: {
     config: {

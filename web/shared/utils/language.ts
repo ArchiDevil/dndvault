@@ -65,3 +65,25 @@ export const mapFeatCategory = (category: string) => {
     return `Неизвестная категория ${category}`
   }
 }
+
+export const mapSchoolName = (school: string) => {
+  if (school === 'evocation') {
+    return 'Воплощение'
+  } else if (school === 'illusion') {
+    return 'Иллюзия'
+  } else if (school === 'necromancy') {
+    return 'Некромантия'
+  } else if (school === 'abjuration') {
+    return 'Ограждение'
+  } else if (school === 'enchantment') {
+    return 'Очарование'
+  } else if (school === 'transmutation') {
+    return 'Преобразование'
+  } else if (school === 'conjuration') {
+    return 'Призыв'
+  } else if (school === 'divination') {
+    return 'Прорицание'
+  } else {
+    return `Неизвестная школа ${school}`
+  }
+}
