@@ -19,9 +19,12 @@ useSeoMeta({
 const spellSubtext = computed(() => {
   if (!spell.value) return ''
 
-  const level = `${spell.value?.level} уровень`
+  const level =
+    spell.value.level === 0
+      ? `Заговор (0 уровень)`
+      : `${spell.value.level} уровень`
   const classes = spell.value.classes.join(', ')
-  return `${level}, ${mapSchoolName(spell.value?.school)} (${classes})`
+  return `${level}, ${mapSchoolName(spell.value.school)} (${classes})`
 })
 
 const sourceTitle = computed(
