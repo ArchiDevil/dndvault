@@ -51,3 +51,17 @@ export const transliterate = (heading: string): string => {
     .map((c) => mapping.get(c) ?? '_')
     .join('')
 }
+
+export const mapFeatCategory = (category: string) => {
+  if (category === 'origin') {
+    return 'Черты происхождения'
+  } else if (category === 'universal') {
+    return 'Универсальные черты'
+  } else if (category === 'martial-style') {
+    return 'Черты Боевого стиля'
+  } else if (category === 'epic-feat') {
+    return 'Черты Эпического дара'
+  } else {
+    return `Неизвестная категория ${category}`
+  }
+}

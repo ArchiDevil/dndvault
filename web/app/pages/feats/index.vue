@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {mapFeatCategory} from '~~/shared/utils/language'
+
 const {data: feats} = await useFetch('/api/feats')
 
 if (import.meta.server) {
@@ -10,20 +12,6 @@ if (import.meta.server) {
     ogType: 'website',
     ogUrl: 'https://dndvault.ru/',
   })
-}
-
-const mapCategory = (category: string) => {
-  if (category === 'origin') {
-    return 'Черты происхождения'
-  } else if (category === 'universal') {
-    return 'Универсальные черты'
-  } else if (category === 'martial-style') {
-    return 'Черты Боевого стиля'
-  } else if (category === 'epic-feat') {
-    return 'Черты Эпического дара'
-  } else {
-    return `Неизвестная категория ${category}`
-  }
 }
 
 const groups = computed(() => {
@@ -44,7 +32,9 @@ const groups = computed(() => {
   <PageTitle>Черты</PageTitle>
   <div class="lg:columns-2 xl:columns-3 pb-8">
     <template v-for="keyVal in groups">
-      <h2 class="font-semibold text-lg pt-2">{{ mapCategory(keyVal[0]) }}</h2>
+      <h2 class="font-semibold text-lg pt-2">
+        {{ mapFeatCategory(keyVal[0]) }}
+      </h2>
       <ul>
         <li v-for="feat in keyVal[1]">
           <NuxtLink

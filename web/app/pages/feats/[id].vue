@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {mapFeatCategory} from '~~/shared/utils/language'
 import '~/assets/css/generic.css'
 
 const route = useRoute()
@@ -15,22 +16,8 @@ useSeoMeta({
   ogUrl: 'https://dndvault.ru/',
 })
 
-const mapCategory = (category: string) => {
-  if (category === 'origin') {
-    return 'Черта происхождения'
-  } else if (category === 'universal') {
-    return 'Универсальная черта'
-  } else if (category === 'martial-style') {
-    return 'Черта Боевого стиля'
-  } else if (category === 'epic-feat') {
-    return 'Черта Эпического дара'
-  } else {
-    return `Неизвестная категория ${category}`
-  }
-}
-
 const featSubtext = computed(() => {
-  const category = feat.value ? mapCategory(feat.value?.category) : ''
+  const category = feat.value ? mapFeatCategory(feat.value?.category) : ''
   const requirements = feat.value?.requirements || undefined
   return requirements ? `${category} (Требования: ${requirements})` : category
 })
@@ -44,21 +31,23 @@ const sourceDescription = computed(
 </script>
 
 <template>
-  <NuxtLink
-    class="hover:font-semibold"
-    href="/feats">
-    <-- Обратно к списку черт
-  </NuxtLink>
-  <h1 class="text-2xl md:text-3xl font-semibold mt-4">
-    {{ feat?.title }}
-  </h1>
-  <h2 class="text-lg md:text-xl italic">{{ featSubtext }}</h2>
-  <h3
-    class="text-sm text-zinc-700"
-    :title="sourceDescription">
-    Источник: {{ sourceTitle }}
-  </h3>
-  <article
-    class="cc mt-4"
-    v-html="feat?.renderedDescription" />
+  <div class="max-w-[750px]">
+    <NuxtLink
+      class="hover:font-semibold"
+      href="/feats">
+      <-- В список черт
+    </NuxtLink>
+    <h1 class="text-2xl md:text-3xl font-semibold mt-4">
+      {{ feat?.title }}
+    </h1>
+    <h2 class="text-lg md:text-xl italic text-zinc-700">{{ featSubtext }}</h2>
+    <h3
+      class="text-sm text-zinc-700"
+      :title="sourceDescription">
+      Источник: {{ sourceTitle }}
+    </h3>
+    <article
+      class="cc mt-4"
+      v-html="feat?.renderedDescription" />
+  </div>
 </template>
