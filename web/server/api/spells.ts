@@ -17,26 +17,47 @@ type DirectusSpell = {
 
 export default defineEventHandler(async (): Promise<ShortSpellData[]> => {
   const {staticToken, backendAddress} = useRuntimeConfig()
-  const {data: spells} = await $fetch<{data: DirectusSpell[]}>(
+
+  const {data: response} = await $fetch<{data: {count: string}[]}>(
     `${backendAddress}/items/spells`,
     {
       headers: {
         Authorization: `Bearer ${staticToken}`,
       },
       query: {
-        fields: [
-          'id',
-          'title',
-          'level',
-          'school',
-          'classes.classes_id.title',
-          'source.title',
-        ].join(','),
-        sort: 'title',
+        'aggregate[count]': '*',
       },
     }
   )
-  return spells.map((s) => ({
+  const spellsCount = Number(response[0].count)
+  const itemsPerPage = 100
+
+  let totalSpells: DirectusSpell[] = []
+  for (let page = 0; page < spellsCount / itemsPerPage; page += 1) {
+    const {data: spells} = await $fetch<{data: DirectusSpell[]}>(
+      `${backendAddress}/items/spells`,
+      {
+        headers: {
+          Authorization: `Bearer ${staticToken}`,
+        },
+        query: {
+          fields: [
+            'id',
+            'title',
+            'level',
+            'school',
+            'classes.classes_id.title',
+            'source.title',
+          ].join(','),
+          sort: 'title',
+          offset: itemsPerPage * page,
+        },
+      }
+    )
+    totalSpells = totalSpells.concat(spells)
+  }
+
+  return totalSpells.map((s) => ({
     id: s.id,
     title: s.title,
     level: s.level,
