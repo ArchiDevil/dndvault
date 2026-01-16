@@ -2,3 +2,11 @@ onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
   - vue-demi
+
+overrides:
+  brace-expansion@>=1.0.0 <=1.1.11: '>=1.1.12'
+  cross-spawn@>=7.0.0 <7.0.5: '>=7.0.5'
+  devalue@>=5.1.0 <5.6.2: '>=5.6.2'
+  devalue@>=5.3.0 <=5.6.1: '>=5.6.2'
+  diff@<8.0.3: '>=8.0.3'
+  h3@<=1.15.4: '>=1.15.5'
