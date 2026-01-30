@@ -23,13 +23,22 @@ const translatorsContent = computed(
     marked(bookData.value.translators, {async: false})
 )
 
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: `https://dndvault.ru/book-${slug.value}`,
+    },
+  ],
+})
+
 useSeoMeta({
   title: `${bookData.value.title} | DnD Vault`,
   description: `Оглавление и краткое описание книги ${bookData.value.title}`,
   ogTitle: `${bookData.value.title} | DnD Vault`,
   ogDescription: `Оглавление и краткое описание книги ${bookData.value.title}`,
   ogType: 'book',
-  ogUrl: `https://dndvault.ru/book-${slug.value}/`,
+  ogUrl: `https://dndvault.ru/book-${slug.value}`,
 })
 
 const {data: chapterData} = await useFetch(`/api/books/${slug.value}/chapters`)

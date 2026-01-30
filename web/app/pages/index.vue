@@ -2,6 +2,15 @@
 import Book from '~/components/Book.vue'
 const {data: books} = await useFetch('/api/books')
 
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: 'https://dndvault.ru/',
+    },
+  ],
+})
+
 useSeoMeta({
   title: 'Каталог материалов | DnD Vault',
   description: 'Здесь содержится каталог материалов для DnD 2024',

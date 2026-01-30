@@ -4,13 +4,22 @@ import {mapSchoolName} from '~~/shared/utils/language'
 const {data: spells} = await useFetch('/api/spells')
 
 if (import.meta.server) {
+  useHead({
+    link: [
+      {
+        rel: 'canonical',
+        href: `https://dndvault.ru/spells`,
+      },
+    ],
+  })
+
   useSeoMeta({
     title: 'Заклинания | DnD Vault',
     description: 'Каталог заклинаний для DnD 2024 на русском языке',
     ogTitle: 'Заклинания | DnD Vault',
     ogDescription: 'Каталог заклинаний для DnD 2024 на русском языке',
     ogType: 'website',
-    ogUrl: 'https://dndvault.ru/',
+    ogUrl: 'https://dndvault.ru/spells',
   })
 }
 

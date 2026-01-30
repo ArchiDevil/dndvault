@@ -4,13 +4,22 @@ import {mapFeatCategory} from '~~/shared/utils/language'
 const {data: feats} = await useFetch('/api/feats')
 
 if (import.meta.server) {
+  useHead({
+    link: [
+      {
+        rel: 'canonical',
+        href: `https://dndvault.ru/feats`,
+      },
+    ],
+  })
+
   useSeoMeta({
     title: 'Черты | DnD Vault',
     description: 'Каталог черт для DnD 2024 на русском языке',
     ogTitle: 'Черты | DnD Vault',
     ogDescription: 'Каталог черт для DnD 2024 на русском языке',
     ogType: 'website',
-    ogUrl: 'https://dndvault.ru/',
+    ogUrl: 'https://dndvault.ru/feats',
   })
 }
 

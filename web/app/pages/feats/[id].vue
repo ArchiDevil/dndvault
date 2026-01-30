@@ -7,13 +7,22 @@ const featId = computed(() => route.params.id)
 
 const {data: feat} = await useFetch(`/api/feats/${featId.value}`)
 
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: `https://dndvault.ru/feats/${featId.value}`,
+    },
+  ],
+})
+
 useSeoMeta({
   title: `${feat.value?.title} | DnD Vault`,
   description: `Описание черты ${feat.value?.title}`,
   ogTitle: `${feat.value?.title} | DnD Vault`,
   ogDescription: `Описание черты ${feat.value?.title}`,
   ogType: 'article',
-  ogUrl: 'https://dndvault.ru/',
+  ogUrl: `https://dndvault.ru/feats/${featId.value}`,
 })
 
 const featSubtext = computed(() => {

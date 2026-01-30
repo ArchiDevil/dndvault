@@ -7,13 +7,22 @@ const spellId = computed(() => route.params.id)
 
 const {data: spell} = await useFetch(`/api/spells/${spellId.value}`)
 
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: `https://dndvault.ru/spells/${spellId.value}`,
+    },
+  ],
+})
+
 useSeoMeta({
   title: `${spell.value?.title} | DnD Vault`,
   description: `Описание заклинания ${spell.value?.title}`,
   ogTitle: `${spell.value?.title} | DnD Vault`,
   ogDescription: `Описание заклинания ${spell.value?.title}`,
   ogType: 'article',
-  ogUrl: 'https://dndvault.ru/',
+  ogUrl: `https://dndvault.ru/spells/${spellId.value}`,
 })
 
 const spellSubtext = computed(() => {

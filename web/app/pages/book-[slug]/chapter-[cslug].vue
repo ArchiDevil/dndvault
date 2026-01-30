@@ -28,13 +28,22 @@ if (import.meta.server) {
   renderedContent = chapter.content
   toc.value = chapter.toc
 
+  useHead({
+    link: [
+      {
+        rel: 'canonical',
+        href: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
+      },
+    ],
+  })
+
   useSeoMeta({
     title: `${bookData.value.title} - ${chapter.title} | DnD Vault`,
     description: `Содержимое главы: ${chapter.title}`,
     ogTitle: `${bookData.value.title} - ${chapter.title} | DnD Vault`,
     ogDescription: `Содержимое главы: ${chapter.title}`,
     ogType: 'article',
-    ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}/`,
+    ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
   })
 }
 
@@ -71,7 +80,7 @@ const nextChapter = computed(() => {
   }
 })
 
-const bookTocLink = computed(() => `/book-${bookSlug.value}/`)
+const bookTocLink = computed(() => `/book-${bookSlug.value}`)
 </script>
 
 <template>
