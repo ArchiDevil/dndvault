@@ -38,17 +38,49 @@ if (import.meta.server) {
   })
 }
 
-const backlink = computed(() => `/book-${bookSlug.value}/`)
+const {data: chapterData} = await useFetch(
+  `/api/books/${bookSlug.value}/chapters`
+)
+const currentChapterIdx = computed(() =>
+  chapterData.value?.findIndex((c) => c.slug == chapterSlug.value)
+)
+const prevChapter = computed(() => {
+  if (
+    !chapterData.value ||
+    currentChapterIdx.value === undefined ||
+    currentChapterIdx.value == 0
+  )
+    return undefined
+
+  return {
+    link: `chapter-${chapterData.value[currentChapterIdx.value - 1]!.slug}`,
+    title: chapterData.value[currentChapterIdx.value - 1]!.title,
+  }
+})
+const nextChapter = computed(() => {
+  if (
+    !chapterData.value ||
+    currentChapterIdx.value === undefined ||
+    currentChapterIdx.value == chapterData.value.length - 1
+  )
+    return undefined
+
+  return {
+    link: `chapter-${chapterData.value[currentChapterIdx.value + 1]!.slug}`,
+    title: chapterData.value[currentChapterIdx.value + 1]!.title,
+  }
+})
+
+const bookTocLink = computed(() => `/book-${bookSlug.value}/`)
 </script>
 
 <template>
-  <a
-    :href="backlink"
-    class="text-zinc-600 hover:font-semibold">
-    &lt;-- К оглавлению
-  </a>
   <div class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-8">
-    <ChapterToc :toc="toc" />
+    <ChapterToc
+      :toc="toc"
+      :chapters-link="bookTocLink"
+      :previous="prevChapter"
+      :next="nextChapter" />
     <article
       class="cc max-w-[750px]"
       :class="bookData!.styling"
