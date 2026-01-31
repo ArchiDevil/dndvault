@@ -50,33 +50,55 @@ if (import.meta.server) {
 const {data: chapterData} = await useFetch(
   `/api/books/${bookSlug.value}/chapters`
 )
+const flattenedChapters = computed(() => {
+  const output: {
+    slug: string
+    title: string
+  }[] = []
+  chapterData.value?.forEach((c) => {
+    output.push({
+      slug: c.slug,
+      title: c.title,
+    })
+    // ATTENTION: only 1 level is supported
+    if (c.children.length > 0) {
+      c.children.forEach((cc) => {
+        output.push({
+          slug: cc.slug,
+          title: cc.title,
+        })
+      })
+    }
+  })
+  return output
+})
 const currentChapterIdx = computed(() =>
-  chapterData.value?.findIndex((c) => c.slug == chapterSlug.value)
+  flattenedChapters.value.findIndex((c) => c.slug == chapterSlug.value)
 )
 const prevChapter = computed(() => {
   if (
-    !chapterData.value ||
+    flattenedChapters.value.length == 0 ||
     currentChapterIdx.value === undefined ||
     currentChapterIdx.value == 0
   )
     return undefined
 
   return {
-    link: `chapter-${chapterData.value[currentChapterIdx.value - 1]!.slug}`,
-    title: chapterData.value[currentChapterIdx.value - 1]!.title,
+    link: `chapter-${flattenedChapters.value[currentChapterIdx.value - 1]!.slug}`,
+    title: flattenedChapters.value[currentChapterIdx.value - 1]!.title,
   }
 })
 const nextChapter = computed(() => {
   if (
-    !chapterData.value ||
+    flattenedChapters.value.length == 0 ||
     currentChapterIdx.value === undefined ||
-    currentChapterIdx.value == chapterData.value.length - 1
+    currentChapterIdx.value == flattenedChapters.value.length - 1
   )
     return undefined
 
   return {
-    link: `chapter-${chapterData.value[currentChapterIdx.value + 1]!.slug}`,
-    title: chapterData.value[currentChapterIdx.value + 1]!.title,
+    link: `chapter-${flattenedChapters.value[currentChapterIdx.value + 1]!.slug}`,
+    title: flattenedChapters.value[currentChapterIdx.value + 1]!.title,
   }
 })
 
