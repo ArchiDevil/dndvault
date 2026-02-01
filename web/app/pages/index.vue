@@ -23,7 +23,7 @@ useSeoMeta({
 
 <template>
   <PageTitle>Каталог материалов</PageTitle>
-  <main>
+  <main class="grid xl:grid-cols-2 gap-8">
     <Book
       v-for="book in books"
       :key="book.id"

@@ -9,5 +9,6 @@ useSeoMeta({
   <div class="container px-4 md:px-12">
     <Topbar />
     <slot />
+    <footer class="mt-8"></footer>
   </div>
 </template>

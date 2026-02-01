@@ -26,7 +26,7 @@ const openPath = computed(() => `/book-${slug}`)
 
 <template>
   <section
-    class="bg-zinc-200 mt-6 border-zinc-400 border-l-4 p-4 gap-4 grid grid-cols-1 md:grid-cols-[1fr_auto] place-items-center md:place-items-start">
+    class="bg-zinc-200 border-zinc-400 border-l-4 p-4 gap-4 grid grid-cols-1 md:grid-cols-[1fr_auto] place-items-center md:place-items-start">
     <img
       v-if="cover !== undefined"
       :src="coverPath"
