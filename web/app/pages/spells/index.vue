@@ -37,7 +37,6 @@ const levelItems = [
   {label: '8 уровень', value: 8},
   {label: '9 уровень', value: 9},
 ]
-const levelValues = ref<number[]>([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 
 // School filters
 const schoolItems = computed(() => {
@@ -54,7 +53,6 @@ const schoolItems = computed(() => {
   }
   return output.sort((a, b) => a.label.localeCompare(b.label))
 })
-const schoolValues = ref<string[]>(schoolItems.value.map((c) => c.value))
 
 // Source filters
 const sourceItems = computed(() => {
@@ -76,7 +74,6 @@ const sourceItems = computed(() => {
   }
   return output.sort((a, b) => a.label.localeCompare(b.label))
 })
-const sourceValues = ref<string[]>(sourceItems.value.map((c) => c.value))
 
 // Class filters
 const classItems = computed(() => {
@@ -95,10 +92,59 @@ const classItems = computed(() => {
   }
   return output.sort((a, b) => a.label.localeCompare(b.label))
 })
-const classValues = ref<string[]>(classItems.value.map((c) => c.value))
 
-// Other things
-const search = ref('')
+type Groupings = 'none' | 'alphabet' | 'sources' | 'schools'
+
+const defaultConfig = {
+  levels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  schools: schoolItems.value.map((c) => c.value),
+  sources: sourceItems.value.map((c) => c.value),
+  classes: classItems.value.map((c) => c.value),
+  search: '',
+  groupBy: 'alphabet' as Groupings,
+}
+
+const parseConfig = (
+  config: string
+): typeof defaultConfig & {[record: string]: any} => {
+  try {
+    return {
+      ...defaultConfig,
+      ...JSON.parse(config),
+    }
+  } catch (e) {
+    return defaultConfig
+  }
+}
+
+const route = useRoute()
+const initialConfig = parseConfig(route.query['config']?.toString() ?? '')
+
+const levelValues = ref<number[]>(initialConfig.levels)
+const schoolValues = ref<string[]>(initialConfig.schools)
+const sourceValues = ref<string[]>(initialConfig.sources)
+const classValues = ref<string[]>(initialConfig.classes)
+const search = ref(initialConfig.search)
+const groupBy = ref<Groupings>(initialConfig.groupBy)
+
+const router = useRouter()
+watch(
+  [levelValues, schoolValues, sourceValues, classValues, search, groupBy],
+  () => {
+    router.push({
+      query: {
+        config: JSON.stringify({
+          search: search.value,
+          levels: levelValues.value,
+          schools: schoolValues.value,
+          sources: sourceValues.value,
+          classes: classValues.value,
+          groupBy: groupBy.value,
+        }),
+      },
+    })
+  }
+)
 
 const filteredSpells = computed(() => {
   return (spells.value ?? [])
@@ -131,7 +177,6 @@ const filteredSpells = computed(() => {
     })
 })
 
-const groupBy = ref<'none' | 'alphabet' | 'sources' | 'schools'>('alphabet')
 const groups = computed<{type: string; spells: ShortSpellData[]}[] | undefined>(
   () => {
     let typer: ((spell: ShortSpellData) => string) | undefined = undefined
