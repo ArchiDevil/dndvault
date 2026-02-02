@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxt/icon": "^2.2.1",
     "@nuxtjs/tailwindcss": "^6.14.0",
     "nuxt": "^4.3.0"
   },
@@ -17,7 +18,8 @@
     "@nuxtjs/robots": "^5.7.0",
     "@nuxtjs/sitemap": "^7.6.0",
     "marked": "^17.0.1",
-    "marked-directive": "^1.0.7"
+    "marked-directive": "^1.0.7",
+    "reka-ui": "^2.8.0"
   },
   "overrides": {
     "vue": "latest"

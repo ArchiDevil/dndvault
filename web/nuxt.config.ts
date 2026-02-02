@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/sitemap', '@nuxtjs/robots'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
+    '@nuxt/icon',
+    'reka-ui/nuxt',
+  ],
   compatibilityDate: '2025-12-21',
   runtimeConfig: {
     backendAddress: 'http://backend:8055',
