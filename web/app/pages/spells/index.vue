@@ -129,7 +129,7 @@ const search = ref(initialConfig.search)
 const groupBy = ref<Groupings>(initialConfig.groupBy)
 
 const router = useRouter()
-watch(
+const {stop} = watch(
   [levelValues, schoolValues, sourceValues, classValues, search, groupBy],
   () => {
     router.push({
@@ -146,6 +146,10 @@ watch(
     })
   }
 )
+
+onBeforeUnmount(() => {
+  stop()
+})
 
 const filteredSpells = computed(() => {
   return (spells.value ?? [])
