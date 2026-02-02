@@ -267,16 +267,16 @@ const groups = computed<{type: string; spells: ShortSpellData[]}[] | undefined>(
     <template v-if="groups === undefined">
       <ul>
         <li v-for="spell in filteredSpells">
-          <NuxtLink
+          <a
             class="hover:font-semibold"
-            :to="{name: 'spells-id', params: {id: spell.id}}">
+            :href="`/spells/${spell.id}`">
             {{ spell.title }}
             <span
               v-if="spell.source?.title"
               class="text-sm text-zinc-600">
               ({{ spell.source.title }})
             </span>
-          </NuxtLink>
+          </a>
         </li>
       </ul>
     </template>
@@ -288,16 +288,16 @@ const groups = computed<{type: string; spells: ShortSpellData[]}[] | undefined>(
       </h2>
       <ul>
         <li v-for="spell in group.spells">
-          <NuxtLink
+          <a
             class="hover:font-semibold"
-            :to="{name: 'spells-id', params: {id: spell.id}}">
+            :href="`/spells/${spell.id}`">
             {{ spell.title }}
             <span
               v-if="spell.source?.title"
               class="text-sm text-zinc-600">
               ({{ spell.source.title }})
             </span>
-          </NuxtLink>
+          </a>
         </li>
       </ul>
     </template>
