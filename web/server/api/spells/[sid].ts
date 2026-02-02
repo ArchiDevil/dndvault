@@ -9,6 +9,7 @@ import {
 type DirectusSpell = {
   id: number
   title: string
+  original_title: string
   level: number
   school: string
   casting_time: string
@@ -46,6 +47,7 @@ export default defineEventHandler(async (event): Promise<SpellData> => {
         fields: [
           'id',
           'title',
+          'original_title',
           'level',
           'school',
           'casting_time',
@@ -85,6 +87,7 @@ export default defineEventHandler(async (event): Promise<SpellData> => {
   return {
     id: spells[0].id,
     title: spells[0].title,
+    original_title: spells[0].original_title,
     level: spells[0].level,
     school: spells[0].school,
     casting_time: spells[0].casting_time,

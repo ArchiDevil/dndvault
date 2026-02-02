@@ -1,6 +1,7 @@
 export type ShortSpellData = {
   id: number
   title: string
+  original_title: string
   level: number
   school: string
   classes: string[]
@@ -12,6 +13,7 @@ export type ShortSpellData = {
 export type SpellData = {
   id: number
   title: string
+  original_title: string
   level: number
   school: string
   casting_time: string

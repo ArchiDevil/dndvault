@@ -3,6 +3,7 @@ import {type ShortSpellData} from '#shared/types/spellTypes'
 type DirectusSpell = {
   id: number
   title: string
+  original_title: string
   level: number
   school: string
   classes: {
@@ -44,6 +45,7 @@ export default defineEventHandler(async (): Promise<ShortSpellData[]> => {
           fields: [
             'id',
             'title',
+            'original_title',
             'level',
             'school',
             'classes.classes_id.title',
@@ -60,6 +62,7 @@ export default defineEventHandler(async (): Promise<ShortSpellData[]> => {
   return totalSpells.map((s) => ({
     id: s.id,
     title: s.title,
+    original_title: s.original_title,
     level: s.level,
     school: s.school,
     classes: s.classes.map((c) => c.classes_id.title),

@@ -125,7 +125,9 @@ const filteredSpells = computed(() => {
       )
     })
     .filter((s) => {
-      return s.title.toLowerCase().includes(search.value.toLowerCase())
+      return (s.title + s.original_title)
+        .toLowerCase()
+        .includes(search.value.toLowerCase())
     })
 })
 

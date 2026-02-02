@@ -52,7 +52,7 @@ const sourceDescription = computed(
       <-- В список заклинаний
     </NuxtLink>
     <h1 class="text-2xl md:text-3xl font-semibold mt-4">
-      {{ spell?.title }}
+      {{ spell?.title }} [{{ spell?.original_title }}]
     </h1>
     <h2 class="text-lg md:text-xl italic text-zinc-700">{{ spellSubtext }}</h2>
     <h3
