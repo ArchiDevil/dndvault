@@ -25,7 +25,6 @@ if (import.meta.server) {
 }
 
 // Levels filter
-
 const levelItems = [
   {label: 'Заговор (0 уровень)', value: 0},
   {label: '1 уровень', value: 1},
@@ -41,7 +40,6 @@ const levelItems = [
 const levelValues = ref<number[]>([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 
 // School filters
-
 const schoolItems = computed(() => {
   if (spells.value === undefined) return []
 
@@ -59,7 +57,6 @@ const schoolItems = computed(() => {
 const schoolValues = ref<string[]>(schoolItems.value.map((c) => c.value))
 
 // Source filters
-
 const sourceItems = computed(() => {
   if (spells.value === undefined) return []
 
@@ -82,7 +79,6 @@ const sourceItems = computed(() => {
 const sourceValues = ref<string[]>(sourceItems.value.map((c) => c.value))
 
 // Class filters
-
 const classItems = computed(() => {
   if (spells.value === undefined) return []
 
@@ -102,6 +98,7 @@ const classItems = computed(() => {
 const classValues = ref<string[]>(classItems.value.map((c) => c.value))
 
 // Other things
+const search = ref('')
 
 const filteredSpells = computed(() => {
   return (spells.value ?? [])
@@ -127,52 +124,122 @@ const filteredSpells = computed(() => {
         ) !== -1
       )
     })
+    .filter((s) => {
+      return s.title.toLowerCase().includes(search.value.toLowerCase())
+    })
 })
 
-// TODO: this should be configurable
-const groups = computed<Map<string, ShortSpellData[]>>(() => {
-  const output = new Map<string, ShortSpellData[]>()
-  for (const spell of filteredSpells.value) {
-    const list = output.get(spell.school)
-    if (!list) {
-      output.set(spell.school, [spell])
-    } else {
-      list.push(spell)
+const groupBy = ref<'none' | 'alphabet' | 'sources' | 'schools'>('alphabet')
+const groups = computed<{type: string; spells: ShortSpellData[]}[] | undefined>(
+  () => {
+    let typer: ((spell: ShortSpellData) => string) | undefined = undefined
+    switch (groupBy.value) {
+      case 'alphabet':
+        typer = (spell: ShortSpellData) =>
+          (spell.title.length > 0 && spell.title[0]) || ''
+        break
+      case 'schools':
+        typer = (spell: ShortSpellData) => mapSchoolName(spell.school)
+        break
+      case 'sources':
+        typer = (spell: ShortSpellData) => spell.source?.title ?? ''
+        break
+      case 'none':
+      default:
+        console.error('Unknown grouping type')
+        typer = undefined
+        break
     }
+    if (!typer) return undefined
+
+    const output: {type: string; spells: ShortSpellData[]}[] = []
+    for (const spell of filteredSpells.value) {
+      const group = output.find((l) => l.type == typer(spell))
+      if (!group) {
+        output.push({type: typer(spell), spells: [spell]})
+      } else {
+        group.spells.push(spell)
+      }
+    }
+    return output.sort((a, b) => a.type.localeCompare(b.type))
   }
-  return output
-})
+)
 </script>
 
 <template>
   <PageTitle>Заклинания</PageTitle>
-  <div class="flex flex-row gap-2">
-    <FilterPopover
-      trigger-text="Уровни"
-      trigger-icon="solar:circle-top-up-linear"
-      :items="levelItems"
-      v-model="levelValues" />
-    <FilterPopover
-      trigger-text="Классы"
-      trigger-icon="solar:crown-minimalistic-linear"
-      :items="classItems"
-      v-model="classValues" />
-    <FilterPopover
-      trigger-text="Школы"
-      trigger-icon="solar:star-fall-2-linear"
-      :items="schoolItems"
-      v-model="schoolValues" />
-    <FilterPopover
-      trigger-text="Источники"
-      trigger-icon="solar:export-linear"
-      :items="sourceItems"
-      v-model="sourceValues" />
+  <div class="flex flex-row gap-4 mb-4 flex-wrap">
+    <div class="flex flex-row gap-2">
+      <input
+        id="search"
+        v-model="search"
+        class="py-1 px-2 rounded bg-zinc-50 hover:bg-zinc-100 border border-zinc-500 transition"
+        placeholder="Поиск заклинания" />
+    </div>
+    <div class="flex flex-row gap-2 flex-wrap">
+      <FilterPopover
+        trigger-text="Уровни"
+        trigger-icon="solar:circle-top-up-linear"
+        :items="levelItems"
+        v-model="levelValues" />
+      <FilterPopover
+        trigger-text="Классы"
+        trigger-icon="solar:crown-minimalistic-linear"
+        :items="classItems"
+        v-model="classValues" />
+      <FilterPopover
+        trigger-text="Школы"
+        trigger-icon="solar:star-fall-2-linear"
+        :items="schoolItems"
+        v-model="schoolValues" />
+      <FilterPopover
+        trigger-text="Источники"
+        trigger-icon="solar:export-linear"
+        :items="sourceItems"
+        v-model="sourceValues" />
+    </div>
+    <div class="flex flex-row gap-2">
+      <label
+        for="group_by"
+        class="align-baseline py-1 text-nowrap"
+        >Группировать по:</label
+      >
+      <select
+        id="group_by"
+        class="px-2 py-1 rounded cursor-pointer"
+        v-model="groupBy">
+        <option value="none">Без группировки</option>
+        <option value="alphabet">Алфавиту</option>
+        <option value="sources">Источникам</option>
+        <option value="schools">Школам</option>
+      </select>
+    </div>
   </div>
   <div class="lg:columns-2 xl:columns-3 pb-8">
-    <template v-for="keyVal in groups">
-      <h2 class="font-semibold text-lg pt-2">{{ mapSchoolName(keyVal[0]) }}</h2>
+    <template v-if="groups === undefined">
       <ul>
-        <li v-for="spell in keyVal[1]">
+        <li v-for="spell in filteredSpells">
+          <NuxtLink
+            class="hover:font-semibold"
+            :href="`/spells/${spell.id}`">
+            {{ spell.title }}
+            <span
+              v-if="spell.source?.title"
+              class="text-sm text-zinc-600">
+              ({{ spell.source.title }})
+            </span>
+          </NuxtLink>
+        </li>
+      </ul>
+    </template>
+    <template
+      v-else
+      v-for="group in groups">
+      <h2 class="font-semibold text-lg pt-2">
+        {{ group.type }}
+      </h2>
+      <ul>
+        <li v-for="spell in group.spells">
           <NuxtLink
             class="hover:font-semibold"
             :href="`/spells/${spell.id}`">
