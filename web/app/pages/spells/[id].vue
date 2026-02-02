@@ -46,11 +46,6 @@ const sourceDescription = computed(
 
 <template>
   <div class="max-w-[750px]">
-    <NuxtLink
-      class="hover:font-semibold"
-      href="/spells">
-      <-- В список заклинаний
-    </NuxtLink>
     <h1 class="text-2xl md:text-3xl font-semibold mt-4">
       {{ spell?.title }} [{{ spell?.original_title }}]
     </h1>

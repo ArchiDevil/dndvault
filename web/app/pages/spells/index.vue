@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FilterPopover from '~/components/FilterPopover.vue'
 import {mapSchoolName} from '~~/shared/utils/language'
+import {useRoute} from '#app'
 
 const {data: spells} = await useFetch('/api/spells')
 
@@ -268,7 +269,7 @@ const groups = computed<{type: string; spells: ShortSpellData[]}[] | undefined>(
         <li v-for="spell in filteredSpells">
           <NuxtLink
             class="hover:font-semibold"
-            :href="`/spells/${spell.id}`">
+            :to="{name: 'spells-id', params: {id: spell.id}}">
             {{ spell.title }}
             <span
               v-if="spell.source?.title"
@@ -289,7 +290,7 @@ const groups = computed<{type: string; spells: ShortSpellData[]}[] | undefined>(
         <li v-for="spell in group.spells">
           <NuxtLink
             class="hover:font-semibold"
-            :href="`/spells/${spell.id}`">
+            :to="{name: 'spells-id', params: {id: spell.id}}">
             {{ spell.title }}
             <span
               v-if="spell.source?.title"
