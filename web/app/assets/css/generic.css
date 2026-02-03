@@ -185,4 +185,8 @@
 
     @apply xl:columns-2 rounded border border-zinc-500 shadow-lg py-2;
   }
+
+  aside.rhyme {
+    @apply w-full text-center font-semibold;
+  }
 }
