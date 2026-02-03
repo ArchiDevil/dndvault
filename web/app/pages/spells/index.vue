@@ -129,10 +129,10 @@ const search = ref(initialConfig.search)
 const groupBy = ref<Groupings>(initialConfig.groupBy)
 
 const router = useRouter()
-const {stop} = watch(
+watch(
   [levelValues, schoolValues, sourceValues, classValues, search, groupBy],
   () => {
-    router.push({
+    router.replace({
       query: {
         config: JSON.stringify({
           search: search.value,
@@ -146,10 +146,6 @@ const {stop} = watch(
     })
   }
 )
-
-onBeforeUnmount(() => {
-  stop()
-})
 
 const filteredSpells = computed(() => {
   return (spells.value ?? [])
@@ -271,16 +267,16 @@ const groups = computed<{type: string; spells: ShortSpellData[]}[] | undefined>(
     <template v-if="groups === undefined">
       <ul>
         <li v-for="spell in filteredSpells">
-          <a
+          <NuxtLink
             class="hover:font-semibold"
-            :href="`/spells/${spell.id}`">
+            :to="{name: 'spells-id', params: {id: spell.id}}">
             {{ spell.title }}
             <span
               v-if="spell.source?.title"
               class="text-sm text-zinc-600">
               ({{ spell.source.title }})
             </span>
-          </a>
+          </NuxtLink>
         </li>
       </ul>
     </template>
@@ -292,16 +288,16 @@ const groups = computed<{type: string; spells: ShortSpellData[]}[] | undefined>(
       </h2>
       <ul>
         <li v-for="spell in group.spells">
-          <a
+          <NuxtLink
             class="hover:font-semibold"
-            :href="`/spells/${spell.id}`">
+            :to="{name: 'spells-id', params: {id: spell.id}}">
             {{ spell.title }}
             <span
               v-if="spell.source?.title"
               class="text-sm text-zinc-600">
               ({{ spell.source.title }})
             </span>
-          </a>
+          </NuxtLink>
         </li>
       </ul>
     </template>
