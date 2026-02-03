@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import '~/assets/css/generic.css'
 import '~/assets/css/phb.css'
+import '~/assets/css/dmg.css'
+import '~/assets/css/efota.css'
 
 const route = useRoute()
 const bookSlug = computed(() => route.params.slug)
@@ -79,7 +81,8 @@ const prevChapter = computed(() => {
   if (
     flattenedChapters.value.length == 0 ||
     currentChapterIdx.value === undefined ||
-    currentChapterIdx.value == 0
+    currentChapterIdx.value == 0 ||
+    currentChapterIdx.value == -1
   )
     return undefined
 
@@ -92,7 +95,8 @@ const nextChapter = computed(() => {
   if (
     flattenedChapters.value.length == 0 ||
     currentChapterIdx.value === undefined ||
-    currentChapterIdx.value == flattenedChapters.value.length - 1
+    currentChapterIdx.value == flattenedChapters.value.length - 1 ||
+    currentChapterIdx.value == -1
   )
     return undefined
 

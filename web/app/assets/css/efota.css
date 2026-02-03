@@ -1,0 +1,11 @@
+.cc.efota {
+  table tbody {
+    tr:nth-of-type(2n) {
+      @apply bg-orange-100 hover:bg-orange-300;
+    }
+
+    tr:nth-of-type(2n-1) {
+      @apply bg-orange-200 hover:bg-orange-300;
+    }
+  }
+}

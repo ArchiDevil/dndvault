@@ -10,7 +10,6 @@
   > h1 {
     @apply text-4xl mb-2;
   }
-
   > h2 {
     @apply text-2xl;
     @apply mt-4;
@@ -59,7 +58,6 @@
       @apply py-1 px-2;
     }
 
-    /* TODO: this should a theme-specific */
     tbody {
       tr:nth-of-type(2n) {
         @apply bg-blue-50 hover:bg-blue-200;
