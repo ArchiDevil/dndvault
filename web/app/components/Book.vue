@@ -19,7 +19,7 @@ const {
   chapters: any[]
 }>()
 
-const coverPath = computed(() => `/api/assets/${cover}`)
+const coverPath = computed(() => `/api/assets/${cover}?width=210&height=300&fit=contain&quality=75&format=webp`)
 const downloadPath = computed(() => `/api/assets/${downloadLink}?download`)
 const openPath = computed(() => `/book-${slug}`)
 </script>
