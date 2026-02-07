@@ -1,11 +1,52 @@
 .cc.efota {
+  --text-color: #bd5b00;
+  --table-light: #fdf4ec;
+  --table-dark: #fce2cd;
+  --table-hover: #f6aa6d;
+
+  h2,
+  h3,
+  h4 {
+    color: var(--text-color);
+  }
+
+  .first-paragraph {
+    p::first-letter {
+      color: var(--text-color);
+    }
+  }
+
+  li::marker {
+    color: var(--text-color);
+  }
+
+  p > em:first-of-type {
+    color: var(--text-color);
+  }
+
   table tbody {
     tr:nth-of-type(2n) {
-      @apply bg-orange-100 hover:bg-orange-300;
+      background-color: var(--table-light);
     }
 
     tr:nth-of-type(2n-1) {
-      @apply bg-orange-200 hover:bg-orange-300;
+      background-color: var(--table-dark);
     }
+
+    tr {
+      @apply transition-colors;
+    }
+
+    tr:hover {
+      background-color: var(--table-hover);
+    }
+  }
+
+  aside.rules {
+    @apply border-0 border-b-2 border-t-2 py-16 px-8 mx-16;
+
+    background-color: #303030;
+    border-color: #231f20;
+    color: #f5f5f5;
   }
 }
