@@ -20,7 +20,7 @@
     color: var(--text-color);
   }
 
-  p > em:first-of-type {
+  p > em:first-of-type > strong {
     color: var(--text-color);
   }
 
