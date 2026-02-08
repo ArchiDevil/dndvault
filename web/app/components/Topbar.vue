@@ -76,6 +76,13 @@ const route = useRoute()
         target="_blank">
         Заклинания
       </NuxtLink>
+      <NuxtLink
+        class="hover:font-semibold underline-offset-4"
+        :class="{'font-semibold': route.path == '/feats'}"
+        to="/feats"
+        target="_blank">
+        Черты
+      </NuxtLink>
     </div>
   </nav>
 </template>
