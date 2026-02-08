@@ -217,11 +217,11 @@ const groups = computed<{type: string; spells: ShortSpellData[]}[] | undefined>(
 <template>
   <PageTitle>Заклинания</PageTitle>
   <div class="flex flex-row gap-4 mb-4 flex-wrap">
-    <div class="flex flex-row gap-2">
+    <div class="flex flex-row gap-2 w-full md:w-auto">
       <input
         id="search"
         v-model="search"
-        class="py-1 px-2 rounded bg-zinc-50 hover:bg-zinc-100 border border-zinc-500 transition"
+        class="py-1 px-2 rounded bg-zinc-50 hover:bg-zinc-100 border border-zinc-500 transition w-full"
         placeholder="Поиск заклинания" />
     </div>
     <div class="flex flex-row gap-2 flex-wrap">
