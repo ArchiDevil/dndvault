@@ -41,13 +41,8 @@ const sourceDescription = computed(
 
 <template>
   <div class="max-w-[750px]">
-    <NuxtLink
-      class="hover:font-semibold"
-      href="/feats">
-      <-- В список черт
-    </NuxtLink>
     <h1 class="text-2xl md:text-3xl font-semibold mt-4">
-      {{ feat?.title }}
+      {{ feat?.title }} [{{ feat?.original_title }}]
     </h1>
     <h2 class="text-lg md:text-xl italic text-zinc-700">{{ featSubtext }}</h2>
     <h3

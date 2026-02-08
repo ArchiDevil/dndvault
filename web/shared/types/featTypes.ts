@@ -1,6 +1,7 @@
 export type ShortFeatData = {
   id: number
   title: string
+  original_title: string
   source: {
     title: string
     description: string
@@ -11,6 +12,7 @@ export type ShortFeatData = {
 export type FeatData = {
   id: number
   title: string
+  original_title: string
   source: {
     title: string
     description: string
