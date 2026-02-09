@@ -49,4 +49,11 @@
     border-color: #231f20;
     color: #f5f5f5;
   }
+
+  aside.statblock {
+    h5,
+    p > strong:first-child {
+      color: var(--text-color);
+    }
+  }
 }
