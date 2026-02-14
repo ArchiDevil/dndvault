@@ -7,6 +7,12 @@
     @apply font-semibold;
   }
 
+  > h2,
+  > h3,
+  > h4 {
+    @apply text-red-900;
+  }
+
   > h1 {
     @apply text-4xl mb-2;
   }
@@ -22,7 +28,7 @@
       @apply h-0.5 w-full content-[""] block;
 
       /* TODO: this should a theme-specific */
-      @apply bg-gray-500;
+      @apply bg-yellow-700;
     }
   }
   > h4 {
@@ -60,11 +66,15 @@
 
     tbody {
       tr:nth-of-type(2n) {
-        @apply bg-blue-50 hover:bg-blue-200;
+        @apply bg-blue-50;
       }
 
       tr:nth-of-type(2n-1) {
-        @apply bg-blue-100 hover:bg-blue-200;
+        @apply bg-blue-100;
+      }
+
+      tr:hover {
+        @apply bg-blue-200;
       }
     }
   }

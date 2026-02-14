@@ -48,6 +48,10 @@
     background-color: #303030;
     border-color: #231f20;
     color: #f5f5f5;
+
+    a {
+      @apply text-red-600 hover:text-red-700;
+    }
   }
 
   aside.statblock {
