@@ -65,22 +65,19 @@ const route = useRoute()
         :class="{
           'font-semibold': route.path == '/' || route.path.includes('/book-'),
         }"
-        to="/"
-        target="_blank">
+        to="/">
         Материалы
       </NuxtLink>
       <NuxtLink
         class="hover:font-semibold underline-offset-4"
         :class="{'font-semibold': route.path == '/spells'}"
-        to="/spells"
-        target="_blank">
+        to="/spells">
         Заклинания
       </NuxtLink>
       <NuxtLink
         class="hover:font-semibold underline-offset-4"
         :class="{'font-semibold': route.path == '/feats'}"
-        to="/feats"
-        target="_blank">
+        to="/feats">
         Черты
       </NuxtLink>
     </div>
