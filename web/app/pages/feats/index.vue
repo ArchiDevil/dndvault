@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FilterPopover from '~/components/FilterPopover.vue'
 import {mapFeatCategory} from '~~/shared/utils/language'
+import {makeGroups} from '~/utils/filters'
 
 const {data: feats} = await useFetch('/api/feats')
 
@@ -54,6 +55,16 @@ const sourceItems = computed(() => {
 })
 
 type Groupings = 'none' | 'alphabet' | 'category' | 'sources'
+const groupTypers: Record<
+  Groupings,
+  ((feat: ShortFeatData) => string) | undefined
+> & {none: undefined} = {
+  none: undefined,
+  alphabet: (feat: ShortFeatData) =>
+    (feat.title.length > 0 && feat.title[0]) || '',
+  category: (feat: ShortFeatData) => mapFeatCategory(feat.category),
+  sources: (feat: ShortFeatData) => feat.source?.title ?? '',
+}
 
 const defaultConfig = {
   categories: categoryItems.map((c) => c.value),
@@ -118,44 +129,12 @@ const filteredFeats = computed(() => {
     })
 })
 
-const groups = computed<{type: string; feats: ShortFeatData[]}[] | undefined>(
-  () => {
-    let typer: ((feat: ShortFeatData) => string) | undefined = undefined
-    switch (groupBy.value) {
-      case 'alphabet':
-        typer = (feat: ShortFeatData) =>
-          (feat.title.length > 0 && feat.title[0]) || ''
-        break
-      case 'category':
-        typer = (feat: ShortFeatData) => mapFeatCategory(feat.category)
-        break
-      case 'sources':
-        typer = (feat: ShortFeatData) => feat.source?.title ?? ''
-        break
-      case 'none':
-      default:
-        console.error('Unknown grouping type')
-        typer = undefined
-        break
-    }
-    if (!typer) return undefined
-
-    const output: {type: string; feats: ShortFeatData[]}[] = []
-    for (const spell of filteredFeats.value) {
-      const group = output.find((l) => l.type == typer(spell))
-      if (!group) {
-        output.push({type: typer(spell), feats: [spell]})
-      } else {
-        group.feats.push(spell)
-      }
-    }
-    return output.sort((a, b) => a.type.localeCompare(b.type))
-  }
-)
+const groups = computed<
+  {type: string; elements: ShortFeatData[]}[] | undefined
+>(() => makeGroups(groupBy.value, groupTypers, filteredFeats.value))
 </script>
 
 <template>
-  <PageTitle>Черты</PageTitle>
   <div class="flex flex-row gap-4 mb-4 flex-wrap">
     <div class="flex flex-row gap-2 w-full md:w-auto">
       <input
@@ -195,7 +174,7 @@ const groups = computed<{type: string; feats: ShortFeatData[]}[] | undefined>(
   </div>
   <div class="lg:columns-2 xl:columns-3 pb-8">
     <template v-if="groups === undefined">
-      <ul>
+      <ul aria-label="Все черты">
         <li v-for="feat in filteredFeats">
           <NuxtLink
             class="hover:font-semibold"
@@ -213,11 +192,30 @@ const groups = computed<{type: string; feats: ShortFeatData[]}[] | undefined>(
     <template
       v-else
       v-for="group in groups">
-      <h2 class="font-semibold text-lg pt-2">
-        {{ group.type }}
-      </h2>
-      <ul>
-        <li v-for="feat in group.feats">
+      <ul :aria-label="group.type">
+        <div
+          v-if="group.elements[0] !== undefined"
+          class="inline-block"
+          role="group">
+          <h2 class="font-semibold text-lg pt-2">
+            {{ group.type }}
+          </h2>
+
+          <li role="listitem">
+            <NuxtLink
+              class="hover:font-semibold"
+              :to="{name: 'spells-id', params: {id: group.elements[0].id}}">
+              {{ group.elements[0].title }}
+              <span
+                v-if="group.elements[0].source?.title"
+                class="text-sm text-zinc-600">
+                ({{ group.elements[0].source.title }})
+              </span>
+            </NuxtLink>
+          </li>
+        </div>
+
+        <li v-for="feat in group.elements.slice(1)">
           <NuxtLink
             class="hover:font-semibold"
             :to="{name: 'feats-id', params: {id: feat.id}}">

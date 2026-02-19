@@ -2,6 +2,7 @@
 import FilterPopover from '~/components/FilterPopover.vue'
 import {mapSchoolName} from '~~/shared/utils/language'
 import {useRoute} from '#app'
+import {makeGroups} from '~/utils/filters'
 
 const {data: spells} = await useFetch('/api/spells')
 
@@ -94,7 +95,21 @@ const classItems = computed(() => {
   return output.sort((a, b) => a.label.localeCompare(b.label))
 })
 
-type Groupings = 'none' | 'alphabet' | 'sources' | 'schools'
+type Groupings = 'none' | 'alphabet' | 'levels' | 'sources' | 'schools'
+const groupTypers: Record<
+  Groupings,
+  ((spell: ShortSpellData) => string) | undefined
+> & {none: undefined} = {
+  none: undefined,
+  alphabet: (spell: ShortSpellData) =>
+    (spell.title.length > 0 && spell.title[0]) || '',
+  levels: (spell: ShortSpellData) =>
+    spell.level === 0
+      ? '0 уровень (заговоры)'
+      : `${spell.level.toString()} уровень`,
+  schools: (spell: ShortSpellData) => mapSchoolName(spell.school),
+  sources: (spell: ShortSpellData) => spell.source?.title ?? '',
+}
 
 const defaultConfig = {
   levels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -178,44 +193,12 @@ const filteredSpells = computed(() => {
     })
 })
 
-const groups = computed<{type: string; spells: ShortSpellData[]}[] | undefined>(
-  () => {
-    let typer: ((spell: ShortSpellData) => string) | undefined = undefined
-    switch (groupBy.value) {
-      case 'alphabet':
-        typer = (spell: ShortSpellData) =>
-          (spell.title.length > 0 && spell.title[0]) || ''
-        break
-      case 'schools':
-        typer = (spell: ShortSpellData) => mapSchoolName(spell.school)
-        break
-      case 'sources':
-        typer = (spell: ShortSpellData) => spell.source?.title ?? ''
-        break
-      case 'none':
-      default:
-        console.error('Unknown grouping type')
-        typer = undefined
-        break
-    }
-    if (!typer) return undefined
-
-    const output: {type: string; spells: ShortSpellData[]}[] = []
-    for (const spell of filteredSpells.value) {
-      const group = output.find((l) => l.type == typer(spell))
-      if (!group) {
-        output.push({type: typer(spell), spells: [spell]})
-      } else {
-        group.spells.push(spell)
-      }
-    }
-    return output.sort((a, b) => a.type.localeCompare(b.type))
-  }
-)
+const groups = computed<
+  {type: string; elements: ShortSpellData[]}[] | undefined
+>(() => makeGroups(groupBy.value, groupTypers, filteredSpells.value))
 </script>
 
 <template>
-  <PageTitle>Заклинания</PageTitle>
   <div class="flex flex-row gap-4 mb-4 flex-wrap">
     <div class="flex flex-row gap-2 w-full md:w-auto">
       <input
@@ -259,13 +242,14 @@ const groups = computed<{type: string; spells: ShortSpellData[]}[] | undefined>(
         <option value="none">Без группировки</option>
         <option value="alphabet">Алфавиту</option>
         <option value="sources">Источникам</option>
+        <option value="levels">Уровням</option>
         <option value="schools">Школам</option>
       </select>
     </div>
   </div>
   <div class="lg:columns-2 xl:columns-3 pb-8">
     <template v-if="groups === undefined">
-      <ul>
+      <ul aria-label="Все заклинания">
         <li v-for="spell in filteredSpells">
           <NuxtLink
             class="hover:font-semibold"
@@ -283,11 +267,29 @@ const groups = computed<{type: string; spells: ShortSpellData[]}[] | undefined>(
     <template
       v-else
       v-for="group in groups">
-      <h2 class="font-semibold text-lg pt-2">
-        {{ group.type }}
-      </h2>
-      <ul>
-        <li v-for="spell in group.spells">
+      <ul :aria-label="group.type">
+        <div
+          v-if="group.elements[0] !== undefined"
+          class="inline-block"
+          role="group">
+          <h2 class="font-semibold text-lg pt-2">
+            {{ group.type }}
+          </h2>
+
+          <li role="listitem">
+            <NuxtLink
+              class="hover:font-semibold"
+              :to="{name: 'spells-id', params: {id: group.elements[0].id}}">
+              {{ group.elements[0].title }}
+              <span
+                v-if="group.elements[0].source?.title"
+                class="text-sm text-zinc-600">
+                ({{ group.elements[0].source.title }})
+              </span>
+            </NuxtLink>
+          </li>
+        </div>
+        <li v-for="spell in group.elements.slice(1)">
           <NuxtLink
             class="hover:font-semibold"
             :to="{name: 'spells-id', params: {id: spell.id}}">
