@@ -13,9 +13,9 @@ useHead({
 
 useSeoMeta({
   title: 'Каталог материалов | DnD Vault',
-  description: 'Здесь содержится каталог материалов для DnD 2024',
+  description: 'Каталог материалов для DnD 2024 на русском языке',
   ogTitle: 'Каталог материалов | DnD Vault',
-  ogDescription: 'Здесь содержится каталог материалов для DnD 2024',
+  ogDescription: 'Каталог материалов для DnD 2024 на русском языке',
   ogType: 'website',
   ogUrl: 'https://dndvault.ru/',
 })

@@ -18,9 +18,9 @@ if (import.meta.server) {
 
   useSeoMeta({
     title: 'Заклинания | DnD Vault',
-    description: 'Каталог заклинаний для DnD 2024 на русском языке',
+    description: 'Каталог заклинаний DnD 2024 на русском языке',
     ogTitle: 'Заклинания | DnD Vault',
-    ogDescription: 'Каталог заклинаний для DnD 2024 на русском языке',
+    ogDescription: 'Каталог заклинаний DnD 2024 на русском языке',
     ogType: 'website',
     ogUrl: 'https://dndvault.ru/spells',
   })

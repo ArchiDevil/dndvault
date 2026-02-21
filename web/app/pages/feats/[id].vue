@@ -17,10 +17,10 @@ useHead({
 })
 
 useSeoMeta({
-  title: `${feat.value?.title} | DnD Vault`,
-  description: `Описание черты ${feat.value?.title}`,
-  ogTitle: `${feat.value?.title} | DnD Vault`,
-  ogDescription: `Описание черты ${feat.value?.title}`,
+  title: `${feat.value?.title} (${feat.value?.original_title}) | DnD Vault`,
+  description: `Черта ${feat.value?.title} (${feat.value?.original_title}) DnD 2024`,
+  ogTitle: `${feat.value?.title} (${feat.value?.original_title}) | DnD Vault`,
+  ogDescription: `Черта ${feat.value?.title} (${feat.value?.original_title}) DnD 2024`,
   ogType: 'article',
   ogUrl: `https://dndvault.ru/feats/${featId.value}`,
 })

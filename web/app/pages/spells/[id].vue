@@ -18,9 +18,9 @@ useHead({
 
 useSeoMeta({
   title: `${spell.value?.title} | DnD Vault`,
-  description: `Описание заклинания ${spell.value?.title}`,
+  description: `Заклинание ${spell.value?.title} (${spell.value?.original_title}) DnD 2024`,
   ogTitle: `${spell.value?.title} | DnD Vault`,
-  ogDescription: `Описание заклинания ${spell.value?.title}`,
+  ogDescription: `Заклинание ${spell.value?.title} (${spell.value?.original_title}) DnD 2024`,
   ogType: 'article',
   ogUrl: `https://dndvault.ru/spells/${spellId.value}`,
 })

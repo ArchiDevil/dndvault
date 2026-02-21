@@ -41,9 +41,9 @@ if (import.meta.server) {
 
   useSeoMeta({
     title: `${bookData.value.title} - ${chapter.title} | DnD Vault`,
-    description: `Содержимое главы: ${chapter.title}`,
+    description: `Содержимое главы: ${chapter.title} DnD 2024`,
     ogTitle: `${bookData.value.title} - ${chapter.title} | DnD Vault`,
-    ogDescription: `Содержимое главы: ${chapter.title}`,
+    ogDescription: `Содержимое главы: ${chapter.title} DnD 2024`,
     ogType: 'article',
     ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
   })
