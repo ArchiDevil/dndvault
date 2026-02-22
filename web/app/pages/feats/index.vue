@@ -204,7 +204,7 @@ const groups = computed<
           <li role="listitem">
             <NuxtLink
               class="hover:font-semibold"
-              :to="{name: 'spells-id', params: {id: group.elements[0].id}}">
+              :to="{name: 'feats-id', params: {id: group.elements[0].id}}">
               {{ group.elements[0].title }}
               <span
                 v-if="group.elements[0].source?.title"
