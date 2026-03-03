@@ -2,6 +2,7 @@ export type ShortFeatData = {
   id: number
   title: string
   original_title: string
+  slug: `${number}-${string}`
   source: {
     title: string
     description: string

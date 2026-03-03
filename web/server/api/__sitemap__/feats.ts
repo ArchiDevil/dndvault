@@ -1,7 +1,9 @@
 import type {SitemapUrlInput} from '#sitemap/types'
+import { sluggify } from '~~/shared/utils/language'
 
 type FeatData = {
   id: number
+  original_title: string
   date_updated: string
 }
 
@@ -25,7 +27,7 @@ export default defineSitemapEventHandler(async () => {
       {
         headers: {Authorization: `Bearer ${staticToken}`},
         query: {
-          fields: 'id,date_updated',
+          fields: 'id,date_updated,original_title',
           offset: itemsPerPage * page,
         },
       }
@@ -37,7 +39,7 @@ export default defineSitemapEventHandler(async () => {
   for (const feat of totalFeats) {
     const lastFeatUpdate = new Date(feat.date_updated)
     output.push({
-      loc: `/feats/${feat.id}`,
+      loc: `/feats/${feat.id}-${sluggify(feat.original_title)}`,
       changefreq: 'monthly',
       lastmod: lastFeatUpdate,
       _sitemap: 'pages',

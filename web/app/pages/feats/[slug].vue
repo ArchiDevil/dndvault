@@ -2,16 +2,28 @@
 import {mapFeatCategory} from '~~/shared/utils/language'
 import '~/assets/css/generic.css'
 
-const route = useRoute()
-const featId = computed(() => route.params.id)
+definePageMeta({
+  middleware: 'redirects',
+})
 
-const {data: feat} = await useFetch(`/api/feats/${featId.value}`)
+const route = useRoute()
+const featSlug = computed(() => route.params.slug) as ComputedRef<
+  string | undefined
+>
+const featId = featSlug.value!.split('-')[0]
+if (featId === undefined) {
+  throw createError({
+    status: 404,
+  })
+}
+
+const {data: feat} = await useFetch(`/api/feats/${featId}`)
 
 useHead({
   link: [
     {
       rel: 'canonical',
-      href: `https://dndvault.ru/feats/${featId.value}`,
+      href: `https://dndvault.ru/feats/${featId}`,
     },
   ],
 })
@@ -22,7 +34,7 @@ useSeoMeta({
   ogTitle: `${feat.value?.title} (${feat.value?.original_title}) | DnD Vault`,
   ogDescription: `Черта ${feat.value?.title} (${feat.value?.original_title}) DnD 2024`,
   ogType: 'article',
-  ogUrl: `https://dndvault.ru/feats/${featId.value}`,
+  ogUrl: `https://dndvault.ru/feats/${featId}`,
 })
 
 const featSubtext = computed(() => {

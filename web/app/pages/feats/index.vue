@@ -178,7 +178,10 @@ const groups = computed<
         <li v-for="feat in filteredFeats">
           <NuxtLink
             class="hover:font-semibold"
-            :to="{name: 'feats-id', params: {id: feat.id}}">
+            :to="{
+              name: 'feats-slug',
+              params: {slug: feat.slug},
+            }">
             {{ feat.title }}
             <span
               v-if="feat.source?.title"
@@ -204,7 +207,10 @@ const groups = computed<
           <li role="listitem">
             <NuxtLink
               class="hover:font-semibold"
-              :to="{name: 'feats-id', params: {id: group.elements[0].id}}">
+              :to="{
+                name: 'feats-slug',
+                params: {slug: group.elements[0].slug},
+              }">
               {{ group.elements[0].title }}
               <span
                 v-if="group.elements[0].source?.title"
@@ -218,7 +224,10 @@ const groups = computed<
         <li v-for="feat in group.elements.slice(1)">
           <NuxtLink
             class="hover:font-semibold"
-            :to="{name: 'feats-id', params: {id: feat.id}}">
+            :to="{
+              name: 'feats-slug',
+              params: {slug: feat.slug},
+            }">
             {{ feat.title }}
             <span
               v-if="feat.source?.title"

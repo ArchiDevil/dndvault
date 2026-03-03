@@ -1,4 +1,5 @@
 import {type ShortFeatData} from '#shared/types/featTypes'
+import {sluggify} from '~~/shared/utils/language'
 
 type DirectusFeat = {
   id: number
@@ -28,7 +29,7 @@ export default defineEventHandler(async (): Promise<ShortFeatData[]> => {
   const featsCount = Number(response[0].count)
   const itemsPerPage = 100
 
-  let totalFeats: DirectusFeat[] = []
+  let totalFeats: ShortFeatData[] = []
   for (let page = 0; page < featsCount / itemsPerPage; page += 1) {
     const {data: feats} = await $fetch<{data: DirectusFeat[]}>(
       `${backendAddress}/items/feats`,
@@ -50,7 +51,15 @@ export default defineEventHandler(async (): Promise<ShortFeatData[]> => {
         },
       }
     )
-    totalFeats = totalFeats.concat(feats)
+    totalFeats = totalFeats.concat(
+      feats.map(
+        (f) =>
+          ({
+            ...f,
+            slug: `${f.id}-${sluggify(f.original_title)}`,
+          }) satisfies ShortFeatData
+      )
+    )
   }
 
   return totalFeats

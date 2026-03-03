@@ -87,3 +87,10 @@ export const mapSchoolName = (school: string) => {
     return `Неизвестная школа ${school}`
   }
 }
+
+export const sluggify = (original: string) => {
+  return original
+    .toLowerCase()
+    .replaceAll(/[^A-Za-z0-9\s-]/g, '')
+    .replaceAll(/\s/g, '-')
+}
