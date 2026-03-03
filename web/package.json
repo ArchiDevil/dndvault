@@ -13,14 +13,14 @@
     "@nuxt/devtools": "latest",
     "@nuxt/icon": "^2.2.1",
     "@nuxtjs/tailwindcss": "^6.14.0",
-    "nuxt": "^4.3.0"
+    "nuxt": "^4.3.1"
   },
   "dependencies": {
-    "@nuxtjs/robots": "^5.7.0",
+    "@nuxtjs/robots": "^5.7.1",
     "@nuxtjs/sitemap": "^7.6.0",
-    "marked": "^17.0.1",
+    "marked": "^17.0.3",
     "marked-directive": "^1.0.7",
-    "reka-ui": "^2.8.0"
+    "reka-ui": "^2.9.0"
   },
   "overrides": {
     "vue": "latest"
