@@ -61,6 +61,8 @@ export const mapFeatCategory = (category: string) => {
     return 'Черты Боевого стиля'
   } else if (category === 'epic-feat') {
     return 'Черты Эпического дара'
+  } else if (category === 'dragonmarked') {
+    return 'Черты Драконьей метки'
   } else {
     return `Неизвестная категория ${category}`
   }

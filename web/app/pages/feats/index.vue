@@ -25,13 +25,21 @@ if (import.meta.server) {
   })
 }
 
-// Category filters
-const categoryItems = [
-  {label: 'Черты происхождения', value: 'origin'},
-  {label: 'Универсальные черты', value: 'universal'},
-  {label: 'Черты Боевого стиля', value: 'martial-style'},
-  {label: 'Черты Эпического дара', value: 'epic-feat'},
-]
+const categoryItems = computed(() => {
+  if (feats.value === undefined) return []
+
+  const output: {label: string; value: string}[] = []
+  for (const feat of feats.value) {
+    const featCategory = feat.category
+    if (output.findIndex((o) => o.value === featCategory) === -1) {
+      output.push({
+        label: mapFeatCategory(featCategory),
+        value: featCategory,
+      })
+    }
+  }
+  return output.sort((a, b) => a.label.localeCompare(b.label))
+})
 
 // Source filters
 const sourceItems = computed(() => {
@@ -67,7 +75,7 @@ const groupTypers: Record<
 }
 
 const defaultConfig = {
-  categories: categoryItems.map((c) => c.value),
+  categories: categoryItems.value.map((c) => c.value),
   sources: sourceItems.value.map((c) => c.value),
   search: '',
   groupBy: 'category' as Groupings,
@@ -95,7 +103,7 @@ const search = ref(initialConfig.search)
 const groupBy = ref<Groupings>(initialConfig.groupBy)
 
 const router = useRouter()
-watch([sourceValues, search, groupBy], () => {
+watch([categoryValues, sourceValues, search, groupBy], () => {
   router.replace({
     query: {
       config: JSON.stringify({
