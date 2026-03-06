@@ -84,4 +84,11 @@ export default defineNuxtConfig({
   nitro: {
     serveStatic: false,
   },
+  routeRules: {
+    '/magic-items': {robots: false, sitemap: false},
+    '/backgrounds': {robots: false, sitemap: false},
+    '/monsters': {robots: false, sitemap: false},
+    '/facilities': {robots: false, sitemap: false},
+    '/species': {robots: false, sitemap: false},
+  },
 })
