@@ -60,6 +60,7 @@ export default defineNuxtConfig({
   },
   sitemap: {
     sources: [
+      '/api/__sitemap__/backgrounds',
       '/api/__sitemap__/books',
       '/api/__sitemap__/feats',
       '/api/__sitemap__/spells',

@@ -54,6 +54,7 @@ export default defineEventHandler(async (event): Promise<FeatData> => {
       message: 'feat not found',
     })
   }
+  const feat = feats[0]!
 
   const marked = new Marked(
     createDirectives([
@@ -64,17 +65,17 @@ export default defineEventHandler(async (event): Promise<FeatData> => {
     ])
   )
 
-  const renderedContent = await marked.parse(feats[0].description, {
+  const renderedContent = await marked.parse(feat.description, {
     async: true,
   })
 
   return {
-    id: feats[0].id,
-    category: feats[0].category,
-    title: feats[0].title,
-    original_title: feats[0].original_title,
-    source: feats[0].source,
-    requirements: feats[0].requirements,
+    id: feat.id,
+    category: feat.category,
+    title: feat.title,
+    originalTitle: feat.original_title,
+    source: feat.source,
+    requirements: feat.requirements,
     renderedDescription: renderedContent,
   }
 })

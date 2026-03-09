@@ -1,7 +1,7 @@
 import type {SitemapUrlInput} from '#sitemap/types'
 import {makeSlugLink} from '~~/shared/utils/links'
 
-type FeatData = {
+type BackgroundData = {
   id: number
   original_title: string
   date_updated: string
@@ -11,19 +11,19 @@ export default defineSitemapEventHandler(async () => {
   const {staticToken, backendAddress} = useRuntimeConfig()
 
   const {data: response} = await $fetch<{data: {count: string}[]}>(
-    `${backendAddress}/items/feats`,
+    `${backendAddress}/items/backgrounds`,
     {
       headers: {Authorization: `Bearer ${staticToken}`},
       query: {'aggregate[count]': '*'},
     }
   )
-  const featsCount = Number(response[0].count)
-  let totalFeats: FeatData[] = []
+  const backgroundsCount = Number(response[0].count)
+  let totalBackgrounds: BackgroundData[] = []
 
   const itemsPerPage = 100
-  for (let page = 0; page < featsCount / itemsPerPage; page += 1) {
-    const {data: feats} = await $fetch<{data: FeatData[]}>(
-      `${backendAddress}/items/feats`,
+  for (let page = 0; page < backgroundsCount / itemsPerPage; page += 1) {
+    const {data: backgrounds} = await $fetch<{data: BackgroundData[]}>(
+      `${backendAddress}/items/backgrounds`,
       {
         headers: {Authorization: `Bearer ${staticToken}`},
         query: {
@@ -32,16 +32,16 @@ export default defineSitemapEventHandler(async () => {
         },
       }
     )
-    totalFeats = totalFeats.concat(feats)
+    totalBackgrounds = totalBackgrounds.concat(backgrounds)
   }
 
   const output: SitemapUrlInput[] = []
-  for (const feat of totalFeats) {
-    const lastFeatUpdate = new Date(feat.date_updated)
+  for (const background of totalBackgrounds) {
+    const lastBackgroundUpdate = new Date(background.date_updated)
     output.push({
-      loc: `/feats/${makeSlugLink({id: feat.id, originalTitle: feat.original_title})}`,
+      loc: `/backgrounds/${makeSlugLink({id: background.id, originalTitle: background.original_title})}`,
       changefreq: 'monthly',
-      lastmod: lastFeatUpdate,
+      lastmod: lastBackgroundUpdate,
       _sitemap: 'pages',
     })
   }

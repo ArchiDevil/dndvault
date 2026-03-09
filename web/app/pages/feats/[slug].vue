@@ -29,10 +29,10 @@ useHead({
 })
 
 useSeoMeta({
-  title: `${feat.value?.title} (${feat.value?.original_title}) | DnD Vault`,
-  description: `Черта ${feat.value?.title} (${feat.value?.original_title}) DnD 2024`,
-  ogTitle: `${feat.value?.title} (${feat.value?.original_title}) | DnD Vault`,
-  ogDescription: `Черта ${feat.value?.title} (${feat.value?.original_title}) DnD 2024`,
+  title: `${feat.value?.title} (${feat.value?.originalTitle}) | DnD Vault`,
+  description: `Черта ${feat.value?.title} (${feat.value?.originalTitle}) DnD 2024`,
+  ogTitle: `${feat.value?.title} (${feat.value?.originalTitle}) | DnD Vault`,
+  ogDescription: `Черта ${feat.value?.title} (${feat.value?.originalTitle}) DnD 2024`,
   ogType: 'article',
   ogUrl: `https://dndvault.ru/feats/${featSlug.value}`,
 })
@@ -54,7 +54,7 @@ const sourceDescription = computed(
 <template>
   <div class="max-w-[750px]">
     <h1 class="text-2xl md:text-3xl font-semibold mt-4">
-      {{ feat?.title }} [{{ feat?.original_title }}]
+      {{ feat?.title }} [{{ feat?.originalTitle }}]
     </h1>
     <h2 class="text-lg md:text-xl italic text-zinc-700">{{ featSubtext }}</h2>
     <h3

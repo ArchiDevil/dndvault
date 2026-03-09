@@ -1,5 +1,5 @@
 import {type ShortFeatData} from '#shared/types/featTypes'
-import {sluggify} from '~~/shared/utils/language'
+import {makeSlugLink} from '~~/shared/utils/links'
 
 type DirectusFeat = {
   id: number
@@ -56,7 +56,7 @@ export default defineEventHandler(async (): Promise<ShortFeatData[]> => {
         (f) =>
           ({
             ...f,
-            slug: `${f.id}-${sluggify(f.original_title)}`,
+            slug: `${makeSlugLink({id: f.id, originalTitle: f.original_title})}`,
           }) satisfies ShortFeatData
       )
     )

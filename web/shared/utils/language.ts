@@ -90,9 +90,62 @@ export const mapSchoolName = (school: string) => {
   }
 }
 
-export const sluggify = (original: string) => {
-  return original
-    .toLowerCase()
-    .replaceAll(/[^A-Za-z0-9\s-]/g, '')
-    .replaceAll(/\s/g, '-')
+export const mapAbility = (original: string) => {
+  if (original === 'strength') {
+    return 'Сила'
+  } else if (original === 'dexterity') {
+    return 'Ловкость'
+  } else if (original === 'consitution') {
+    return 'Телосложение'
+  } else if (original === 'intelligence') {
+    return 'Интеллект'
+  } else if (original === 'wisdom') {
+    return 'Мудрость'
+  } else if (original === 'charisma') {
+    return 'Харизма'
+  } else {
+    return `Неизвестная характеристика ${original}`
+  }
+}
+
+export const mapSkill = (original: string) => {
+  if (original === 'acrobatics') {
+    return 'Акробатика'
+  } else if (original === 'athletics') {
+    return 'Атлетика'
+  } else if (original === 'perception') {
+    return 'Восприятие'
+  } else if (original === 'survival') {
+    return 'Выживание'
+  } else if (original === 'performance') {
+    return 'Выступление'
+  } else if (original === 'intimidation') {
+    return 'Запугивание'
+  } else if (original === 'history') {
+    return 'История'
+  } else if (original === 'sleight_of_hand') {
+    return 'Ловкость рук'
+  } else if (original === 'medicine') {
+    return 'Медицина'
+  } else if (original === 'deception') {
+    return 'Обман'
+  } else if (original === 'nature') {
+    return 'Природа'
+  } else if (original === 'insight') {
+    return 'Проницательность'
+  } else if (original === 'investigation') {
+    return 'Расследование'
+  } else if (original === 'religion') {
+    return 'Религия'
+  } else if (original === 'stealth') {
+    return 'Скрытность'
+  } else if (original === 'arcana') {
+    return 'Тайная магия'
+  } else if (original === 'persuasion') {
+    return 'Убеждение'
+  } else if (original === 'animal_handling') {
+    return 'Уход за животными'
+  } else {
+    return `Неизвестный навык ${original}`
+  }
 }

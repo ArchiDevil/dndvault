@@ -13,7 +13,7 @@ export type ShortFeatData = {
 export type FeatData = {
   id: number
   title: string
-  original_title: string
+  originalTitle: string
   source: {
     title: string
     description: string
