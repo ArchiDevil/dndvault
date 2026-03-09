@@ -23,7 +23,7 @@ useHead({
   link: [
     {
       rel: 'canonical',
-      href: `https://dndvault.ru/feats/${featId}`,
+      href: `https://dndvault.ru/feats/${featSlug.value}`,
     },
   ],
 })
@@ -34,7 +34,7 @@ useSeoMeta({
   ogTitle: `${feat.value?.title} (${feat.value?.original_title}) | DnD Vault`,
   ogDescription: `Черта ${feat.value?.title} (${feat.value?.original_title}) DnD 2024`,
   ogType: 'article',
-  ogUrl: `https://dndvault.ru/feats/${featId}`,
+  ogUrl: `https://dndvault.ru/feats/${featSlug.value}`,
 })
 
 const featSubtext = computed(() => {
