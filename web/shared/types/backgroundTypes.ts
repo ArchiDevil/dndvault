@@ -5,6 +5,7 @@ export type BackgroundData = {
   abilities: string[]
   featName: string
   featLink: string
+  featComment: string | null
   skills: string[]
   toolProficiency: string
   equipment: string

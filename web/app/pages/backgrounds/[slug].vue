@@ -66,6 +66,9 @@ const sourceDescription = computed(
           class="font-bold text-red-900 hover:text-red-950"
           :href="background?.featLink">
           {{ background?.featName }}
+          <template v-if="background?.featComment !== null">{{
+            background?.featComment
+          }}</template>
         </a>
       </li>
       <li>

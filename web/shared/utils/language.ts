@@ -95,7 +95,7 @@ export const mapAbility = (original: string) => {
     return 'Сила'
   } else if (original === 'dexterity') {
     return 'Ловкость'
-  } else if (original === 'consitution') {
+  } else if (original === 'constitution') {
     return 'Телосложение'
   } else if (original === 'intelligence') {
     return 'Интеллект'
