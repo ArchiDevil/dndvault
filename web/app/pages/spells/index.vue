@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import EntitiesCollectionList from '~/components/EntitiesCollectionList.vue'
 import FilterPopover from '~/components/FilterPopover.vue'
 import {mapSchoolName} from '~~/shared/utils/language'
-import {useRoute} from '#app'
-import {makeGroups} from '~/utils/filters'
+import {useRouteConfig} from '~/composables/useRouteConfig'
+import {makeGroups, type GroupTypers} from '~/utils/filters'
 
 const {data: spells} = await useFetch('/api/spells')
 
@@ -96,10 +97,7 @@ const classItems = computed(() => {
 })
 
 type Groupings = 'none' | 'alphabet' | 'levels' | 'sources' | 'schools'
-const groupTypers: Record<
-  Groupings,
-  ((spell: ShortSpellData) => string) | undefined
-> & {none: undefined} = {
+const groupTypers: GroupTypers<Groupings, ShortSpellData> = {
   none: undefined,
   alphabet: (spell: ShortSpellData) =>
     (spell.title.length > 0 && spell.title[0]) || '',
@@ -128,7 +126,7 @@ const config = useRouteConfig(
   router
 )
 
-const filteredSpells = computed(() => {
+const filteredItems = computed(() => {
   return (spells.value ?? [])
     .filter((s) => {
       return config.value.levels.findIndex((l) => l === s.level) !== -1
@@ -161,7 +159,7 @@ const filteredSpells = computed(() => {
 
 const groups = computed<
   {type: string; elements: ShortSpellData[]}[] | undefined
->(() => makeGroups(config.value.groupBy, groupTypers, filteredSpells.value))
+>(() => makeGroups(config.value.groupBy, groupTypers, filteredItems.value))
 </script>
 
 <template>
@@ -213,61 +211,9 @@ const groups = computed<
       </select>
     </div>
   </div>
-  <div class="lg:columns-2 xl:columns-3 pb-8">
-    <template v-if="groups === undefined">
-      <ul aria-label="Все заклинания">
-        <li v-for="spell in filteredSpells">
-          <NuxtLink
-            class="hover:font-semibold"
-            :to="{name: 'spells-id', params: {id: spell.id}}">
-            {{ spell.title }}
-            <span
-              v-if="spell.source?.title"
-              class="text-sm text-zinc-600">
-              ({{ spell.source.title }})
-            </span>
-          </NuxtLink>
-        </li>
-      </ul>
-    </template>
-    <template
-      v-else
-      v-for="group in groups">
-      <ul :aria-label="group.type">
-        <div
-          v-if="group.elements[0] !== undefined"
-          class="inline-block"
-          role="group">
-          <h2 class="font-semibold text-lg pt-2">
-            {{ group.type }}
-          </h2>
-
-          <li role="listitem">
-            <NuxtLink
-              class="hover:font-semibold"
-              :to="{name: 'spells-id', params: {id: group.elements[0].id}}">
-              {{ group.elements[0].title }}
-              <span
-                v-if="group.elements[0].source?.title"
-                class="text-sm text-zinc-600">
-                ({{ group.elements[0].source.title }})
-              </span>
-            </NuxtLink>
-          </li>
-        </div>
-        <li v-for="spell in group.elements.slice(1)">
-          <NuxtLink
-            class="hover:font-semibold"
-            :to="{name: 'spells-id', params: {id: spell.id}}">
-            {{ spell.title }}
-            <span
-              v-if="spell.source?.title"
-              class="text-sm text-zinc-600">
-              ({{ spell.source.title }})
-            </span>
-          </NuxtLink>
-        </li>
-      </ul>
-    </template>
-  </div>
+  <EntitiesCollectionList
+    no-group-header="Все заклинания"
+    route-path="spells-id"
+    :items="filteredItems"
+    :groups="groups" />
 </template>

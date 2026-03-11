@@ -1,3 +1,10 @@
+export type GroupTypers<GroupingT extends string | number, ItemType> = Record<
+  GroupingT,
+  ((spell: ItemType) => string) | undefined
+> & {
+  none: undefined
+}
+
 export const makeGroups = <GroupingT extends string, GroupElementT>(
   groupBy: GroupingT,
   groupers: Record<GroupingT, ((el: GroupElementT) => string) | undefined> & {
