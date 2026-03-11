@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import FilterPopover from '~/components/FilterPopover.vue'
+import {useRouteConfig} from '~/composables/useRouteConfig'
 import {mapFeatCategory} from '~~/shared/utils/language'
 import {makeGroups} from '~/utils/filters'
 
@@ -81,65 +82,38 @@ const defaultConfig = {
   groupBy: 'category' as Groupings,
 }
 
-const parseConfig = (
-  config: string
-): typeof defaultConfig & {[record: string]: any} => {
-  try {
-    return {
-      ...defaultConfig,
-      ...JSON.parse(config),
-    }
-  } catch (e) {
-    return defaultConfig
-  }
-}
-
 const route = useRoute()
-const initialConfig = parseConfig(route.query['config']?.toString() ?? '')
-
-const categoryValues = ref<string[]>(initialConfig.categories)
-const sourceValues = ref<string[]>(initialConfig.sources)
-const search = ref(initialConfig.search)
-const groupBy = ref<Groupings>(initialConfig.groupBy)
-
 const router = useRouter()
-watch([categoryValues, sourceValues, search, groupBy], () => {
-  router.replace({
-    query: {
-      config: JSON.stringify({
-        search: search.value,
-        categories: categoryValues.value,
-        sources: sourceValues.value,
-        groupBy: groupBy.value,
-      }),
-    },
-  })
-})
+const config = useRouteConfig(
+  defaultConfig,
+  route.query['config']?.toString(),
+  router
+)
 
 const filteredFeats = computed(() => {
   return (feats.value ?? [])
     .filter((f) => {
-      return categoryValues.value.findIndex((cv) => cv === f.category) !== -1
+      return config.value.categories.findIndex((cv) => cv === f.category) !== -1
     })
     .filter((f) => {
       if (f.source === undefined || f.source === null) {
         return true
       } else {
         return (
-          sourceValues.value.findIndex((sc) => sc === f.source?.title) !== -1
+          config.value.sources.findIndex((sc) => sc === f.source?.title) !== -1
         )
       }
     })
     .filter((f) => {
       return (f.title + f.original_title)
         .toLowerCase()
-        .includes(search.value.toLowerCase())
+        .includes(config.value.search.toLowerCase())
     })
 })
 
 const groups = computed<
   {type: string; elements: ShortFeatData[]}[] | undefined
->(() => makeGroups(groupBy.value, groupTypers, filteredFeats.value))
+>(() => makeGroups(config.value.groupBy, groupTypers, filteredFeats.value))
 </script>
 
 <template>
@@ -147,7 +121,7 @@ const groups = computed<
     <div class="flex flex-row gap-2 w-full md:w-auto">
       <input
         id="search"
-        v-model="search"
+        v-model="config.search"
         class="py-1 px-2 rounded bg-zinc-50 hover:bg-zinc-100 border border-zinc-500 transition w-full"
         placeholder="Поиск черты" />
     </div>
@@ -156,12 +130,12 @@ const groups = computed<
         trigger-text="Категории"
         trigger-icon="solar:widget-2-outline"
         :items="categoryItems"
-        v-model="categoryValues" />
+        v-model="config.categories" />
       <FilterPopover
         trigger-text="Источники"
         trigger-icon="solar:export-linear"
         :items="sourceItems"
-        v-model="sourceValues" />
+        v-model="config.sources" />
     </div>
     <div class="flex flex-row gap-2">
       <label
@@ -172,7 +146,7 @@ const groups = computed<
       <select
         id="group_by"
         class="px-2 py-1 rounded cursor-pointer"
-        v-model="groupBy">
+        v-model="config.groupBy">
         <option value="none">Без группировки</option>
         <option value="alphabet">Алфавиту</option>
         <option value="category">Категориям</option>

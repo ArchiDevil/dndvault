@@ -120,68 +120,34 @@ const defaultConfig = {
   groupBy: 'alphabet' as Groupings,
 }
 
-const parseConfig = (
-  config: string
-): typeof defaultConfig & {[record: string]: any} => {
-  try {
-    return {
-      ...defaultConfig,
-      ...JSON.parse(config),
-    }
-  } catch (e) {
-    return defaultConfig
-  }
-}
-
 const route = useRoute()
-const initialConfig = parseConfig(route.query['config']?.toString() ?? '')
-
-const levelValues = ref<number[]>(initialConfig.levels)
-const schoolValues = ref<string[]>(initialConfig.schools)
-const sourceValues = ref<string[]>(initialConfig.sources)
-const classValues = ref<string[]>(initialConfig.classes)
-const search = ref(initialConfig.search)
-const groupBy = ref<Groupings>(initialConfig.groupBy)
-
 const router = useRouter()
-watch(
-  [levelValues, schoolValues, sourceValues, classValues, search, groupBy],
-  () => {
-    router.replace({
-      query: {
-        config: JSON.stringify({
-          search: search.value,
-          levels: levelValues.value,
-          schools: schoolValues.value,
-          sources: sourceValues.value,
-          classes: classValues.value,
-          groupBy: groupBy.value,
-        }),
-      },
-    })
-  }
+const config = useRouteConfig(
+  defaultConfig,
+  route.query['config']?.toString(),
+  router
 )
 
 const filteredSpells = computed(() => {
   return (spells.value ?? [])
     .filter((s) => {
-      return levelValues.value.findIndex((l) => l === s.level) !== -1
+      return config.value.levels.findIndex((l) => l === s.level) !== -1
     })
     .filter((s) => {
-      return schoolValues.value.findIndex((sc) => sc === s.school) !== -1
+      return config.value.schools.findIndex((sc) => sc === s.school) !== -1
     })
     .filter((s) => {
       if (s.source === undefined || s.source === null) {
         return true
       } else {
         return (
-          sourceValues.value.findIndex((sc) => sc === s.source?.title) !== -1
+          config.value.sources.findIndex((sc) => sc === s.source?.title) !== -1
         )
       }
     })
     .filter((s) => {
       return (
-        classValues.value.findIndex(
+        config.value.classes.findIndex(
           (c) => s.classes.findIndex((sc) => sc === c) !== -1
         ) !== -1
       )
@@ -189,13 +155,13 @@ const filteredSpells = computed(() => {
     .filter((s) => {
       return (s.title + s.original_title)
         .toLowerCase()
-        .includes(search.value.toLowerCase())
+        .includes(config.value.search.toLowerCase())
     })
 })
 
 const groups = computed<
   {type: string; elements: ShortSpellData[]}[] | undefined
->(() => makeGroups(groupBy.value, groupTypers, filteredSpells.value))
+>(() => makeGroups(config.value.groupBy, groupTypers, filteredSpells.value))
 </script>
 
 <template>
@@ -203,7 +169,7 @@ const groups = computed<
     <div class="flex flex-row gap-2 w-full md:w-auto">
       <input
         id="search"
-        v-model="search"
+        v-model="config.search"
         class="py-1 px-2 rounded bg-zinc-50 hover:bg-zinc-100 border border-zinc-500 transition w-full"
         placeholder="Поиск заклинания" />
     </div>
@@ -212,22 +178,22 @@ const groups = computed<
         trigger-text="Уровни"
         trigger-icon="solar:circle-top-up-linear"
         :items="levelItems"
-        v-model="levelValues" />
+        v-model="config.levels" />
       <FilterPopover
         trigger-text="Классы"
         trigger-icon="solar:crown-minimalistic-linear"
         :items="classItems"
-        v-model="classValues" />
+        v-model="config.classes" />
       <FilterPopover
         trigger-text="Школы"
         trigger-icon="solar:star-fall-2-linear"
         :items="schoolItems"
-        v-model="schoolValues" />
+        v-model="config.schools" />
       <FilterPopover
         trigger-text="Источники"
         trigger-icon="solar:export-linear"
         :items="sourceItems"
-        v-model="sourceValues" />
+        v-model="config.sources" />
     </div>
     <div class="flex flex-row gap-2">
       <label
@@ -238,7 +204,7 @@ const groups = computed<
       <select
         id="group_by"
         class="px-2 py-1 rounded cursor-pointer"
-        v-model="groupBy">
+        v-model="config.groupBy">
         <option value="none">Без группировки</option>
         <option value="alphabet">Алфавиту</option>
         <option value="sources">Источникам</option>
