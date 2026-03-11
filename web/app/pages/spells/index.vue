@@ -98,15 +98,30 @@ const classItems = computed(() => {
 
 type Groupings = 'none' | 'alphabet' | 'levels' | 'sources' | 'schools'
 const groupTypers: GroupTypers<Groupings, ShortSpellData> = {
-  none: undefined,
-  alphabet: (spell: ShortSpellData) =>
-    (spell.title.length > 0 && spell.title[0]) || '',
-  levels: (spell: ShortSpellData) =>
-    spell.level === 0
-      ? '0 уровень (заговоры)'
-      : `${spell.level.toString()} уровень`,
-  schools: (spell: ShortSpellData) => mapSchoolName(spell.school),
-  sources: (spell: ShortSpellData) => spell.source?.title ?? '',
+  none: {
+    label: 'Без группировки',
+    grouper: undefined,
+  },
+  alphabet: {
+    label: 'Алфавиту',
+    grouper: (spell: ShortSpellData) =>
+      (spell.title.length > 0 && spell.title[0]) || '',
+  },
+  sources: {
+    label: 'Источникам',
+    grouper: (spell: ShortSpellData) => spell.source?.title ?? '',
+  },
+  levels: {
+    label: 'Уровням',
+    grouper: (spell: ShortSpellData) =>
+      spell.level === 0
+        ? '0 уровень (заговоры)'
+        : `${spell.level.toString()} уровень`,
+  },
+  schools: {
+    label: 'Школам',
+    grouper: (spell: ShortSpellData) => mapSchoolName(spell.school),
+  },
 }
 
 const defaultConfig = {
@@ -203,11 +218,11 @@ const groups = computed<
         id="group_by"
         class="px-2 py-1 rounded cursor-pointer"
         v-model="config.groupBy">
-        <option value="none">Без группировки</option>
-        <option value="alphabet">Алфавиту</option>
-        <option value="sources">Источникам</option>
-        <option value="levels">Уровням</option>
-        <option value="schools">Школам</option>
+        <option
+          v-for="groupItem of Object.keys(groupTypers)"
+          :value="groupItem">
+          {{ groupTypers[groupItem as Groupings].label }}
+        </option>
       </select>
     </div>
   </div>

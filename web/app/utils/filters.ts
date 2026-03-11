@@ -1,24 +1,35 @@
 export type GroupTypers<GroupingT extends string | number, ItemType> = Record<
   GroupingT,
-  ((spell: ItemType) => string) | undefined
+  {
+    label: string
+    grouper: ((spell: ItemType) => string) | undefined
+  }
 > & {
-  none: undefined
+  none: {
+    label: string
+    grouper: undefined
+  }
 }
 
 export const makeGroups = <GroupingT extends string, GroupElementT>(
   groupBy: GroupingT,
-  groupers: Record<GroupingT, ((el: GroupElementT) => string) | undefined> & {
-    none: undefined
+  groupers: Record<
+    GroupingT,
+    {
+      grouper: ((el: GroupElementT) => string) | undefined
+    }
+  > & {
+    none: {grouper: undefined}
   },
   elements: GroupElementT[]
 ) => {
   let typer: ((element: GroupElementT) => string) | undefined = undefined
 
   if (Object.keys(groupers).includes(groupBy)) {
-    typer = groupers[groupBy] ?? undefined
+    typer = groupers[groupBy].grouper ?? undefined
   } else {
     console.error('Unknown grouping type')
-    typer = groupers.none
+    typer = groupers.none.grouper
   }
 
   if (!typer) return undefined

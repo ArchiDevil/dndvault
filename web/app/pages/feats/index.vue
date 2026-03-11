@@ -66,11 +66,23 @@ const sourceItems = computed(() => {
 
 type Groupings = 'none' | 'alphabet' | 'category' | 'sources'
 const groupTypers: GroupTypers<Groupings, ShortFeatData> = {
-  none: undefined,
-  alphabet: (feat: ShortFeatData) =>
-    (feat.title.length > 0 && feat.title[0]) || '',
-  category: (feat: ShortFeatData) => mapFeatCategory(feat.category),
-  sources: (feat: ShortFeatData) => feat.source?.title ?? '',
+  none: {
+    label: 'Без группировки',
+    grouper: undefined,
+  },
+  alphabet: {
+    label: 'Алфавиту',
+    grouper: (feat: ShortFeatData) =>
+      (feat.title.length > 0 && feat.title[0]) || '',
+  },
+  sources: {
+    label: 'Источникам',
+    grouper: (feat: ShortFeatData) => feat.source?.title ?? '',
+  },
+  category: {
+    label: 'Категориям',
+    grouper: (feat: ShortFeatData) => mapFeatCategory(feat.category),
+  },
 }
 
 const defaultConfig = {
@@ -145,10 +157,11 @@ const groups = computed<
         id="group_by"
         class="px-2 py-1 rounded cursor-pointer"
         v-model="config.groupBy">
-        <option value="none">Без группировки</option>
-        <option value="alphabet">Алфавиту</option>
-        <option value="category">Категориям</option>
-        <option value="sources">Источникам</option>
+        <option
+          v-for="groupItem of Object.keys(groupTypers)"
+          :value="groupItem">
+          {{ groupTypers[groupItem as Groupings].label }}
+        </option>
       </select>
     </div>
   </div>
