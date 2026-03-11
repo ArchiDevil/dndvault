@@ -1,3 +1,16 @@
+export type ShortBackgroundData = {
+  id: number
+  title: string
+  original_title: string
+  slug: string
+  abilities: string[]
+  skills: string[]
+  source: {
+    title: string
+    description: string
+  } | null
+}
+
 export type BackgroundData = {
   id: number
   title: string
