@@ -80,7 +80,7 @@ const sourceDescription = computed(
         {{ background?.toolProficiency }}
       </li>
       <li class="mback">
-        <strong>Снаряжение:</strong> <template v-html="background?.equipment" />
+        <strong>Снаряжение:</strong> <span v-html="background?.equipment" />
       </li>
     </ul>
     <article
@@ -90,7 +90,11 @@ const sourceDescription = computed(
 </template>
 
 <style>
-.mback > p {
+.mback > span {
+  @apply inline;
+}
+
+.mback > span > p {
   @apply inline;
 }
 </style>
