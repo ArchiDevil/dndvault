@@ -80,6 +80,12 @@ const route = useRoute()
         to="/feats">
         Черты
       </NuxtLink>
+      <NuxtLink
+        class="hover:font-semibold underline-offset-4"
+        :class="{'font-semibold': route.path == '/backgrounds'}"
+        to="/backgrounds">
+        Предыстории
+      </NuxtLink>
     </div>
   </nav>
 </template>
