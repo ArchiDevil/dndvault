@@ -62,6 +62,22 @@ const sourceDescription = computed(
       :title="sourceDescription">
       Источник: {{ sourceTitle }}
     </h3>
+    <p
+      v-if="feat?.backgrounds !== undefined && feat.backgrounds !== null"
+      class="mt-4 italic">
+      Эту черту дают следующие происхождения:
+    </p>
+    <ul class="list-disc list-inside">
+      <li
+        v-for="back in feat?.backgrounds"
+        :key="back.id">
+        <NuxtLink
+          :href="`/backgrounds/${makeSlugLink(back)}`"
+          class="font-semibold text-red-900 hover:text-red-950">
+          {{ back.title }}
+        </NuxtLink>
+      </li>
+    </ul>
     <article
       class="cc mt-4"
       v-html="feat?.renderedDescription" />

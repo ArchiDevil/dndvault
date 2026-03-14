@@ -19,6 +19,12 @@ type DirectusFeat = {
   } | null
 }
 
+type DirectusBackground = {
+  id: number
+  title: string
+  original_title: string
+}
+
 export default defineEventHandler(async (event): Promise<FeatData> => {
   const {staticToken, backendAddress} = useRuntimeConfig()
   const fid = Number(getRouterParam(event, 'fid'))
@@ -69,11 +75,39 @@ export default defineEventHandler(async (event): Promise<FeatData> => {
     async: true,
   })
 
+  let backs: DirectusBackground[] | null = null
+  if (feat.category === 'origin') {
+    const {data: backgrounds} = await $fetch<{data: DirectusBackground[]}>(
+      `${backendAddress}/items/backgrounds`,
+      {
+        headers: {
+          Authorization: `Bearer ${staticToken}`,
+        },
+        query: {
+          filter: {
+            feat: {
+              _eq: fid,
+            },
+          },
+          fields: ['id', 'title', 'original_title'].join(','),
+          sort: ['title'],
+        },
+      }
+    )
+    backs = backgrounds
+  }
+
   return {
     id: feat.id,
     category: feat.category,
     title: feat.title,
     originalTitle: feat.original_title,
+    backgrounds:
+      backs?.map((b) => ({
+        id: b.id,
+        title: b.title,
+        originalTitle: b.original_title,
+      })) || null,
     source: feat.source,
     requirements: feat.requirements,
     renderedDescription: renderedContent,

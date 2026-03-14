@@ -14,6 +14,13 @@ export type FeatData = {
   id: number
   title: string
   originalTitle: string
+  backgrounds:
+    | {
+        id: number
+        title: string
+        originalTitle: string
+      }[]
+    | null
   source: {
     title: string
     description: string
