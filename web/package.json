@@ -13,17 +13,17 @@
     "@nuxt/devtools": "latest",
     "@nuxt/icon": "^2.2.1",
     "@nuxtjs/tailwindcss": "^6.14.0",
-    "nuxt": "^4.3.1"
+    "nuxt": "^4.4.2"
   },
   "dependencies": {
     "@nuxtjs/robots": "^5.7.1",
     "@nuxtjs/sitemap": "^7.6.0",
-    "marked": "^17.0.3",
+    "marked": "^17.0.4",
     "marked-directive": "^1.0.7",
-    "reka-ui": "^2.9.0"
+    "reka-ui": "^2.9.2"
   },
   "overrides": {
     "vue": "latest"
   },
-  "packageManager": "pnpm@10.26.2+sha512.0e308ff2005fc7410366f154f625f6631ab2b16b1d2e70238444dd6ae9d630a8482d92a451144debc492416896ed16f7b114a86ec68b8404b2443869e68ffda6"
+  "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be"
 }

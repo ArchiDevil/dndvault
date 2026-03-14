@@ -85,6 +85,11 @@ export default defineNuxtConfig({
   nitro: {
     serveStatic: false,
   },
+  vite: {
+    optimizeDeps: {
+      include: ['marked', 'reka-ui'],
+    },
+  },
   routeRules: {
     '/magic-items': {robots: false, sitemap: false},
     '/monsters': {robots: false, sitemap: false},
