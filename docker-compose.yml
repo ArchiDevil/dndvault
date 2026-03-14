@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres:16.11-alpine
-    restart: on-failure
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -22,7 +22,7 @@ services:
 
   backend:
     image: directus/directus:11.14
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
@@ -54,7 +54,7 @@ services:
     build:
       context: .
       dockerfile: web.Dockerfile
-    restart: on-failure
+    restart: unless-stopped
     environment:
       NITRO_BACKEND_ADDRESS: http://backend:8055
       NITRO_STATIC_TOKEN: ${SERVER_STATIC_TOKEN}
@@ -65,7 +65,7 @@ services:
     build:
       context: .
       dockerfile: proxy.Dockerfile
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - frontend
     ports:
