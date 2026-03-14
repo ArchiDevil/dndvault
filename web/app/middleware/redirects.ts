@@ -23,4 +23,21 @@ export default defineNuxtRouteMiddleware(async (to) => {
       })
     }
   }
+  {
+    const regex = '^/spells/(\\d+)$'
+    const match = to.path.match(regex)
+    if (match != null) {
+      const spellId = match[1]
+      const spellData = await $fetch(`/api/spells/${spellId}`)
+      return navigateTo(
+        `/spells/${makeSlugLink({
+          id: spellData.id,
+          originalTitle: spellData.original_title,
+        })}`,
+        {
+          redirectCode: 308,
+        }
+      )
+    }
+  }
 })

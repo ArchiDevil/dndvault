@@ -228,7 +228,7 @@ const groups = computed<
   </div>
   <EntitiesCollectionList
     no-group-header="Все заклинания"
-    route-path="spells-id"
+    route-path="spells-slug"
     :items="filteredItems"
     :groups="groups" />
 </template>

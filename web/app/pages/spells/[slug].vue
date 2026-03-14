@@ -2,16 +2,28 @@
 import {mapSchoolName} from '~~/shared/utils/language'
 import '~/assets/css/generic.css'
 
-const route = useRoute()
-const spellId = computed(() => route.params.id)
+definePageMeta({
+  middleware: 'redirects',
+})
 
-const {data: spell} = await useFetch(`/api/spells/${spellId.value}`)
+const route = useRoute()
+const spellSlug = computed(() => route.params.slug) as ComputedRef<
+  string | undefined
+>
+const spellId = spellSlug.value!.split('-')[0]
+if (spellId === undefined) {
+  throw createError({
+    status: 404,
+  })
+}
+
+const {data: spell} = await useFetch(`/api/spells/${spellId}`)
 
 useHead({
   link: [
     {
       rel: 'canonical',
-      href: `https://dndvault.ru/spells/${spellId.value}`,
+      href: `https://dndvault.ru/spells/${spellSlug.value}`,
     },
   ],
 })
@@ -22,7 +34,7 @@ useSeoMeta({
   ogTitle: `${spell.value?.title} (${spell.value?.original_title}) | DnD Vault`,
   ogDescription: `Заклинание ${spell.value?.title} (${spell.value?.original_title}) DnD 2024`,
   ogType: 'article',
-  ogUrl: `https://dndvault.ru/spells/${spellId.value}`,
+  ogUrl: `https://dndvault.ru/spells/${spellSlug.value}`,
 })
 
 const spellSubtext = computed(() => {

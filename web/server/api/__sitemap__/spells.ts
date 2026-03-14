@@ -3,6 +3,7 @@ import type {SitemapUrlInput} from '#sitemap/types'
 type SpellData = {
   id: number
   date_updated: string
+  original_title: string
 }
 
 export default defineSitemapEventHandler(async () => {
@@ -25,7 +26,7 @@ export default defineSitemapEventHandler(async () => {
       {
         headers: {Authorization: `Bearer ${staticToken}`},
         query: {
-          fields: 'id,date_updated',
+          fields: 'id,date_updated,original_title',
           offset: itemsPerPage * page,
         },
       }
@@ -37,7 +38,7 @@ export default defineSitemapEventHandler(async () => {
   for (const spell of totalSpells) {
     const lastSpellUpdate = new Date(spell.date_updated)
     output.push({
-      loc: `/spells/${spell.id}`,
+      loc: `/spells/${makeSlugLink({id: spell.id, originalTitle: spell.original_title})}`,
       changefreq: 'monthly',
       lastmod: lastSpellUpdate,
       _sitemap: 'pages',

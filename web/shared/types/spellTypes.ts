@@ -2,6 +2,7 @@ export type ShortSpellData = {
   id: number
   title: string
   original_title: string
+  slug: string
   level: number
   school: string
   classes: string[]

@@ -67,5 +67,6 @@ export default defineEventHandler(async (): Promise<ShortSpellData[]> => {
     school: s.school,
     classes: s.classes.map((c) => c.classes_id.title),
     source: s.source,
+    slug: makeSlugLink({id: s.id, originalTitle: s.original_title}),
   }))
 })
