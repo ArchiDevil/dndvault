@@ -91,6 +91,10 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
+    '/spells/**': {swr: 3600},
+    '/feats/**': {swr: 3600},
+    '/backgrounds/**': {swr: 3600},
+
     '/magic-items': {robots: false, sitemap: false},
     '/monsters': {robots: false, sitemap: false},
     '/facilities': {robots: false, sitemap: false},
