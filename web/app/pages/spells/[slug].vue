@@ -29,9 +29,9 @@ useHead({
 })
 
 useSeoMeta({
-  title: `${spell.value?.title} (${spell.value?.original_title}) | DnD Vault`,
+  title: `${spell.value?.title} (${spell.value?.original_title}) | Заклинания DnD 2024 | DnD Vault`,
   description: `Заклинание ${spell.value?.title} (${spell.value?.original_title}) DnD 2024`,
-  ogTitle: `${spell.value?.title} (${spell.value?.original_title}) | DnD Vault`,
+  ogTitle: `${spell.value?.title} (${spell.value?.original_title}) | Заклинания DnD 2024 | DnD Vault`,
   ogDescription: `Заклинание ${spell.value?.title} (${spell.value?.original_title}) DnD 2024`,
   ogType: 'article',
   ogUrl: `https://dndvault.ru/spells/${spellSlug.value}`,

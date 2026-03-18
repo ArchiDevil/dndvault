@@ -29,9 +29,9 @@ useHead({
 })
 
 useSeoMeta({
-  title: `${background.value?.title} (${background.value?.originalTitle}) | DnD Vault`,
+  title: `${background.value?.title} (${background.value?.originalTitle}) | Предыстории DnD 2024 | DnD Vault`,
   description: `Предыстория ${background.value?.title} (${background.value?.originalTitle}) DnD 2024`,
-  ogTitle: `${background.value?.title} (${background.value?.originalTitle}) | DnD Vault`,
+  ogTitle: `${background.value?.title} (${background.value?.originalTitle}) | Предыстории DnD 2024 | DnD Vault`,
   ogDescription: `Предыстория ${background.value?.title} (${background.value?.originalTitle}) DnD 2024`,
   ogType: 'article',
   ogUrl: `https://dndvault.ru/backgrounds/${backgroundSlug.value}`,
