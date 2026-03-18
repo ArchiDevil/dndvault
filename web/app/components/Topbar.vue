@@ -59,9 +59,9 @@ const route = useRoute()
     </div>
     <div
       id="apps-row"
-      class="flex flex-row gap-4 text-lg">
+      class="text-lg">
       <NuxtLink
-        class="hover:font-semibold underline-offset-4"
+        class="hover:font-semibold underline-offset-4 inline-block mr-4"
         :class="{
           'font-semibold': route.path == '/' || route.path.includes('/book-'),
         }"
@@ -69,19 +69,19 @@ const route = useRoute()
         Материалы
       </NuxtLink>
       <NuxtLink
-        class="hover:font-semibold underline-offset-4"
+        class="hover:font-semibold underline-offset-4 inline-block mr-4"
         :class="{'font-semibold': route.path == '/spells'}"
         to="/spells">
         Заклинания
       </NuxtLink>
       <NuxtLink
-        class="hover:font-semibold underline-offset-4"
+        class="hover:font-semibold underline-offset-4 inline-block mr-4"
         :class="{'font-semibold': route.path == '/feats'}"
         to="/feats">
         Черты
       </NuxtLink>
       <NuxtLink
-        class="hover:font-semibold underline-offset-4"
+        class="hover:font-semibold underline-offset-4 inline-block mr-4"
         :class="{'font-semibold': route.path == '/backgrounds'}"
         to="/backgrounds">
         Предыстории

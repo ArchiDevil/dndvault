@@ -54,19 +54,19 @@ const supplementaryLinks = computed(() =>
       <div class="mt-2">
         <a
           v-if="downloadLink !== undefined"
-          class="block mr-2"
+          class="mr-2"
           :href="downloadPath">
           Скачать
         </a>
         <a
           v-if="chapters.length > 0"
-          class="block mr-2"
+          class="mr-2"
           :href="openPath">
           Читать
         </a>
         <a
           v-for="supp in supplementaryLinks"
-          class="block mr-2"
+          class="mr-2"
           :href="supp.link">
           {{ supp.title }}
         </a>
