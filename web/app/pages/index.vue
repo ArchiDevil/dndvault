@@ -33,6 +33,7 @@ useSeoMeta({
       :description="book.description"
       :download-link="book.file"
       :chapters="book.chapters"
-      :slug="book.slug" />
+      :slug="book.slug"
+      :supplementaries="book.supplementaries" />
   </main>
 </template>

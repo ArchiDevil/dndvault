@@ -21,6 +21,15 @@ type DirectusBook = {
     | null
 }
 
+type DirectusSupplementary = {
+  id: number
+  title: string
+  file: string
+  book: {
+    id: number
+  }
+}
+
 type ApiBook = {
   id: number
   slug: string
@@ -30,11 +39,16 @@ type ApiBook = {
   file?: string
   chapters: number[]
   tags: {id: number; name: string}[]
+  supplementaries: {
+    id: number
+    title: string
+    file: string
+  }[]
 }
 
 export default defineEventHandler(async (): Promise<ApiBook[]> => {
   const {staticToken, backendAddress} = useRuntimeConfig()
-  const books = await $fetch<{data: DirectusBook[]}>(
+  const {data: books} = await $fetch<{data: DirectusBook[]}>(
     `${backendAddress}/items/books`,
     {
       headers: {
@@ -42,8 +56,17 @@ export default defineEventHandler(async (): Promise<ApiBook[]> => {
       },
       query: {
         // This list must be in sync with DirectusBook type
-        fields:
-          'id,slug,title,description,status,file,cover,chapters,tags.book_tags_id.*',
+        fields: [
+          'id',
+          'slug',
+          'title',
+          'description',
+          'status',
+          'file',
+          'cover',
+          'chapters',
+          'tags.book_tags_id.*',
+        ].join(','),
         deep: {
           chapters: {
             _filter: {
@@ -56,8 +79,29 @@ export default defineEventHandler(async (): Promise<ApiBook[]> => {
       },
     }
   )
+
+  const bookIds = books.map((b) => b.id)
+  const {data: supplementaries} = await $fetch<{data: DirectusSupplementary[]}>(
+    `${backendAddress}/items/supplementaries`,
+    {
+      headers: {
+        Authorization: `Bearer ${staticToken}`,
+      },
+      query: {
+        fields: 'id,title,file,book.id',
+        filter: {
+          book: {
+            id: {
+              _in: bookIds,
+            },
+          },
+        },
+      },
+    }
+  )
+
   return (
-    books.data
+    books
       .filter((b) => b.status === 'published')
       .map((b) => ({
         id: b.id,
@@ -72,6 +116,7 @@ export default defineEventHandler(async (): Promise<ApiBook[]> => {
           })) || [],
         cover: b.cover ?? undefined,
         file: b.file ?? undefined,
+        supplementaries: supplementaries.filter((s) => s.book.id == b.id),
       })) || []
   )
 })

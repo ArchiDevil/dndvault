@@ -9,6 +9,7 @@ const {
   cover,
   downloadLink,
   chapters,
+  supplementaries,
 } = defineProps<{
   slug: string
   title: string
@@ -17,11 +18,21 @@ const {
   cover?: string
   downloadLink?: string
   chapters: any[]
+  supplementaries: {title: string; file: string}[]
 }>()
 
-const coverPath = computed(() => `/api/assets/${cover}?width=210&height=300&fit=contain&quality=75&format=webp`)
+const coverPath = computed(
+  () =>
+    `/api/assets/${cover}?width=210&height=300&fit=contain&quality=75&format=webp`
+)
 const downloadPath = computed(() => `/api/assets/${downloadLink}?download`)
 const openPath = computed(() => `/book-${slug}`)
+const supplementaryLinks = computed(() =>
+  supplementaries.map((s) => ({
+    title: s.title,
+    link: `/api/assets/${s.file}?download`,
+  }))
+)
 </script>
 
 <template>
@@ -40,16 +51,24 @@ const openPath = computed(() => `/book-${slug}`)
       <div class="flex flex-row gap-2 font-light text-sm mt-1">
         <template v-for="tag in tags">#{{ tag.name }}</template>
       </div>
-      <div class="flex flex-row gap-2 mt-2">
+      <div class="mt-2">
         <a
           v-if="downloadLink !== undefined"
+          class="block mr-2"
           :href="downloadPath">
           Скачать
         </a>
         <a
           v-if="chapters.length > 0"
+          class="block mr-2"
           :href="openPath">
           Читать
+        </a>
+        <a
+          v-for="supp in supplementaryLinks"
+          class="block mr-2"
+          :href="supp.link">
+          {{ supp.title }}
         </a>
       </div>
     </div>
@@ -58,7 +77,7 @@ const openPath = computed(() => `/book-${slug}`)
 
 <style scoped>
 a {
-  @apply no-underline inline-block my-2 px-2 py-1 rounded;
+  @apply no-underline inline-block my-1 px-2 py-1 rounded;
   @apply bg-zinc-300 hover:bg-zinc-500 hover:text-zinc-100;
 }
 </style>
