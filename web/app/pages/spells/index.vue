@@ -70,7 +70,7 @@ const sourceItems = computed(() => {
       output.findIndex((o) => o.value === spellSrc.title) === -1
     ) {
       output.push({
-        label: spellSrc.title,
+        label: spellSrc.description,
         value: spellSrc.title,
       })
     }

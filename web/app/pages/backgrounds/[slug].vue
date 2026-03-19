@@ -37,9 +37,6 @@ useSeoMeta({
   ogUrl: `https://dndvault.ru/backgrounds/${backgroundSlug.value}`,
 })
 
-const sourceTitle = computed(
-  (): string => background.value?.source?.title || 'Неизвестный источник'
-)
 const sourceDescription = computed(
   (): string => background.value?.source?.description || 'Неизвестный источник'
 )
@@ -50,11 +47,7 @@ const sourceDescription = computed(
     <h1 class="text-2xl md:text-3xl font-semibold mt-4">
       {{ background?.title }} [{{ background?.originalTitle }}]
     </h1>
-    <h3
-      class="text-sm text-zinc-700"
-      :title="sourceDescription">
-      Источник: {{ sourceTitle }}
-    </h3>
+    <h3 class="text-sm text-zinc-700">Источник: {{ sourceDescription }}</h3>
     <ul class="mt-4">
       <li>
         <strong class="whitespace-pre">Значения характеристик:</strong>

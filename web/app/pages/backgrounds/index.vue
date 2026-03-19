@@ -82,7 +82,7 @@ const sourceItems = computed(() => {
       output.findIndex((o) => o.value === backgroundSrc.title) === -1
     ) {
       output.push({
-        label: backgroundSrc.title,
+        label: backgroundSrc.description,
         value: backgroundSrc.title,
       })
     }

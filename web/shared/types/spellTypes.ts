@@ -8,6 +8,7 @@ export type ShortSpellData = {
   classes: string[]
   source: {
     title: string
+    description: string
   } | null
 }
 

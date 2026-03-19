@@ -43,9 +43,6 @@ const featSubtext = computed(() => {
   return requirements ? `${category} (Требования: ${requirements})` : category
 })
 
-const sourceTitle = computed(
-  (): string => feat.value?.source?.title || 'Неизвестный источник'
-)
 const sourceDescription = computed(
   (): string => feat.value?.source?.description || 'Неизвестный источник'
 )
@@ -57,11 +54,7 @@ const sourceDescription = computed(
       {{ feat?.title }} [{{ feat?.originalTitle }}]
     </h1>
     <h2 class="text-lg md:text-xl italic text-zinc-700">{{ featSubtext }}</h2>
-    <h3
-      class="text-sm text-zinc-700"
-      :title="sourceDescription">
-      Источник: {{ sourceTitle }}
-    </h3>
+    <h3 class="text-sm text-zinc-700">Источник: {{ sourceDescription }}</h3>
     <p
       v-if="feat?.backgrounds !== undefined && feat.backgrounds !== null"
       class="mt-4 italic">

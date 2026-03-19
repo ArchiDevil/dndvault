@@ -48,9 +48,6 @@ const spellSubtext = computed(() => {
   return `${level}, ${mapSchoolName(spell.value.school)} (${classes})`
 })
 
-const sourceTitle = computed(
-  (): string => spell.value?.source?.title || 'Неизвестный источник'
-)
 const sourceDescription = computed(
   (): string => spell.value?.source?.description || 'Неизвестный источник'
 )
@@ -62,11 +59,7 @@ const sourceDescription = computed(
       {{ spell?.title }} [{{ spell?.original_title }}]
     </h1>
     <h2 class="text-lg md:text-xl italic text-zinc-700">{{ spellSubtext }}</h2>
-    <h3
-      class="text-sm text-zinc-700"
-      :title="sourceDescription">
-      Источник: {{ sourceTitle }}
-    </h3>
+    <h3 class="text-sm text-zinc-700">Источник: {{ sourceDescription }}</h3>
     <ul class="mt-4">
       <li><strong>Время сотворения:</strong> {{ spell?.casting_time }}</li>
       <li><strong>Дистанция:</strong> {{ spell?.range }}</li>

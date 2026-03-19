@@ -13,6 +13,7 @@ type DirectusSpell = {
   }[]
   source: {
     title: string
+    description: string
   } | null
 }
 
@@ -50,6 +51,7 @@ export default defineEventHandler(async (): Promise<ShortSpellData[]> => {
             'school',
             'classes.classes_id.title',
             'source.title',
+            'source.description',
           ].join(','),
           sort: 'title',
           offset: itemsPerPage * page,
