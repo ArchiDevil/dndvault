@@ -149,3 +149,35 @@ export const mapSkill = (original: string) => {
     return `Неизвестный навык ${original}`
   }
 }
+
+export const mapFacilitySize = (original: string) => {
+  if (original === 'cramped') {
+    return 'Тесное'
+  } else if (original === 'roomy') {
+    return 'Вместительное'
+  } else if (original === 'vast') {
+    return 'Просторное'
+  } else {
+    return `Неизвестный размер ${original}`
+  }
+}
+
+export const mapFacilityOrder = (original: string) => {
+  if (original === 'recruit') {
+    return 'Вербовка'
+  } else if (original === 'craft') {
+    return 'Изготовление'
+  } else if (original === 'research') {
+    return 'Исследование'
+  } else if (original === 'maintain') {
+    return 'Поддержание'
+  } else if (original === 'harvest') {
+    return 'Сбор'
+  } else if (original === 'trade') {
+    return 'Торговля'
+  } else if (original === 'empower') {
+    return 'Усиление'
+  } else {
+    return `Неизвестный размер ${original}`
+  }
+}

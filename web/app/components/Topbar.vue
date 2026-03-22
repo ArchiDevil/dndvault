@@ -96,6 +96,12 @@ const route = useRoute()
         to="/backgrounds">
         Предыстории
       </NuxtLink>
+      <NuxtLink
+        class="hover:font-semibold underline-offset-4 inline-block mr-4"
+        :class="{'font-semibold': route.path.startsWith('/facilities')}"
+        to="/facilities">
+        Сооружения
+      </NuxtLink>
     </div>
   </nav>
 </template>

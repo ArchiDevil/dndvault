@@ -64,6 +64,7 @@ export default defineNuxtConfig({
       '/api/__sitemap__/books',
       '/api/__sitemap__/feats',
       '/api/__sitemap__/spells',
+      '/api/__sitemap__/facilities',
     ],
   },
   tailwindcss: {
@@ -94,10 +95,10 @@ export default defineNuxtConfig({
     '/spells/**': {swr: 3600},
     '/feats/**': {swr: 3600},
     '/backgrounds/**': {swr: 3600},
+    '/facilities/**': {swr: 3600},
 
     '/magic-items': {robots: false, sitemap: false},
     '/monsters': {robots: false, sitemap: false},
-    '/facilities': {robots: false, sitemap: false},
     '/species': {robots: false, sitemap: false},
   },
 })

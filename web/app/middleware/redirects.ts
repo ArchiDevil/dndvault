@@ -40,4 +40,15 @@ export default defineNuxtRouteMiddleware(async (to) => {
       )
     }
   }
+  {
+    const regex = '^/facilities/(\\d+)$'
+    const match = to.path.match(regex)
+    if (match != null) {
+      const facilityId = match[1]
+      const facilityData = await $fetch(`/api/facilities/${facilityId}`)
+      return navigateTo(`/facilities/${makeSlugLink(facilityData)}`, {
+        redirectCode: 308,
+      })
+    }
+  }
 })
