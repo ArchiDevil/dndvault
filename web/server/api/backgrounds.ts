@@ -1,5 +1,6 @@
 import {type ShortBackgroundData} from '#shared/types/backgroundTypes'
 import {makeSlugLink} from '~~/shared/utils/links'
+import {getItemsCount} from '../utils/getCount'
 
 type DirectusBackground = {
   id: number
@@ -15,21 +16,9 @@ type DirectusBackground = {
 
 export default defineEventHandler(async (): Promise<ShortBackgroundData[]> => {
   const {staticToken, backendAddress} = useRuntimeConfig()
+  const itemsCount = await getItemsCount(`${backendAddress}/items/backgrounds`)
 
-  const {data: response} = await $fetch<{data: {count: string}[]}>(
-    `${backendAddress}/items/backgrounds`,
-    {
-      headers: {
-        Authorization: `Bearer ${staticToken}`,
-      },
-      query: {
-        'aggregate[count]': '*',
-      },
-    }
-  )
-  const itemsCount = Number(response[0].count)
   const itemsPerPage = 100
-
   let totalItems: ShortBackgroundData[] = []
   for (let page = 0; page < itemsCount / itemsPerPage; page += 1) {
     const {data: backgrounds} = await $fetch<{data: DirectusBackground[]}>(

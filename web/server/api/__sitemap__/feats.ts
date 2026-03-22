@@ -9,19 +9,11 @@ type FeatData = {
 
 export default defineSitemapEventHandler(async () => {
   const {staticToken, backendAddress} = useRuntimeConfig()
+  const itemsCount = await getItemsCount(`${backendAddress}/items/feats`)
 
-  const {data: response} = await $fetch<{data: {count: string}[]}>(
-    `${backendAddress}/items/feats`,
-    {
-      headers: {Authorization: `Bearer ${staticToken}`},
-      query: {'aggregate[count]': '*'},
-    }
-  )
-  const featsCount = Number(response[0].count)
   let totalFeats: FeatData[] = []
-
   const itemsPerPage = 100
-  for (let page = 0; page < featsCount / itemsPerPage; page += 1) {
+  for (let page = 0; page < itemsCount / itemsPerPage; page += 1) {
     const {data: feats} = await $fetch<{data: FeatData[]}>(
       `${backendAddress}/items/feats`,
       {

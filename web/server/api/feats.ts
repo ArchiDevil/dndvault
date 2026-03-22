@@ -1,5 +1,6 @@
 import {type ShortFeatData} from '#shared/types/featTypes'
 import {makeSlugLink} from '~~/shared/utils/links'
+import {getItemsCount} from '../utils/getCount'
 
 type DirectusFeat = {
   id: number
@@ -14,23 +15,11 @@ type DirectusFeat = {
 
 export default defineEventHandler(async (): Promise<ShortFeatData[]> => {
   const {staticToken, backendAddress} = useRuntimeConfig()
+  const itemsCount = await getItemsCount(`${backendAddress}/items/feats`)
 
-  const {data: response} = await $fetch<{data: {count: string}[]}>(
-    `${backendAddress}/items/feats`,
-    {
-      headers: {
-        Authorization: `Bearer ${staticToken}`,
-      },
-      query: {
-        'aggregate[count]': '*',
-      },
-    }
-  )
-  const featsCount = Number(response[0].count)
   const itemsPerPage = 100
-
-  let totalFeats: ShortFeatData[] = []
-  for (let page = 0; page < featsCount / itemsPerPage; page += 1) {
+  let totalItems: ShortFeatData[] = []
+  for (let page = 0; page < itemsCount / itemsPerPage; page += 1) {
     const {data: feats} = await $fetch<{data: DirectusFeat[]}>(
       `${backendAddress}/items/feats`,
       {
@@ -51,7 +40,7 @@ export default defineEventHandler(async (): Promise<ShortFeatData[]> => {
         },
       }
     )
-    totalFeats = totalFeats.concat(
+    totalItems = totalItems.concat(
       feats.map(
         (f) =>
           ({
@@ -62,5 +51,5 @@ export default defineEventHandler(async (): Promise<ShortFeatData[]> => {
     )
   }
 
-  return totalFeats
+  return totalItems
 })

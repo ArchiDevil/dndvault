@@ -8,19 +8,11 @@ type SpellData = {
 
 export default defineSitemapEventHandler(async () => {
   const {staticToken, backendAddress} = useRuntimeConfig()
+  const itemsCount = await getItemsCount(`${backendAddress}/items/spells`)
 
-  const {data: response} = await $fetch<{data: {count: string}[]}>(
-    `${backendAddress}/items/spells`,
-    {
-      headers: {Authorization: `Bearer ${staticToken}`},
-      query: {'aggregate[count]': '*'},
-    }
-  )
-  const spellsCount = Number(response[0].count)
   let totalSpells: SpellData[] = []
-
   const itemsPerPage = 100
-  for (let page = 0; page < spellsCount / itemsPerPage; page += 1) {
+  for (let page = 0; page < itemsCount / itemsPerPage; page += 1) {
     const {data: spells} = await $fetch<{data: SpellData[]}>(
       `${backendAddress}/items/spells`,
       {

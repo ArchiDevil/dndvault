@@ -9,19 +9,11 @@ type BackgroundData = {
 
 export default defineSitemapEventHandler(async () => {
   const {staticToken, backendAddress} = useRuntimeConfig()
+  const itemsCount = await getItemsCount(`${backendAddress}/items/backgrounds`)
 
-  const {data: response} = await $fetch<{data: {count: string}[]}>(
-    `${backendAddress}/items/backgrounds`,
-    {
-      headers: {Authorization: `Bearer ${staticToken}`},
-      query: {'aggregate[count]': '*'},
-    }
-  )
-  const backgroundsCount = Number(response[0].count)
   let totalBackgrounds: BackgroundData[] = []
-
   const itemsPerPage = 100
-  for (let page = 0; page < backgroundsCount / itemsPerPage; page += 1) {
+  for (let page = 0; page < itemsCount / itemsPerPage; page += 1) {
     const {data: backgrounds} = await $fetch<{data: BackgroundData[]}>(
       `${backendAddress}/items/backgrounds`,
       {

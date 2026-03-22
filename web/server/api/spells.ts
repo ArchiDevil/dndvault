@@ -1,4 +1,5 @@
 import {type ShortSpellData} from '#shared/types/spellTypes'
+import {getItemsCount} from '../utils/getCount'
 
 type DirectusSpell = {
   id: number
@@ -19,23 +20,11 @@ type DirectusSpell = {
 
 export default defineEventHandler(async (): Promise<ShortSpellData[]> => {
   const {staticToken, backendAddress} = useRuntimeConfig()
+  const itemsCount = await getItemsCount(`${backendAddress}/items/spells`)
 
-  const {data: response} = await $fetch<{data: {count: string}[]}>(
-    `${backendAddress}/items/spells`,
-    {
-      headers: {
-        Authorization: `Bearer ${staticToken}`,
-      },
-      query: {
-        'aggregate[count]': '*',
-      },
-    }
-  )
-  const spellsCount = Number(response[0].count)
   const itemsPerPage = 100
-
-  let totalSpells: DirectusSpell[] = []
-  for (let page = 0; page < spellsCount / itemsPerPage; page += 1) {
+  let totalItems: DirectusSpell[] = []
+  for (let page = 0; page < itemsCount / itemsPerPage; page += 1) {
     const {data: spells} = await $fetch<{data: DirectusSpell[]}>(
       `${backendAddress}/items/spells`,
       {
@@ -58,10 +47,10 @@ export default defineEventHandler(async (): Promise<ShortSpellData[]> => {
         },
       }
     )
-    totalSpells = totalSpells.concat(spells)
+    totalItems = totalItems.concat(spells)
   }
 
-  return totalSpells.map((s) => ({
+  return totalItems.map((s) => ({
     id: s.id,
     title: s.title,
     original_title: s.original_title,
