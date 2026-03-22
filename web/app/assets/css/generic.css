@@ -84,6 +84,10 @@
     @apply font-bold text-red-900 hover:text-red-950;
   }
 
+  a[href^="/spells/"] {
+    @apply text-green-800 hover:text-green-950;
+  }
+
   .heading-link {
     @apply invisible;
   }
