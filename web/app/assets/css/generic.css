@@ -1,4 +1,31 @@
 .cc {
+  --strong-text-color: #7f1d1d;
+  --strong-text-darker-color: #450a0a;
+
+  --rules-border-color: #7f1d1d;
+  --rules-bg-color: #ffedd5;
+  --rules-text-color: #27272a;
+
+  --spell-text-color: #166534;
+  --spell-text-darker-color: #052e16;
+
+  --heading-text-color: #57150d;
+  --heading-underline-color: #caae6a;
+
+  --table-light-bg-color: #eff6ff;
+  --table-medium-bg-color: #dbeafe;
+  --table-darker-bg-color: #bfdbfe;
+
+  --statblock-title-text-color: #793a2e;
+  --statblock-strong-text-color: #481e24;
+  --statblock-accent-text-color: #481e24;
+  --statblock-secondary-text-color: #666363;
+  --statblock-border-color: #818180;
+
+  --subheading-text-color: #27272a;
+  --link-text-color: #7f1d1d;
+  --link-text-darker-color: #450a0a;
+
   /* headings */
   > h1,
   > h2,
@@ -10,7 +37,7 @@
   > h2,
   > h3,
   > h4 {
-    @apply text-red-900;
+    @apply text-[--heading-text-color];
   }
 
   > h1 {
@@ -26,9 +53,7 @@
 
     &::after {
       @apply h-0.5 w-full content-[""] block;
-
-      /* TODO: this should a theme-specific */
-      @apply bg-yellow-700;
+      @apply bg-[--heading-underline-color];
     }
   }
   > h4 {
@@ -65,31 +90,36 @@
     }
 
     tbody {
+      tr {
+        @apply transition-colors;
+      }
+
       tr:nth-of-type(2n) {
-        @apply bg-blue-50;
+        @apply bg-[--table-light-bg-color];
       }
 
       tr:nth-of-type(2n-1) {
-        @apply bg-blue-100;
+        @apply bg-[--table-medium-bg-color];
       }
 
       tr:hover {
-        @apply bg-blue-200;
+        @apply bg-[--table-darker-bg-color];
       }
     }
   }
 
   /* links */
   a {
-    @apply font-bold text-red-900 hover:text-red-950;
+    @apply font-bold;
+    @apply text-[--link-text-color] hover:text-[--link-text-darker-color];
   }
 
-  a[href^="/spells/"] {
-    @apply text-green-800 hover:text-green-950;
+  a[href^='/spells/'] {
+    @apply text-[--spell-text-color] hover:text-[--spell-text-darker-color];
   }
 
   .heading-link {
-    @apply invisible;
+    @apply invisible text-[--heading-text-color];
   }
 
   h1:hover,
@@ -110,6 +140,10 @@
     }
   }
 
+  p > em:first-of-type > strong {
+    @apply text-[--subheading-text-color];
+  }
+
   /* special blocks */
   .first-paragraph {
     p::first-line {
@@ -117,7 +151,7 @@
     }
 
     p::first-letter {
-      @apply float-left text-[3.25rem] mr-[0.3rem] mt-[0.35rem] leading-[0.9];
+      @apply float-left text-[3.25rem] mr-[0.3rem] mt-[0.35rem] leading-[0.9] text-[--heading-text-color];
     }
   }
 
@@ -126,8 +160,7 @@
   }
 
   aside.rules {
-    /* TODO: this should a theme-specific */
-    @apply border-red-900 bg-orange-100;
+    @apply border-[--rules-border-color] bg-[--rules-bg-color] text-[--rules-text-color];
 
     > p:first-of-type {
       @apply font-semibold uppercase text-base;
@@ -140,24 +173,28 @@
   */
 
   aside.statblock {
-    /* TODO: this is crap, it should be sone somehow better */
+    /* TODO: this is crap, it should be done somehow better */
     h2,
     h3,
     h4,
     h5 {
-      @apply font-semibold text-xl text-amber-900 block;
-      @apply after:content-[''] after:w-full after:bg-amber-900 after:h-[1px] after:block;
+      @apply font-semibold text-xl text-[--statblock-title-text-color] block;
+      @apply after:content-[''] after:w-full after:bg-[--statblock-strong-text-color] after:h-[1px] after:block;
 
       column-span: all;
     }
 
     h6 {
-      @apply font-semibold text-lg text-amber-900 pt-2 pb-1;
-      @apply after:content-[''] after:w-full after:bg-amber-900 after:h-0.5 after:block;
+      @apply font-semibold text-lg text-[--statblock-strong-text-color] pt-2 pb-1;
+      @apply after:content-[''] after:w-full after:bg-[--statblock-strong-text-color] after:h-0.5 after:block;
     }
 
     p {
-      @apply mb-0 text-amber-950;
+      @apply mb-0 text-[--statblock-accent-text-color];
+    }
+
+    p > strong {
+      @apply text-[--statblock-strong-text-color];
     }
 
     h6 ~ p {
@@ -165,7 +202,7 @@
     }
 
     p.creature-type {
-      @apply text-zinc-700 italic mb-2;
+      @apply text-[--statblock-secondary-text-color] italic mb-2;
     }
 
     /* for initiative */
@@ -181,12 +218,12 @@
       }
 
       thead {
-        @apply text-xs text-zinc-500;
+        @apply text-xs text-[--statblock-secondary-text-color];
       }
 
       tbody {
         td:nth-of-type(1) {
-          @apply font-semibold text-amber-950;
+          @apply font-semibold text-[--strong-text-darker-color];
         }
       }
 
@@ -197,7 +234,7 @@
       }
     }
 
-    @apply xl:columns-2 rounded border border-zinc-500 shadow-lg py-2;
+    @apply xl:columns-2 rounded-xl border-[3px] border-double border-[--statblock-border-color] shadow-lg py-2;
   }
 
   aside.rhyme {
