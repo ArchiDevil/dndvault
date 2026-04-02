@@ -85,6 +85,11 @@ export default defineNuxtConfig({
   },
   nitro: {
     serveStatic: false,
+    devStorage: {
+      cache: {
+        driver: 'memory',
+      },
+    },
   },
   vite: {
     optimizeDeps: {
