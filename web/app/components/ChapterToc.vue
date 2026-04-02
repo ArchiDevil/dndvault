@@ -25,11 +25,11 @@ const filteredChapters = computed(() =>
         </a>
       </div>
       <div class="self-center text-center">
-        <a
+        <NuxtLink
           class="hover:font-semibold"
           :href="chaptersLink">
           Список глав
-        </a>
+        </NuxtLink>
       </div>
       <div class="self-center text-right truncate">
         <a

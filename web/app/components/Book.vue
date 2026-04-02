@@ -58,12 +58,12 @@ const supplementaryLinks = computed(() =>
           :href="downloadPath">
           Скачать
         </a>
-        <a
+        <NuxtLink
           v-if="chapters.length > 0"
           class="mr-2"
           :href="openPath">
           Читать
-        </a>
+        </NuxtLink>
         <a
           v-for="supp in supplementaryLinks"
           class="mr-2"
