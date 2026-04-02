@@ -76,7 +76,7 @@ export default defineEventHandler(async (event): Promise<FeatData> => {
   })
 
   let backs: DirectusBackground[] | null = null
-  if (feat.category === 'origin') {
+  if (feat.category === 'origin' || feat.category === 'dragonmarked') {
     const {data: backgrounds} = await $fetch<{data: DirectusBackground[]}>(
       `${backendAddress}/items/backgrounds`,
       {
