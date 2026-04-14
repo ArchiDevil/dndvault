@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import FilterPopover from '~/components/FilterPopover.vue'
 import {useRouteConfig} from '~/composables/useRouteConfig'
-import {makeGroups, type GroupTypers} from '~/utils/filters'
 import {mapSchoolName} from '~~/shared/utils/language'
 
 const {data: spells} = await useFetch('/api/cards')
@@ -99,7 +98,7 @@ const defaultConfig = {
   levels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
   schools: schoolItems.value.map((c) => c.value),
   sources: sourceItems.value.map((c) => c.value),
-  classes: classItems.value.map((c) => c.value),
+  classes: [],
 }
 
 const route = useRoute()
@@ -163,11 +162,10 @@ const filteredItems = computed(() => {
     </div>
   </div>
 
-  <client-only>
-    <div class="flex flex-row flex-wrap">
-      <SpellCard
-        v-for="spell in filteredItems"
-        :data="spell" />
-    </div>
-  </client-only>
+  <div class="flex flex-row flex-wrap">
+    <SpellCard
+      v-for="spell in filteredItems"
+      :key="spell.id"
+      :data="spell" />
+  </div>
 </template>

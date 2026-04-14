@@ -102,6 +102,7 @@ export default defineNuxtConfig({
     '/feats/**': {swr: 3600},
     '/backgrounds/**': {swr: 3600},
     '/facilities/**': {swr: 3600},
+    '/cards/**': {ssr: false},
 
     '/magic-items': {robots: false, sitemap: false},
     '/monsters': {robots: false, sitemap: false},

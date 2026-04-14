@@ -27,27 +27,29 @@ type Pictogram = {
   note?: number
 }
 const footnotes: string[] = []
-
 const reComponents = new RegExp('(В)?(?:, )?(С)?(?:, )?(?:М \\((.*)\\))?')
-const components: Pictogram[] = []
-reComponents
-  .exec(data.components)
-  ?.slice(1)
-  .filter((comp) => comp !== undefined)
-  .forEach((comp) => {
-    switch (comp) {
-      case 'В':
-      case 'С':
-        components.push({text: comp})
-        break
-      default:
-        footnotes.push(comp)
-        components.push({text: 'М', note: footnotes.length})
-        break
-    }
-  })
+const components = computed(() => {
+  const components: Pictogram[] = []
+  reComponents
+    .exec(data.components)
+    ?.slice(1)
+    .filter((comp) => comp !== undefined)
+    .forEach((comp) => {
+      switch (comp) {
+        case 'В':
+        case 'С':
+          components.push({text: comp})
+          break
+        default:
+          footnotes.push(comp)
+          components.push({text: 'М', note: footnotes.length})
+          break
+      }
+    })
+  return components
+})
 
-const range = (() => {
+const range = computed(() => {
   const exactRange = new RegExp(/^(\d+) (фут|мил)/g).exec(data.range)
   if (exactRange) {
     return exactRange
@@ -72,94 +74,101 @@ const range = (() => {
   } else {
     return data.range[0]
   }
-})()
+})
 
 const reExactTimePeriod = new RegExp(/(\d+) (л|г|м|д|ч|м|с|р)/g)
-const castTimes: Pictogram[] = []
-if (data.casting_time.startsWith('Реакция,')) {
-  footnotes.push(data.casting_time)
-  castTimes.push({text: 'Р', note: footnotes.length})
-} else if (data.casting_time.startsWith('Бонусное действие,')) {
-  footnotes.push(data.casting_time)
-  castTimes.push({icon: iconBonusAction, note: footnotes.length})
-} else if (data.casting_time == 'Бонусное действие') {
-  castTimes.push({icon: iconBonusAction})
-} else {
-  const common = new RegExp(
-    /^((?:\d+)(?: )(?:л|г|м|д|ч|м|с|р)|(?:Действие))\p{L}*(?: или )?(Ритуал)?$/gu
-  ).exec(data.casting_time)
-  if (common) {
-    common.slice(1).forEach((res) => {
-      const exact = reExactTimePeriod.exec(res)
-      if (exact) {
-        castTimes.push({text: exact.slice(1).join('')})
-      } else if (res === 'Ритуал') {
-        castTimes.push({icon: iconRitual})
-      } else if (res === 'Действие') {
-        castTimes.push({icon: iconAction})
-      }
-    })
-  } else {
+const castTimes = computed(() => {
+  const castTimes: Pictogram[] = []
+  if (data.casting_time.startsWith('Реакция,')) {
     footnotes.push(data.casting_time)
-    castTimes.push({text: '?', note: footnotes.length})
+    castTimes.push({text: 'Р', note: footnotes.length})
+  } else if (data.casting_time.startsWith('Бонусное действие,')) {
+    footnotes.push(data.casting_time)
+    castTimes.push({icon: iconBonusAction, note: footnotes.length})
+  } else if (data.casting_time == 'Бонусное действие') {
+    castTimes.push({icon: iconBonusAction})
+  } else {
+    const common = new RegExp(
+      /^((?:\d+)(?: )(?:л|г|м|д|ч|м|с|р)|(?:Действие))\p{L}*(?: или )?(Ритуал)?$/gu
+    ).exec(data.casting_time)
+    if (common) {
+      common.slice(1).forEach((res) => {
+        const exact = reExactTimePeriod.exec(res)
+        if (exact) {
+          castTimes.push({text: exact.slice(1).join('')})
+        } else if (res === 'Ритуал') {
+          castTimes.push({icon: iconRitual})
+        } else if (res === 'Действие') {
+          castTimes.push({icon: iconAction})
+        }
+      })
+    } else {
+      footnotes.push(data.casting_time)
+      castTimes.push({text: '?', note: footnotes.length})
+    }
   }
-}
-
-const durations: Pictogram[] = []
-
-if (data.duration === 'Мгновенная') {
-  durations.push({
-    icon: iconInstant,
-  })
-}
-if (data.duration.includes('Концентрация')) {
-  durations.push({
-    icon: iconConcentration,
-  })
-}
-if (data.duration.startsWith('Пока не')) {
-  footnotes.push(data.duration)
-  durations.push({
-    text: '∞',
-    note: footnotes.length,
-  })
-}
-if (data.duration === 'Особая') {
-  durations.push({
-    text: '?',
-  })
-}
-const exactDuration = reExactTimePeriod.exec(data.duration)?.slice(1).join('')
-if (exactDuration !== undefined && exactDuration !== '') {
-  durations.push({
-    text: exactDuration,
-  })
-}
-
-const classIcons = data?.classes.map((name) => {
-  switch (name) {
-    case 'Бард':
-      return iconBard
-    case 'Волшебник':
-      return iconWizard
-    case 'Друид':
-      return iconDruid
-    case 'Жрец':
-      return iconCleric
-    case 'Изобретатель':
-      return iconArtificer
-    case 'Колдун':
-      return iconWarlock
-    case 'Паладин':
-      return iconPaladin
-    case 'Следопыт':
-      return iconRanger
-    case 'Чародей':
-      return iconSorcerer
-    default:
-      return undefined
-  }
+  return castTimes
 })
+
+const durations = computed(() => {
+  const durations: Pictogram[] = []
+  if (data.duration === 'Мгновенная') {
+    durations.push({
+      icon: iconInstant,
+    })
+  }
+  if (data.duration.includes('Концентрация')) {
+    durations.push({
+      icon: iconConcentration,
+    })
+  }
+  if (data.duration.startsWith('Пока не')) {
+    footnotes.push(data.duration)
+    durations.push({
+      text: '∞',
+      note: footnotes.length,
+    })
+  }
+  if (data.duration === 'Особая') {
+    durations.push({
+      text: '?',
+    })
+  }
+  const exactDuration = reExactTimePeriod.exec(data.duration)?.slice(1).join('')
+  if (exactDuration !== undefined && exactDuration !== '') {
+    durations.push({
+      text: exactDuration,
+    })
+  }
+  return durations
+})
+
+const classIcons = computed(() =>
+  data?.classes.map((name) => {
+    switch (name) {
+      case 'Бард':
+        return iconBard
+      case 'Волшебник':
+        return iconWizard
+      case 'Друид':
+        return iconDruid
+      case 'Жрец':
+        return iconCleric
+      case 'Изобретатель':
+        return iconArtificer
+      case 'Колдун':
+        return iconWarlock
+      case 'Паладин':
+        return iconPaladin
+      case 'Следопыт':
+        return iconRanger
+      case 'Чародей':
+        return iconSorcerer
+      default:
+        return undefined
+    }
+  })
+)
 
 const findBlockOffset = (
   node: Node,
@@ -198,7 +207,7 @@ const splitCard = () => {
   if (pageRefs.length <= 0) {
     return
   }
-  const content = pageRefs[pageRefs.length - 1]!
+  const content = pageRefs[pages.length - 1]!
   const container = content.parentNode as HTMLDivElement
   void container.offsetHeight
   if (content.clientHeight <= container.clientHeight) {
@@ -235,7 +244,7 @@ const splitCard = () => {
   }
   const div = document.createElement('div')
   div.appendChild(range.extractContents())
-  pages[pageRefs.length - 1] = div.innerHTML
+  pages[pages.length - 1] = div.innerHTML
   pages.push(content.innerHTML)
 
   nextTick(splitCard)
@@ -244,11 +253,24 @@ const splitCard = () => {
 onMounted(() => {
   nextTick(splitCard)
 })
+
+watch(
+  () => data,
+  () => {
+    footnotes.length = 0
+    pages.length = 0
+    pages.push(data.renderedDescription)
+    pageRefs.length = 0
+    nextTick(splitCard)
+  },
+  {deep: true}
+)
 </script>
 
 <template>
   <div
     v-for="(page, index) in pages"
+    :key="index"
     class="relative w-[2.5in] h-[3.5in] inline-block mr-px mb-px">
     <div class="w-full h-full border-8 border-transparent hyphens-auto">
       <div class="flex flex-col h-full">
@@ -267,7 +289,8 @@ onMounted(() => {
           class="px-1 flex gap-1 items-center shrink-0 h-4 border-b border-black text-[11px]/[11px]">
           <div class="flex gap-1 justify-center">
             <NotedPictogram
-              v-for="comp in components"
+              v-for="(comp, index) in components"
+              :key="index"
               v-bind="comp" />
           </div>
           <div class="h-full w-px bg-black" />
@@ -285,7 +308,8 @@ onMounted(() => {
                 :src="iconCastTime" />:
             </div>
             <NotedPictogram
-              v-for="castTime in castTimes"
+              v-for="(castTime, index) in castTimes"
+              :key="index"
               v-bind="castTime" />
           </div>
           <div class="h-full w-px bg-black" />
@@ -296,14 +320,17 @@ onMounted(() => {
                 :src="iconDuration" />:
             </div>
             <NotedPictogram
-              v-for="duration in durations"
+              v-for="(duration, index) in durations"
+              :key="index"
               v-bind="duration" />
           </div>
         </div>
         <div
           v-if="index === 0 && footnotes.length > 0"
           class="py-0.5 px-1 items-center shrink-0 border-b border-black text-[9px]/[9px]">
-          <div v-for="(footnote, index) in footnotes">
+          <div
+            v-for="(footnote, index) in footnotes"
+            :key="index">
             <sup>{{ index + 1 }}</sup>
             {{ footnote }}
           </div>
@@ -316,8 +343,9 @@ onMounted(() => {
         </div>
         <div class="shrink-0 h-4 mx-1 mb-0.5 flex items-center">
           <img
-            v-for="icon in classIcons"
+            v-for="(icon, index) in classIcons"
             class="p-px h-full"
+            :key="index"
             :src="icon" />
           <div class="grow" />
           <div class="text-[10px]/[10px] pr-1">{{ data?.source?.title }}</div>
