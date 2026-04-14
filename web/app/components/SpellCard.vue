@@ -1,4 +1,22 @@
 <script setup lang="ts">
+import iconBard from '~/assets/images/bard.svg?no-inline'
+import iconWizard from '~/assets/images/wizard.svg?no-inline'
+import iconDruid from '~/assets/images/druid.svg?no-inline'
+import iconCleric from '~/assets/images/cleric.svg?no-inline'
+import iconArtificer from '~/assets/images/artificer.svg?no-inline'
+import iconWarlock from '~/assets/images/warlock.svg?no-inline'
+import iconPaladin from '~/assets/images/paladin.svg?no-inline'
+import iconRanger from '~/assets/images/ranger.svg?no-inline'
+import iconSorcerer from '~/assets/images/sorcerer.svg?no-inline'
+import iconDistance from '~/assets/images/distance.svg?no-inline'
+import iconCastTime from '~/assets/images/casttime.svg?no-inline'
+import iconDuration from '~/assets/images/duration.svg?no-inline'
+import iconRitual from '~/assets/images/ritual.svg?no-inline'
+import iconInstant from '~/assets/images/instant.svg?no-inline'
+import iconConcentration from '~/assets/images/concentration.svg?no-inline'
+import iconAction from '~/assets/images/action.svg?no-inline'
+import iconBonusAction from '~/assets/images/bonusaction.svg?no-inline'
+
 import NotedPictogram from './NotedPictogram.vue'
 
 const {data} = defineProps<{data: SpellData}>()
@@ -63,9 +81,9 @@ if (data.casting_time.startsWith('Реакция,')) {
   castTimes.push({text: 'Р', note: footnotes.length})
 } else if (data.casting_time.startsWith('Бонусное действие,')) {
   footnotes.push(data.casting_time)
-  castTimes.push({text: 'Б', note: footnotes.length})
+  castTimes.push({icon: iconBonusAction, note: footnotes.length})
 } else if (data.casting_time == 'Бонусное действие') {
-  castTimes.push({text: 'Б'})
+  castTimes.push({icon: iconBonusAction})
 } else {
   const common = new RegExp(
     /^((?:\d+)(?: )(?:л|г|м|д|ч|м|с|р)|(?:Действие))\p{L}*(?: или )?(Ритуал)?$/gu
@@ -76,9 +94,9 @@ if (data.casting_time.startsWith('Реакция,')) {
       if (exact) {
         castTimes.push({text: exact.slice(1).join('')})
       } else if (res === 'Ритуал') {
-        castTimes.push({icon: '/images/ritual.svg'})
+        castTimes.push({icon: iconRitual})
       } else if (res === 'Действие') {
-        castTimes.push({text: 'Д'})
+        castTimes.push({icon: iconAction})
       }
     })
   } else {
@@ -91,12 +109,12 @@ const durations: Pictogram[] = []
 
 if (data.duration === 'Мгновенная') {
   durations.push({
-    icon: '/images/instant.svg',
+    icon: iconInstant,
   })
 }
 if (data.duration.includes('Концентрация')) {
   durations.push({
-    icon: '/images/concentration.svg',
+    icon: iconConcentration,
   })
 }
 if (data.duration.startsWith('Пока не')) {
@@ -121,23 +139,23 @@ if (exactDuration !== undefined && exactDuration !== '') {
 const classIcons = data?.classes.map((name) => {
   switch (name) {
     case 'Бард':
-      return '/images/bard.svg'
+      return iconBard
     case 'Волшебник':
-      return '/images/wizard.svg'
+      return iconWizard
     case 'Друид':
-      return '/images/druid.svg'
+      return iconDruid
     case 'Жрец':
-      return '/images/cleric.svg'
+      return iconCleric
     case 'Изобретатель':
-      return '/images/artificer.svg'
+      return iconArtificer
     case 'Колдун':
-      return '/images/warlock.svg'
+      return iconWarlock
     case 'Паладин':
-      return '/images/paladin.svg'
+      return iconPaladin
     case 'Следопыт':
-      return '/images/ranger.svg'
+      return iconRanger
     case 'Чародей':
-      return '/images/sorcerer.svg'
+      return iconSorcerer
     default:
       return undefined
   }
@@ -247,30 +265,36 @@ onMounted(() => {
         <div
           v-if="index === 0"
           class="px-1 flex gap-1 items-center shrink-0 h-4 border-b border-black text-[11px]/[11px]">
-          <div class="flex justify-center gap-1">
+          <div class="flex gap-1 justify-center">
             <NotedPictogram
               v-for="comp in components"
               v-bind="comp" />
           </div>
           <div class="h-full w-px bg-black" />
-          <img
-            class="size-3"
-            src="/images/distance.svg" />:
-          <div class="text-center">{{ range }}</div>
-          <div class="h-full w-px bg-black" />
-          <div class="flex justify-center gap-1">
+          <div class="flex">
             <img
               class="size-3"
-              src="/images/casttime.svg" />:
+              :src="iconDistance" />:
+          </div>
+          <div class="text-center">{{ range }}</div>
+          <div class="h-full w-px bg-black" />
+          <div class="flex gap-1 justify-center">
+            <div class="flex">
+              <img
+                class="size-3"
+                :src="iconCastTime" />:
+            </div>
             <NotedPictogram
               v-for="castTime in castTimes"
               v-bind="castTime" />
           </div>
           <div class="h-full w-px bg-black" />
-          <div class="flex justify-center gap-1">
-            <img
-              class="size-3"
-              src="/images/duration.svg" />:
+          <div class="flex gap-1 justify-center">
+            <div class="flex">
+              <img
+                class="size-3"
+                :src="iconDuration" />:
+            </div>
             <NotedPictogram
               v-for="duration in durations"
               v-bind="duration" />
@@ -313,6 +337,10 @@ onMounted(() => {
 <style>
 @page {
   margin: 0.58in 0.37in;
+}
+
+p {
+  @apply indent-1;
 }
 
 .statblock {

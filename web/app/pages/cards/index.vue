@@ -100,7 +100,6 @@ const defaultConfig = {
   schools: schoolItems.value.map((c) => c.value),
   sources: sourceItems.value.map((c) => c.value),
   classes: classItems.value.map((c) => c.value),
-  search: '',
 }
 
 const route = useRoute()
@@ -135,23 +134,11 @@ const filteredItems = computed(() => {
         ) !== -1
       )
     })
-    .filter((s) => {
-      return (s.title + s.original_title)
-        .toLowerCase()
-        .includes(config.value.search.toLowerCase())
-    })
 })
 </script>
 
 <template>
   <div class="flex flex-row gap-4 mb-4 flex-wrap print:hidden">
-    <div class="flex flex-row gap-2 w-full md:w-auto">
-      <input
-        id="search"
-        v-model="config.search"
-        class="py-1 px-2 rounded bg-zinc-50 hover:bg-zinc-100 border border-zinc-500 transition w-full"
-        placeholder="Поиск заклинания" />
-    </div>
     <div class="flex flex-row gap-2 flex-wrap">
       <FilterPopover
         trigger-text="Уровни"
@@ -176,9 +163,11 @@ const filteredItems = computed(() => {
     </div>
   </div>
 
-  <div class="flex flex-row flex-wrap">
-    <SpellCard
-      v-for="spell in filteredItems"
-      :data="spell" />
-  </div>
+  <client-only>
+    <div class="flex flex-row flex-wrap">
+      <SpellCard
+        v-for="spell in filteredItems"
+        :data="spell" />
+    </div>
+  </client-only>
 </template>

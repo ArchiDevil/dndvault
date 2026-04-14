@@ -14,7 +14,12 @@ const {
   <div v-if="icon === undefined">
     {{ text }}<sup v-if="note"> {{ note }} </sup>
   </div>
-  <template v-else>
-    <img class="size-3" :src="icon" /><sup v-if="note"> {{ note }} </sup>
-  </template>
+  <div class="flex" v-else>
+    <img
+      class="size-3"
+      :src="icon" />
+    <div>
+      <sup v-if="note"> {{ note }} </sup>
+    </div>
+  </div>
 </template>
