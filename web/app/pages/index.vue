@@ -22,7 +22,6 @@ useSeoMeta({
 </script>
 
 <template>
-  <PageTitle>Каталог материалов</PageTitle>
   <main class="grid xl:grid-cols-2 gap-8">
     <Book
       v-for="book in books"

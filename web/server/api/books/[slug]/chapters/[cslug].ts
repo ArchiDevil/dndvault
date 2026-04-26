@@ -54,6 +54,7 @@ export default defineEventHandler(async (event): Promise<ChapterData> => {
     })
   }
 
+  const chapterData = data[0]!
   const toc: TocRecord[] = []
 
   const marked = new Marked(
@@ -83,12 +84,12 @@ export default defineEventHandler(async (event): Promise<ChapterData> => {
     ])
   )
 
-  const renderedContent = marked.parse(data[0].content, {
+  const renderedContent = marked.parse(chapterData.content, {
     async: false,
   })
 
   return {
-    title: data[0].title,
+    title: chapterData.title,
     toc: toc,
     content: renderedContent,
   }

@@ -55,7 +55,7 @@ const {data: chapterData} = await useFetch(`/api/books/${slug.value}/chapters`)
         class="text-2xl font-semibold mt-4 mb-2 after:h-0.5 after:bg-zinc-800 after:block">
         Оглавление
       </h2>
-      <div class="lg:columns-2">
+      <div class="lg:columns-2 xl:columns-3">
         <ChaptersList
           v-if="chapterData"
           :book-slug="bookData!.slug"

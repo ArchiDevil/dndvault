@@ -14,10 +14,13 @@ const props = defineProps<{
       :title="chapter.title"
       :book-slug="bookSlug"
       :chapter-slug="chapter.slug"
+      :toc="chapter.toc"
+      :child="false"
       :children="
         chapter.children.map((c) => ({
           title: c.title,
           chapterSlug: c.slug,
+          toc: c.toc,
         }))
       " />
   </ul>
