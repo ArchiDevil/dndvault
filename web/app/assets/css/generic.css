@@ -2,7 +2,7 @@
   --strong-text-color: #7f1d1d;
   --strong-text-darker-color: #450a0a;
 
-  --rules-border-color: #7f1d1d;
+  --rules-border-color: #0f0f0f;
   --rules-bg-color: #ffedd5;
   --rules-text-color: #27272a;
 
@@ -25,6 +25,9 @@
   --subheading-text-color: #27272a;
   --link-text-color: #7f1d1d;
   --link-text-darker-color: #450a0a;
+
+  --quote-box-bg-color: #d5dbd1;
+  --quote-box-border-color: #7b8d75;
 
   /* headings */
   > h1,
@@ -161,16 +164,16 @@
 
   aside.rules {
     @apply border-[--rules-border-color] bg-[--rules-bg-color] text-[--rules-text-color];
+    @apply px-6 border-x-0 border-y-4 shadow-xl;
 
     > p:first-of-type {
       @apply font-semibold uppercase text-base;
     }
   }
 
-  /* TODO: add support when first such book created
   aside.read-aloud {
+    @apply border-x border-y-0 border-solid px-8 bg-[--quote-box-bg-color] border-[--quote-box-border-color];
   }
-  */
 
   aside.statblock {
     /* TODO: this is crap, it should be done somehow better */

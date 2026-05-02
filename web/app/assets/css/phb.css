@@ -1,4 +1,6 @@
 .cc.phb-2024 {
+  --rules-border-color: #450a0a;
+
   aside.play-example {
     background: linear-gradient(
       to right,

@@ -18,7 +18,7 @@
   }
 
   aside.rules {
-    @apply border-0 border-b-2 border-t-2 py-16 px-8 mx-16;
+    @apply border-0 border-b-2 border-t-2 py-16 px-8 md:mx-16;
 
     --link-text-color: #dc2626;
     --link-text-darker-color: #b91c1c;

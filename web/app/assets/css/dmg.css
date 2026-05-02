@@ -2,4 +2,36 @@
   --table-light-bg-color: #fef2f2;
   --table-medium-bg-color: #fee2e2;
   --table-darker-bg-color: #fecaca;
+
+  --rules-bg-color: #e3d8de;
+
+  aside.play-example {
+    background: linear-gradient(
+      to right,
+      rgba(225, 234, 231, 0.95),
+      #c8dcdb00 70%
+    );
+
+    > p {
+      @apply ml-4 -indent-4;
+    }
+
+    aside.explanation {
+      @apply border-2 border-solid p-4 bg-cyan-50/60 my-2 rounded-lg;
+
+      border-color: #799a9c;
+    }
+
+    .selection {
+      @apply py-2 relative pl-[22px] -ml-1.5 pr-1.5 -indent-4;
+
+      background-color: #c8dcdb;
+    }
+
+    .selection::before {
+      @apply inline-block absolute w-1 h-full -ml-4 -mt-2 content-[""];
+
+      background-color: #799a9c;
+    }
+  }
 }
