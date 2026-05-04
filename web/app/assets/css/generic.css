@@ -118,7 +118,7 @@
   }
 
   a[href^='/spells/'] {
-    @apply text-[--spell-text-color] hover:text-[--spell-text-darker-color];
+    @apply text-[--spell-text-color] hover:text-[--spell-text-darker-color] italic;
   }
 
   .heading-link {
