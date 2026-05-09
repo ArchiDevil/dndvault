@@ -53,9 +53,10 @@ const sourceDescription = computed(
         <strong class="whitespace-pre">Значения характеристик:</strong>
         {{ background?.abilities.map((a) => mapAbility(a)).join(', ') }}
       </li>
-      <li>
+      <li v-if="background?.featLink || background?.featComment">
         <strong>Черта: </strong>
         <NuxtLink
+          v-if="background?.featLink"
           class="font-bold text-red-900 hover:text-red-950"
           :href="background?.featLink">
           {{ background?.featName }}
@@ -63,6 +64,7 @@ const sourceDescription = computed(
             background?.featComment
           }}</template>
         </NuxtLink>
+        <span v-else>{{ background?.featComment }}</span>
       </li>
       <li>
         <strong>Владение навыками:</strong>

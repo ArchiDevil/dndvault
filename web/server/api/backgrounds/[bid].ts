@@ -8,12 +8,12 @@ type DirectusBackground = {
   title: string
   original_title: string
   abilities: string[]
-  feat_comment: string | null
   feat: {
     id: number
     title: string
     original_title: string
-  }
+  } | null
+  feat_comment: string | null
   skills: string[]
   tool_proficiency: string
   equipment: string
@@ -89,8 +89,10 @@ export default defineEventHandler(async (event): Promise<BackgroundData> => {
     title: background.title,
     originalTitle: background.original_title,
     abilities: background.abilities,
-    featName: background.feat.title,
-    featLink: `/feats/${makeSlugLink({ id: background.feat.id, originalTitle: background.feat.original_title })}`,
+    featName: background.feat ? background.feat.title : null,
+    featLink: background.feat
+      ? `/feats/${makeSlugLink({id: background.feat.id, originalTitle: background.feat.original_title})}`
+      : null,
     featComment: background.feat_comment,
     skills: background.skills,
     toolProficiency: background.tool_proficiency,

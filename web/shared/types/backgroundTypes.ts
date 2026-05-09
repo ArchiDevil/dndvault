@@ -16,8 +16,8 @@ export type BackgroundData = {
   title: string
   originalTitle: string
   abilities: string[]
-  featName: string
-  featLink: string
+  featName: string | null
+  featLink: string | null
   featComment: string | null
   skills: string[]
   toolProficiency: string
