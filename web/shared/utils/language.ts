@@ -63,7 +63,9 @@ export const mapFeatCategory = (category: string) => {
     return 'Черты Эпического дара'
   } else if (category === 'dragonmarked') {
     return 'Черты Драконьей метки'
-  } else {
+  } else if (category === 'planar-pact') {
+    return 'Черты Планарного договора'
+  }else {
     return `Неизвестная категория ${category}`
   }
 }
