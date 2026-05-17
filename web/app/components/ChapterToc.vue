@@ -2,12 +2,27 @@
 const props = defineProps<{
   toc: {text: string; level: number; link: string}[]
   chaptersLink: string
+  activeLink?: string
   previous?: {link: string; title: string}
   next?: {link: string; title: string}
 }>()
 
 const filteredChapters = computed(() =>
   props.toc.filter((c) => c.level > 1 && c.level < 5)
+)
+
+watch(
+  () => props.activeLink,
+  (newVal) => {
+    if (!newVal) return
+
+    const link = document.querySelector(`a[href="#${newVal}"]`)
+    if (link)
+      link.scrollIntoView({
+        block: 'nearest',
+        inline: 'nearest',
+      })
+  }
 )
 </script>
 
@@ -50,6 +65,7 @@ const filteredChapters = computed(() =>
             class="hover:font-semibold py-2 pr-2 hover:bg-slate-300 truncate"
             :href="element.link"
             :class="{
+              'font-semibold !bg-slate-300': `#${activeLink}` == element.link,
               'pl-2 bg-zinc-50 block': element.level === 2,
               'pl-4 bg-zinc-100 block': element.level === 3,
               'pl-6 bg-zinc-200 hidden lg:block': element.level === 4,

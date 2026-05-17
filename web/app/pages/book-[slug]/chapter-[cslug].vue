@@ -107,6 +107,22 @@ const nextChapter = computed(() => {
 })
 
 const bookTocLink = computed(() => `/book-${bookSlug.value}`)
+const visibleLink = ref<string>()
+
+if (import.meta.browser) {
+  const observer = new IntersectionObserver(
+    (entry) => {
+      const firstIntersecting = entry.filter((e) => e.isIntersecting)[0]
+      if (!firstIntersecting) return
+
+      visibleLink.value = firstIntersecting.target.id
+    },
+    {rootMargin: '0px 0px -75% 0px'}
+  )
+  document
+    .querySelectorAll('article > h1, article > h2, article > h3, article > h4')
+    .forEach((e) => observer.observe(e))
+}
 </script>
 
 <template>
@@ -114,6 +130,7 @@ const bookTocLink = computed(() => `/book-${bookSlug.value}`)
     <ChapterToc
       :toc="toc"
       :chapters-link="bookTocLink"
+      :active-link="visibleLink"
       :previous="prevChapter"
       :next="nextChapter" />
     <article
