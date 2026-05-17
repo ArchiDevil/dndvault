@@ -1,0 +1,10 @@
+.cc.aboh {
+  aside.author {
+    @apply from-purple-50 to-purple-100 bg-gradient-to-b text-base text-purple-900 font-semibold;
+    @apply border-t-2 border-b-4 border-x-0 border-yellow-600 shadow;
+
+    p {
+      @apply last:text-right;
+    }
+  }
+}
