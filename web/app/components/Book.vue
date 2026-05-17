@@ -48,8 +48,8 @@ const supplementaryLinks = computed(() =>
         {{ title }}
       </h2>
       <p class="mt-2">{{ description }}</p>
-      <div class="flex flex-row gap-2 font-light text-sm mt-1">
-        <template v-for="tag in tags">#{{ tag.name }}</template>
+      <div class="flex flex-row gap-1 font-light text-sm mt-1">
+        <span v-for="tag in tags">#{{ tag.name }}</span>
       </div>
       <div class="mt-2">
         <a
