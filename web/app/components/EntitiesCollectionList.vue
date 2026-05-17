@@ -5,7 +5,6 @@ type ItemType = {
   title: string
   source: {title: string} | null
 }
-
 const {routePath} = defineProps<{
   noGroupHeader: string
   routePath: `${string}-id` | `${string}-slug`
@@ -34,9 +33,7 @@ const makeRoute = (item: ItemType) => {
 </script>
 
 <template>
-  <div
-    class="pb-8"
-    :class="{'lg:columns-2 xl:columns-3': items.length > 15}">
+  <div class="lg:columns-2 xl:columns-3 pb-8">
     <template v-if="groups === undefined">
       <ul :aria-label="noGroupHeader">
         <li v-for="item in items">
@@ -56,14 +53,12 @@ const makeRoute = (item: ItemType) => {
     <template
       v-else
       v-for="group in groups">
-      <ul
-        class="mb-2"
-        :aria-label="group.type">
+      <ul :aria-label="group.type">
         <div
           v-if="group.elements[0] !== undefined"
           class="inline-block"
           role="group">
-          <h2 class="font-semibold text-lg">
+          <h2 class="font-semibold text-lg pt-2">
             {{ group.type }}
           </h2>
 
