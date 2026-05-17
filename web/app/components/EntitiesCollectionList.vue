@@ -33,7 +33,9 @@ const makeRoute = (item: ItemType) => {
 </script>
 
 <template>
-  <div class="lg:columns-2 xl:columns-3 pb-8">
+  <div
+    class="pb-8"
+    :class="{'lg:columns-2 xl:columns-3': items.length > 15}">
     <template v-if="groups === undefined">
       <ul :aria-label="noGroupHeader">
         <li v-for="item in items">
