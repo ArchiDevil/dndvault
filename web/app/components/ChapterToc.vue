@@ -11,10 +11,13 @@ const filteredChapters = computed(() =>
   props.toc.filter((c) => c.level > 1 && c.level < 5)
 )
 
+const root = useTemplateRef('root')
+
 watch(
   () => props.activeLink,
   (newVal) => {
-    if (!newVal) return
+    if (!newVal || !root.value) return
+    if (getComputedStyle(root.value).position !== 'sticky') return
 
     const link = document.querySelector(`a[href="#${newVal}"]`)
     if (link)
@@ -28,6 +31,7 @@ watch(
 
 <template>
   <div
+    ref="root"
     class="border-solid border-zinc-300 border grid grid-rows-[auto_1fr] lg:sticky lg:top-4 bg-zinc-100 text-sm overflow-hidden w-full lg:min-w-[320px] lg:w-[320px] h-fit max-h-96 lg:max-h-[97dvh]">
     <div class="grid grid-cols-3 p-2 bg-zinc-50 border-b border-zinc-300">
       <div class="self-center text-left truncate">
