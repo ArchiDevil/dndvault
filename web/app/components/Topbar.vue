@@ -3,7 +3,8 @@ const route = useRoute()
 </script>
 
 <template>
-  <nav class="my-2 md:my-8 py-2 md:pt-4 md:pb-2 border-b-2 flex flex-col gap-2">
+  <nav
+    class="my-2 md:my-8 py-2 md:pt-4 md:pb-2 border-b-2 flex flex-col gap-2 print:hidden">
     <div
       id="main-row"
       class="flex flex-row gap-8 font-semibold items-center">

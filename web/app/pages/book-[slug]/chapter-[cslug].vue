@@ -127,7 +127,8 @@ if (import.meta.browser) {
 </script>
 
 <template>
-  <div class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-8">
+  <div
+    class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-8 print:mt-0">
     <ChapterToc
       :toc="toc"
       :chapters-link="bookTocLink"
