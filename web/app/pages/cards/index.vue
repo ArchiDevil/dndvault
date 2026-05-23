@@ -101,7 +101,7 @@ const defaultConfig = {
   schools: schoolItems.value.map((c) => c.value),
   sources: sourceItems.value.map((c) => c.value),
   classes: [],
-  showLegend: 1,
+  showLegend: true,
 }
 
 const route = useRoute()
