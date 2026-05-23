@@ -1,25 +1,24 @@
 <script setup lang="ts">
 const {
-  text = undefined,
+  text,
   icon = undefined,
   note = undefined,
 } = defineProps<{
-  text?: string
+  text: string
   icon?: string
   note?: number
 }>()
 </script>
 
 <template>
-  <div v-if="icon === undefined">
-    {{ text }}<sup v-if="note"> {{ note }} </sup>
-  </div>
-  <div class="flex" v-else>
+  <div
+    class="rounded-sm border border-black flex gap-0.5 items-center px-0.5 py-px flex-nowrap">
     <img
-      class="size-3"
+      v-if="icon"
+      class="size-2"
       :src="icon" />
     <div>
-      <sup v-if="note"> {{ note }} </sup>
+      {{ text }}<sup v-if="note">{{ note }}</sup>
     </div>
   </div>
 </template>

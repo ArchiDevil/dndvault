@@ -11,25 +11,24 @@ import iconSorcerer from '~/assets/images/sorcerer.svg?no-inline'
 import iconDistance from '~/assets/images/distance.svg?no-inline'
 import iconCastTime from '~/assets/images/casttime.svg?no-inline'
 import iconDuration from '~/assets/images/duration.svg?no-inline'
-import iconRitual from '~/assets/images/ritual.svg?no-inline'
-import iconInstant from '~/assets/images/instant.svg?no-inline'
-import iconConcentration from '~/assets/images/concentration.svg?no-inline'
-import iconAction from '~/assets/images/action.svg?no-inline'
-import iconBonusAction from '~/assets/images/bonusaction.svg?no-inline'
+import iconAbjuration from '~/assets/images/abjuration.svg'
+import iconConjuration from '~/assets/images/conjuration.svg'
+import iconDivination from '~/assets/images/divination.svg'
+import iconEnchantment from '~/assets/images/enchantment.svg'
+import iconEvocation from '~/assets/images/evocation.svg'
+import iconIllusion from '~/assets/images/illusion.svg'
+import iconNecromancy from '~/assets/images/necromancy.svg'
+import iconTransmutation from '~/assets/images/transmutation.svg'
 
-import NotedPictogram from './NotedPictogram.vue'
+import ParameterBubble from './ParameterBubble.vue'
 
 const {data} = defineProps<{data: SpellData}>()
 
-type Pictogram = {
-  text?: string
-  icon?: string
-  note?: number
-}
 const footnotes: string[] = []
 const reComponents = new RegExp('(В)?(?:, )?(С)?(?:, )?(?:М \\((.*)\\))?')
+const materialComponentFootnote = ref<number>()
 const components = computed(() => {
-  const components: Pictogram[] = []
+  const components: string[] = []
   reComponents
     .exec(data.components)
     ?.slice(1)
@@ -38,109 +37,65 @@ const components = computed(() => {
       switch (comp) {
         case 'В':
         case 'С':
-          components.push({text: comp})
+          components.push(comp)
           break
         default:
           footnotes.push(comp)
-          components.push({text: 'М', note: footnotes.length})
+          components.push('М')
+          materialComponentFootnote.value = footnotes.length
           break
       }
     })
   return components
 })
 
-const range = computed(() => {
-  const exactRange = new RegExp(/^(\d+) (фут|мил)/g).exec(data.range)
-  if (exactRange) {
-    return exactRange
-      .slice(1)
-      .map((part) => {
-        switch (part) {
-          case 'фут':
-            return 'фт'
-          case 'мил':
-            return 'мл'
-          default:
-            return part
-        }
-      })
-      .join('')
-  } else if (data.range === 'На себя') {
-    return 'С'
-  } else if (data.range === 'Неограниченная') {
-    return '∞'
-  } else if (data.range === 'Особая') {
-    return '?'
-  } else {
-    return data.range[0]
+const schoolIcon = computed(() => {
+  switch (data.school) {
+    case 'abjuration':
+      return iconAbjuration
+    case 'conjuration':
+      return iconConjuration
+    case 'divination':
+      return iconDivination
+    case 'enchantment':
+      return iconEnchantment
+    case 'evocation':
+      return iconEvocation
+    case 'illusion':
+      return iconIllusion
+    case 'necromancy':
+      return iconNecromancy
+    case 'transmutation':
+      return iconTransmutation
+    default:
+      return undefined
   }
 })
 
-const reExactTimePeriod = new RegExp(/(\d+) (л|г|м|д|ч|м|с|р)/g)
+const castTimesFootnote = ref<number>()
 const castTimes = computed(() => {
-  const castTimes: Pictogram[] = []
   if (data.casting_time.startsWith('Реакция,')) {
     footnotes.push(data.casting_time)
-    castTimes.push({text: 'Р', note: footnotes.length})
+    castTimesFootnote.value = footnotes.length
+    return 'Реакция'
   } else if (data.casting_time.startsWith('Бонусное действие,')) {
     footnotes.push(data.casting_time)
-    castTimes.push({icon: iconBonusAction, note: footnotes.length})
+    castTimesFootnote.value = footnotes.length
+    return 'Бонусное действие'
   } else if (data.casting_time == 'Бонусное действие') {
-    castTimes.push({icon: iconBonusAction})
+    return data.casting_time
   } else {
     const common = new RegExp(
       /^((?:\d+)(?: )(?:л|г|м|д|ч|м|с|р)|(?:Действие))\p{L}*(?: или )?(Ритуал)?$/gu
     ).exec(data.casting_time)
     if (common) {
-      common.slice(1).forEach((res) => {
-        const exact = reExactTimePeriod.exec(res)
-        if (exact) {
-          castTimes.push({text: exact.slice(1).join('')})
-        } else if (res === 'Ритуал') {
-          castTimes.push({icon: iconRitual})
-        } else if (res === 'Действие') {
-          castTimes.push({icon: iconAction})
-        }
-      })
+      return data.casting_time
     } else {
       footnotes.push(data.casting_time)
-      castTimes.push({text: '?', note: footnotes.length})
+      castTimesFootnote.value = footnotes.length
+      return 'Особое'
     }
   }
-  return castTimes
-})
-
-const durations = computed(() => {
-  const durations: Pictogram[] = []
-  if (data.duration === 'Мгновенная') {
-    durations.push({
-      icon: iconInstant,
-    })
-  }
-  if (data.duration.includes('Концентрация')) {
-    durations.push({
-      icon: iconConcentration,
-    })
-  }
-  if (data.duration.startsWith('Пока не')) {
-    footnotes.push(data.duration)
-    durations.push({
-      text: '∞',
-      note: footnotes.length,
-    })
-  }
-  if (data.duration === 'Особая') {
-    durations.push({
-      text: '?',
-    })
-  }
-  const exactDuration = reExactTimePeriod.exec(data.duration)?.slice(1).join('')
-  if (exactDuration !== undefined && exactDuration !== '') {
-    durations.push({
-      text: exactDuration,
-    })
-  }
-  return durations
 })
 
 const classIcons = computed(() =>
@@ -275,70 +230,59 @@ watch(
     <div class="w-full h-full border-8 border-transparent hyphens-auto">
       <div class="flex flex-col h-full">
         <div
-          class="flex shrink-0 w-full h-6 font-serif content-center border-b border-black">
+          class="flex shrink-0 w-full h-6 font-serif content-center border-b border-black font-bold">
           <div
-            class="w-5 text-sm text-center content-center border-r border-black">
+            class="w-4 text-[11px]/[11px] text-center content-center border-r border-black">
             {{ data?.level }}
           </div>
           <div class="grow pl-1 text-[11px]/[11px] content-center">
             {{ data?.title }}
           </div>
+          <div class="w-px bg-black" />
+          <div class="content-center px-0.5">
+            <img
+              :src="schoolIcon"
+              class="size-3" />
+          </div>
         </div>
         <div
           v-if="index === 0"
-          class="px-1 flex gap-1 items-center shrink-0 h-4 border-b border-black text-[11px]/[11px]">
-          <div class="flex gap-1 justify-center">
-            <NotedPictogram
-              v-for="(comp, index) in components"
-              :key="index"
-              v-bind="comp" />
-          </div>
-          <div class="h-full w-px bg-black" />
-          <div class="flex">
-            <img
-              class="size-3"
-              :src="iconDistance" />:
-          </div>
-          <div class="text-center">{{ range }}</div>
-          <div class="h-full w-px bg-black" />
-          <div class="flex gap-1 justify-center">
-            <div class="flex">
-              <img
-                class="size-3"
-                :src="iconCastTime" />:
-            </div>
-            <NotedPictogram
-              v-for="(castTime, index) in castTimes"
-              :key="index"
-              v-bind="castTime" />
-          </div>
-          <div class="h-full w-px bg-black" />
-          <div class="flex gap-1 justify-center">
-            <div class="flex">
-              <img
-                class="size-3"
-                :src="iconDuration" />:
-            </div>
-            <NotedPictogram
-              v-for="(duration, index) in durations"
-              :key="index"
-              v-bind="duration" />
-          </div>
-        </div>
-        <div
-          v-if="index === 0 && footnotes.length > 0"
-          class="py-0.5 px-1 items-center shrink-0 border-b border-black text-[9px]/[9px]">
+          class="flex flex-col shrink-0 py-0.5 gap-0.5">
           <div
-            v-for="(footnote, index) in footnotes"
-            :key="index">
-            <sup>{{ index + 1 }}</sup>
-            {{ footnote }}
+            class="px-1 flex gap-0.5 items-center shrink-0 text-[9px]/[9px] flex-wrap">
+            <ParameterBubble
+              :text="components.join(', ')"
+              :note="materialComponentFootnote" />
+            <ParameterBubble
+              :icon="iconDistance"
+              :text="data.range" />
+            <ParameterBubble
+              :icon="iconCastTime"
+              :text="castTimes"
+              :note="castTimesFootnote" />
+            <ParameterBubble
+              :icon="iconDuration"
+              :text="data.duration" />
           </div>
+          <div
+            v-if="footnotes.length > 0"
+            class="px-1 items-center shrink-0 text-[9px]/[9px] italic">
+            <div
+              v-for="(footnote, index) in footnotes"
+              :key="index">
+              <sup class="not-italic">{{ index + 1 }}</sup>
+              {{ footnote }}
+            </div>
+          </div>
+          <div class="h-px bg-black w-full" />
         </div>
-        <div class="grow m-1 overflow-hidden">
+        <div class="grow mx-1 my-0.5 overflow-hidden">
           <div
             :ref="(el: HTMLDivElement) => (pageRefs[index] = el)"
             class="text-[9px]/[9px]"
+            :class="{
+              'last-card': pages.length > 1 && index === pages.length - 1,
+            }"
             v-html="page" />
         </div>
         <div class="shrink-0 h-4 mx-1 mb-0.5 flex items-center">
@@ -369,6 +313,11 @@ watch(
 
 p {
   @apply indent-1;
+}
+
+p:first-child,
+.last-card p:nth-child(2) {
+  @apply indent-0;
 }
 
 .statblock {

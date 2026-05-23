@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {CheckboxIndicator, CheckboxRoot} from 'reka-ui'
+
 import FilterPopover from '~/components/FilterPopover.vue'
 import {useRouteConfig} from '~/composables/useRouteConfig'
 import {mapSchoolName} from '~~/shared/utils/language'
@@ -99,6 +101,7 @@ const defaultConfig = {
   schools: schoolItems.value.map((c) => c.value),
   sources: sourceItems.value.map((c) => c.value),
   classes: [],
+  showLegend: 1,
 }
 
 const route = useRoute()
@@ -138,7 +141,7 @@ const filteredItems = computed(() => {
 
 <template>
   <div class="flex flex-row gap-4 mb-4 flex-wrap print:hidden">
-    <div class="flex flex-row gap-2 flex-wrap">
+    <div class="flex flex-row gap-2 flex-wrap items-center">
       <FilterPopover
         trigger-text="Уровни"
         trigger-icon="solar:circle-top-up-linear"
@@ -159,13 +162,32 @@ const filteredItems = computed(() => {
         trigger-icon="solar:export-linear"
         :items="sourceItems"
         v-model="config.sources" />
+      <div class="flex flex-row gap-2">
+        <CheckboxRoot
+          class="size-6 border border-zinc-400 rounded hover:bg-zinc-300 transition"
+          v-model="config.showLegend">
+          <CheckboxIndicator class="size-6">
+            <Icon
+              name="solar:unread-linear"
+              :size="22"
+              class="text-zinc-800" />
+          </CheckboxIndicator>
+        </CheckboxRoot>
+        <label>
+          <span>Легенда</span>
+        </label>
+      </div>
     </div>
   </div>
 
-  <div class="flex flex-row flex-wrap">
+  <div
+    v-if="filteredItems.length > 0"
+    class="flex flex-row flex-wrap">
+    <LegentCard v-if="config.showLegend" />
     <SpellCard
       v-for="spell in filteredItems"
       :key="spell.id"
       :data="spell" />
   </div>
+  <div v-else>По вашему фильтру ничего не найдено</div>
 </template>
