@@ -229,17 +229,14 @@ watch(
     class="relative w-[2.5in] h-[3.5in] inline-block mr-px mb-px">
     <div class="w-full h-full border-8 border-transparent hyphens-auto">
       <div class="flex flex-col h-full">
-        <div
-          class="flex shrink-0 w-full h-6 font-serif content-center border-b border-black font-bold">
-          <div
-            class="w-4 text-[11px]/[11px] text-center content-center border-r border-black">
+        <div class="flex shrink-0 w-full items-baseline font-bold py-1">
+          <div class="w-4 text-[11px]/[11px] text-center">
             {{ data?.level }}
           </div>
-          <div class="grow pl-1 text-[11px]/[11px] content-center">
+          <div class="grow pl-1 text-[11px]/[11px]">
             {{ data?.title }}
           </div>
-          <div class="w-px bg-black" />
-          <div class="content-center px-0.5">
+          <div class="px-1">
             <img
               :src="schoolIcon"
               class="size-3" />
@@ -247,7 +244,7 @@ watch(
         </div>
         <div
           v-if="index === 0"
-          class="flex flex-col shrink-0 py-0.5 gap-0.5">
+          class="flex flex-col shrink-0 py-0.5 gap-0.5 mb-1">
           <div
             class="px-1 flex gap-0.5 items-center shrink-0 text-[9px]/[9px] flex-wrap">
             <ParameterBubble
@@ -274,7 +271,6 @@ watch(
               {{ footnote }}
             </div>
           </div>
-          <div class="h-px bg-black w-full" />
         </div>
         <div class="grow mx-1 my-0.5 overflow-hidden">
           <div
@@ -312,7 +308,7 @@ watch(
 }
 
 p {
-  @apply indent-1;
+  @apply indent-2;
 }
 
 p:first-child,
