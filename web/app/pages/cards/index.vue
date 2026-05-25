@@ -100,7 +100,7 @@ const defaultConfig = {
   levels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
   schools: schoolItems.value.map((c) => c.value),
   sources: sourceItems.value.map((c) => c.value),
-  classes: [],
+  classes: classItems.value.map((c) => c.value),
   showLegend: true,
 }
 
