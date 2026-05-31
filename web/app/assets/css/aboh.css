@@ -7,4 +7,16 @@
       @apply last:text-right;
     }
   }
+
+  aside.intro {
+    @apply from-amber-50/10 to-amber-800/30 bg-gradient-to-b text-base text-slate-700 font-medium;
+
+    p:first-child::first-line {
+      @apply uppercase italic;
+    }
+
+    p:first-child::first-letter {
+      @apply float-left text-[3.25rem] mr-[0.3rem] mt-[0.35rem] leading-[0.9] text-[--heading-text-color];
+    }
+  }
 }
