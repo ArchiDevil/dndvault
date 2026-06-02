@@ -139,7 +139,7 @@ const findBlockOffset = (
   range2.setStartBefore(container)
 
   while (lo <= hi) {
-    const mid = Math.ceil((lo + hi) / 2)
+    const mid = Math.floor((lo + hi) / 2)
     range.setEnd(node, mid)
     range2.setEnd(node, mid + 1)
     const height = range.getBoundingClientRect().height
@@ -148,7 +148,7 @@ const findBlockOffset = (
       return mid
     }
     if (height <= container.clientHeight) {
-      lo = mid
+      lo = mid + 1
     } else {
       hi = mid - 1
     }
@@ -199,6 +199,13 @@ const splitCard = () => {
   }
   const div = document.createElement('div')
   div.appendChild(range.extractContents())
+
+  for (const child of [...content.children]) {
+    if (!child.textContent?.trim()) {
+      child.remove()
+    }
+  }
+
   pages[pages.length - 1] = div.innerHTML
   pages.push(content.innerHTML)
 
@@ -272,7 +279,7 @@ watch(
             </div>
           </div>
         </div>
-        <div class="grow mx-1 my-0.5 overflow-hidden">
+        <div class="card-content grow mx-1 my-0.5 overflow-hidden">
           <div
             :ref="(el: HTMLDivElement) => (pageRefs[index] = el)"
             class="text-[9px]/[9px]"
@@ -302,21 +309,26 @@ watch(
   </div>
 </template>
 
-<style>
+<style scoped>
 @page {
   margin: 0.58in 0.37in;
 }
 
-p {
-  @apply indent-2;
-}
+.card-content {
+  :deep(p:not(.tr)) {
+    @apply indent-2;
+  }
 
-p:first-child,
-.last-card p:nth-child(2) {
-  @apply indent-0;
-}
+  :deep(p.tr b) {
+    @apply text-gray-600;
+  }
 
-.statblock {
-  @apply hidden;
+  :deep(p:first-child) {
+    @apply indent-0;
+  }
+
+  :deep(.statblock) {
+    @apply hidden;
+  }
 }
 </style>
