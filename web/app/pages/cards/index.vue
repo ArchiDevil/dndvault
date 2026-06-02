@@ -2,6 +2,8 @@
 import {CheckboxIndicator, CheckboxRoot} from 'reka-ui'
 
 import FilterPopover from '~/components/FilterPopover.vue'
+import LegendCard from '~/components/LegendCard.vue'
+import SpellCard from '~/components/SpellCard.vue'
 import {useRouteConfig} from '~/composables/useRouteConfig'
 import {mapSchoolName} from '~~/shared/utils/language'
 
@@ -183,7 +185,7 @@ const filteredItems = computed(() => {
   <div
     v-if="filteredItems.length > 0"
     class="flex flex-row flex-wrap">
-    <LegentCard v-if="config.showLegend" />
+    <LegendCard v-if="config.showLegend" />
     <SpellCard
       v-for="spell in filteredItems"
       :key="spell.id"
