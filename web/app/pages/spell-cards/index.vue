@@ -7,14 +7,14 @@ import SpellCard from '~/components/SpellCard.vue'
 import {useRouteConfig} from '~/composables/useRouteConfig'
 import {mapSchoolName} from '~~/shared/utils/language'
 
-const {data: spells} = await useFetch('/api/cards')
+const {data: spells} = await useFetch('/api/spell-cards')
 
 if (import.meta.server) {
   useHead({
     link: [
       {
         rel: 'canonical',
-        href: `https://dndvault.ru/cards`,
+        href: `https://dndvault.ru/spell-cards`,
       },
     ],
   })
@@ -25,7 +25,7 @@ if (import.meta.server) {
     ogTitle: 'Карты заклинаний | DnD Vault',
     ogDescription: 'Карты заклинаний DnD 2024 на русском языке',
     ogType: 'website',
-    ogUrl: 'https://dndvault.ru/cards',
+    ogUrl: 'https://dndvault.ru/spell-cards',
   })
 }
 

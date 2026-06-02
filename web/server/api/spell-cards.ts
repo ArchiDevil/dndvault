@@ -78,7 +78,7 @@ export default defineCachedEventHandler(
         table(tokens) {
           let table = ''
           for (const row of tokens.rows) {
-            table += '<p>'
+            table += '<p class="tr">'
             for (let col = 0; col < row.length; ++col) {
               const cell = row[col]
               const colName = this.parser.parseInline(

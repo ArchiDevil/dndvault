@@ -105,8 +105,8 @@ const route = useRoute()
       </NuxtLink>
       <NuxtLink
         class="hover:font-semibold underline-offset-4 hidden md:inline-block mr-4"
-        :class="{'font-semibold': route.path.startsWith('/cards')}"
-        to="/cards">
+        :class="{'font-semibold': route.path.startsWith('/spell-cards')}"
+        to="/spell-cards">
         Карточки заклинаний
       </NuxtLink>
     </div>
