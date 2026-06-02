@@ -27,6 +27,10 @@
   aside.newspaper {
     @apply w-[80%] relative bg-[#eeeaea] mx-auto;
 
+    div {
+      @apply mb-2;
+    }
+
     &:before {
       @apply content-[''] absolute inset-0 bg-transparent z-[-1];
 
@@ -36,13 +40,12 @@
       transform: rotate(1.5deg);
     }
 
-    p:nth-of-type(1) {
+    .pretitle {
       @apply font-semibold text-xl uppercase text-center;
-
       font-stretch: 62%;
     }
 
-    p:nth-of-type(2) {
+    .title {
       @apply font-medium text-5xl uppercase text-center;
       @apply before:mb-2 after:mt-2;
 
@@ -54,15 +57,29 @@
       }
     }
 
-    p:nth-of-type(3) {
+    .subtitle {
       @apply font-semibold uppercase;
     }
 
-    p:nth-of-type(4) {
-      &::first-letter {
+    .text {
+      @apply mb-0;
+      p::first-letter {
         @apply float-left text-7xl mr-[0.15rem] mt-[0.35rem] leading-[0.9];
 
         font-stretch: 75%;
+      }
+    }
+  }
+
+  /* hack for ships as I'm too lazy to do it properly */
+  h4 ~ p ~ div.rev-pad-list {
+    li:first-child p {
+      strong {
+        @apply text-[--subheading-text-color];
+      }
+
+      strong:nth-of-type(2) {
+        @apply ml-8;
       }
     }
   }

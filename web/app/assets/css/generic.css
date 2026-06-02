@@ -143,7 +143,8 @@
     }
   }
 
-  p > em:first-of-type > strong {
+  p > em:first-of-type > strong,
+  p > strong > em:first-of-type {
     @apply text-[--subheading-text-color];
   }
 
