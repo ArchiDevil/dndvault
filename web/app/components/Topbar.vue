@@ -103,12 +103,6 @@ const route = useRoute()
         to="/facilities">
         Сооружения
       </NuxtLink>
-      <NuxtLink
-        class="hover:font-semibold underline-offset-4 hidden md:inline-block mr-4"
-        :class="{'font-semibold': route.path.startsWith('/spell-cards')}"
-        to="/spell-cards">
-        Карточки заклинаний
-      </NuxtLink>
     </div>
   </nav>
 </template>
