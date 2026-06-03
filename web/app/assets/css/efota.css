@@ -72,7 +72,7 @@
   }
 
   /* hack for ships as I'm too lazy to do it properly */
-  h4 ~ p ~ div.rev-pad-list {
+  .rev-pad-list.ship-part {
     li:first-child p {
       strong {
         @apply text-[--subheading-text-color];
