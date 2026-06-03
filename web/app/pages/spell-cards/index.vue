@@ -19,6 +19,13 @@ if (import.meta.server) {
         rel: 'canonical',
         href: `https://dndvault.ru/spell-cards`,
       },
+      {
+        rel: 'preload',
+        as: 'font',
+        type: 'font/woff2',
+        href: '/fonts/Roboto-Italic.woff2',
+        crossorigin: 'anonymous',
+      }
     ],
   })
 
@@ -118,13 +125,19 @@ const config = useRouteConfig(
 )
 
 watch(schoolItems, () => {
-  config.value.schools = schoolItems.value.map((c) => c.value)
+  if (config.value.schools.length === 0) {
+    config.value.schools = schoolItems.value.map((c) => c.value)
+  }
 })
 watch(sourceItems, () => {
-  config.value.sources = sourceItems.value.map((c) => c.value)
+  if (config.value.sources.length === 0) {
+    config.value.sources = sourceItems.value.map((c) => c.value)
+  }
 })
 watch(classItems, () => {
-  config.value.classes = classItems.value.map((c) => c.value)
+  if (config.value.classes.length === 0) {
+    config.value.classes = classItems.value.map((c) => c.value)
+  }
 })
 
 const filteredItems = computed(() => {
@@ -151,6 +164,10 @@ const filteredItems = computed(() => {
         ) !== -1
       )
     })
+})
+
+onMounted(async () => {
+  await document.fonts.ready
 })
 </script>
 
