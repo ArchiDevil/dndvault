@@ -1,3 +1,4 @@
 {
+  "tailwindCSS.experimental.configFile": "web/.nuxt/tailwind/postcss.mjs",
   "editor.tabSize": 2
 }

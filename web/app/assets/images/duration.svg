@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 300 300">
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+
+      .st0, .st1, .st2 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-width: 30px;
+      }
+
+      .st0, .st2 {
+        fill-rule: evenodd;
+        stroke-linejoin: round;
+      }
+
+      .st1 {
+        fill: #fff;
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+  <line class="st1" x1="52.5" y1="15" x2="247.5" y2="15"/>
+  <line class="st1" x1="52.5" y1="285" x2="247.5" y2="285"/>
+  <polyline class="st0" points="75 15 75 90 225 210 225 285"/>
+  <polyline class="st0" points="75 285 75 210 225 90 225 15"/>
+  <polygon class="st2" points="75 90 225 90 150 150 75 90"/>
+</svg>

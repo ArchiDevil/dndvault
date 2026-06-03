@@ -1,7 +1,7 @@
 import {type Router} from 'vue-router'
 
 export const useRouteConfig = <
-  T extends {[record: string]: string | number | string[] | number[]},
+  T extends {[record: string]: string | number | string[] | number[] | boolean},
 >(
   defaultConfig: T,
   routeConfig: string | undefined,

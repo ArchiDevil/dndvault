@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 300 300">
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 30px;
+      }
+    </style>
+  </defs>
+  <circle class="st0" cx="150" cy="172.5" r="112.5" />
+  <line class="st0" x1="150" y1="60" x2="150" y2="15" />
+  <line class="st0" x1="105" y1="15" x2="195" y2="15" />
+  <line class="st0" x1="233.21" y1="96.79" x2="262.5" y2="67.5" />
+  <line class="st0" x1="150" y1="180" x2="150" y2="135" />
+</svg>
