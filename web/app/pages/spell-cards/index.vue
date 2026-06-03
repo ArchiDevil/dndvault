@@ -7,7 +7,10 @@ import SpellCard from '~/components/SpellCard.vue'
 import {useRouteConfig} from '~/composables/useRouteConfig'
 import {mapSchoolName} from '~~/shared/utils/language'
 
-const {data: spells} = await useFetch('/api/spell-cards')
+const {data: spells} = await useFetch('/api/spell-cards', {
+  server: false,
+  lazy: true,
+})
 
 if (import.meta.server) {
   useHead({
@@ -100,9 +103,9 @@ const classItems = computed(() => {
 
 const defaultConfig = {
   levels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-  schools: schoolItems.value.map((c) => c.value),
-  sources: sourceItems.value.map((c) => c.value),
-  classes: classItems.value.map((c) => c.value),
+  schools: [] as string[],
+  sources: [] as string[],
+  classes: [] as string[],
   showLegend: true,
 }
 
@@ -113,6 +116,16 @@ const config = useRouteConfig(
   route.query['config']?.toString(),
   router
 )
+
+watch(schoolItems, () => {
+  config.value.schools = schoolItems.value.map((c) => c.value)
+})
+watch(sourceItems, () => {
+  config.value.sources = sourceItems.value.map((c) => c.value)
+})
+watch(classItems, () => {
+  config.value.classes = classItems.value.map((c) => c.value)
+})
 
 const filteredItems = computed(() => {
   return (spells.value ?? [])
