@@ -86,7 +86,7 @@ const route = useRoute()
         Заклинания
       </NuxtLink>
       <NuxtLink
-        class="hover:font-semibold underline-offset-4 inline-block mr-4"
+        class="hover:font-semibold underline-offset-4 hidden lg:inline-block mr-4"
         :class="{'font-semibold': route.path.startsWith('/spell-cards')}"
         to="/spell-cards">
         Карточки заклинаний
