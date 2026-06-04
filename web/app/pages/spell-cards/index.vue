@@ -212,9 +212,7 @@ onMounted(async () => {
     </div>
   </div>
 
-  <div
-    v-if="filteredItems.length > 0"
-    class="flex flex-row flex-wrap">
+  <div v-if="filteredItems.length > 0">
     <LegendCard v-if="config.showLegend" />
     <SpellCard
       v-for="spell in filteredItems"
