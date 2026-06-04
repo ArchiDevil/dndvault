@@ -25,7 +25,7 @@ if (import.meta.server) {
         type: 'font/woff2',
         href: '/fonts/Roboto-Italic.woff2',
         crossorigin: 'anonymous',
-      }
+      },
     ],
   })
 
@@ -196,6 +196,7 @@ onMounted(async () => {
         v-model="config.sources" />
       <div class="flex flex-row gap-2">
         <CheckboxRoot
+          id="legend"
           class="size-6 border border-zinc-400 rounded hover:bg-zinc-300 transition"
           v-model="config.showLegend">
           <CheckboxIndicator class="size-6">
@@ -205,7 +206,9 @@ onMounted(async () => {
               class="text-zinc-800" />
           </CheckboxIndicator>
         </CheckboxRoot>
-        <label>
+        <label
+          for="legend"
+          class="cursor-pointer">
           <span>Легенда</span>
         </label>
       </div>
