@@ -51,4 +51,15 @@ export default defineNuxtRouteMiddleware(async (to) => {
       })
     }
   }
+  {
+    const regex = '^/magic-items/(\\d+)$'
+    const match = to.path.match(regex)
+    if (match != null) {
+      const magicItemId = match[1]
+      const magicItemData = await $fetch(`/api/magic-items/${magicItemId}`)
+      return navigateTo(`/magic-items/${makeSlugLink(magicItemData)}`, {
+        redirectCode: 308,
+      })
+    }
+  }
 })

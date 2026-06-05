@@ -23,7 +23,7 @@ export default defineNuxtConfig({
           src: 'https://stats.codecliffs.ru/script.js',
           defer: true,
           'data-website-id': 'a10ae2b7-497b-4b10-8b21-e2c1dac0bad3',
-          'data-performance': true
+          'data-performance': true,
         },
       ],
       link: [
@@ -63,9 +63,10 @@ export default defineNuxtConfig({
     sources: [
       '/api/__sitemap__/backgrounds',
       '/api/__sitemap__/books',
-      '/api/__sitemap__/feats',
-      '/api/__sitemap__/spells',
       '/api/__sitemap__/facilities',
+      '/api/__sitemap__/feats',
+      '/api/__sitemap__/magic-items',
+      '/api/__sitemap__/spells',
     ],
   },
   tailwindcss: {
@@ -102,9 +103,9 @@ export default defineNuxtConfig({
     '/feats/**': {swr: 3600},
     '/backgrounds/**': {swr: 3600},
     '/facilities/**': {swr: 3600},
+    '/magic-items': {swr: 3600},
     '/spell-cards/**': {sitemap: false},
 
-    '/magic-items': {robots: false, sitemap: false},
     '/monsters': {robots: false, sitemap: false},
     '/species': {robots: false, sitemap: false},
   },

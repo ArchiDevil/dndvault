@@ -65,7 +65,7 @@ export const mapFeatCategory = (category: string) => {
     return 'Черты Драконьей метки'
   } else if (category === 'planar-pact') {
     return 'Черты Планарного договора'
-  }else {
+  } else {
     return `Неизвестная категория ${category}`
   }
 }
@@ -181,5 +181,50 @@ export const mapFacilityOrder = (original: string) => {
     return 'Усиление'
   } else {
     return `Неизвестный размер ${original}`
+  }
+}
+
+export const mapItemCategory = (category: ItemCategory) => {
+  if (category === 'armor') {
+    return 'Доспех'
+  } else if (category === 'potion') {
+    return 'Зелье'
+  } else if (category === 'ring') {
+    return 'Кольцо'
+  } else if (category === 'rod') {
+    return 'Жезл'
+  } else if (category === 'scroll') {
+    return 'Свиток'
+  } else if (category === 'staff') {
+    return 'Посох'
+  } else if (category === 'wand') {
+    return 'Волшебная палочка'
+  } else if (category === 'weapon') {
+    return 'Оружие'
+  } else if (category === 'wondrous') {
+    return 'Чудесный предмет'
+  } else {
+    return 'Неизвестная категория'
+  }
+}
+
+export const mapItemRarity = (rarity: ItemRarity) => {
+  // TODO: add cases support
+  if (rarity === 'artifact') {
+    return 'Артефакт'
+  } else if (rarity === 'common') {
+    return 'Обычный'
+  } else if (rarity === 'legendary') {
+    return 'Легендарный'
+  } else if (rarity === 'rare') {
+    return 'Редкий'
+  } else if (rarity === 'uncommon') {
+    return 'Необычный'
+  } else if (rarity === 'variable') {
+    return 'редкость варьируется'
+  } else if (rarity === 'very_rare') {
+    return 'Очень редкий'
+  } else {
+    return 'Неизвестная редкость'
   }
 }

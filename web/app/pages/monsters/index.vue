@@ -37,11 +37,11 @@ if (import.meta.server) {
   <div class="text-xl">
     Это одна из секретных страниц!
     <span class="glitters font-semibold"
-      >Найдено {{ foundCount ?? 0 }} / 3.</span
+      >Найдено {{ foundCount ?? 0 }} / 2.</span
     >
     Собери их все!
   </div>
-  <div v-if="foundCount === 3">
+  <div v-if="foundCount === 2">
     <h2 class="text-2xl mt-4">
       Вы выиграли вакансию
       <span
