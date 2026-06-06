@@ -22,110 +22,110 @@ import iconTransmutation from '~/assets/images/transmutation.svg'
 </script>
 
 <template>
-  <div class="relative w-[2.5in] h-[3.5in] p-3 inline-block mr-px mb-px">
+  <div class="relative w-[63mm] h-[88mm] p-3 inline-block mr-px mb-px">
     <div class="flex flex-col gap-px">
       <h2 class="text-xs font-semibold">Классы</h2>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconBard"
-          class="size-3" /><span>Бард</span>
+          class="size-2.5" /><span>Бард</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconWizard"
-          class="size-3" /><span>Волшебник</span>
+          class="size-2.5" /><span>Волшебник</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconDruid"
-          class="size-3" /><span>Друид</span>
+          class="size-2.5" /><span>Друид</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconCleric"
-          class="size-3" /><span>Жрец</span>
+          class="size-2.5" /><span>Жрец</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconArtificer"
-          class="size-3" /><span>Изобретатель</span>
+          class="size-2.5" /><span>Изобретатель</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconWarlock"
-          class="size-3" /><span>Колдун</span>
+          class="size-2.5" /><span>Колдун</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconPaladin"
-          class="size-3" /><span>Паладин</span>
+          class="size-2.5" /><span>Паладин</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconRanger"
-          class="size-3" /><span>Следопыт</span>
+          class="size-2.5" /><span>Следопыт</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconSorcerer"
-          class="size-3" /><span>Чародей</span>
+          class="size-2.5" /><span>Чародей</span>
       </div>
       <h2 class="text-xs font-semibold">Школы</h2>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconEvocation"
-          class="size-3" /><span>Воплощение</span>
+          class="size-2.5" /><span>Воплощение</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconIllusion"
-          class="size-3" /><span>Иллюзия</span>
+          class="size-2.5" /><span>Иллюзия</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconNecromancy"
-          class="size-3" /><span>Некромантия</span>
+          class="size-2.5" /><span>Некромантия</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconAbjuration"
-          class="size-3" /><span>Ограждение</span>
+          class="size-2.5" /><span>Ограждение</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconEnchantment"
-          class="size-3" /><span>Очарование</span>
+          class="size-2.5" /><span>Очарование</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconTransmutation"
-          class="size-3" /><span>Преобразование</span>
+          class="size-2.5" /><span>Преобразование</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconConjuration"
-          class="size-3" /><span>Призыв</span>
+          class="size-2.5" /><span>Призыв</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconDivination"
-          class="size-3" /><span>Прорицание</span>
+          class="size-2.5" /><span>Прорицание</span>
       </div>
       <h2 class="text-xs font-semibold">Обозначения</h2>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconDistance"
-          class="size-3" /><span>Дистанция</span>
+          class="size-2.5" /><span>Дистанция</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconCastTime"
-          class="size-3" /><span>Время сотворения</span>
+          class="size-2.5" /><span>Время сотворения</span>
       </div>
-      <div class="flex text-[11px]/[11px] gap-1">
+      <div class="flex text-[10px]/[10px] gap-1">
         <img
           :src="iconDuration"
-          class="size-3" /><span>Длительность</span>
+          class="size-2.5" /><span>Длительность</span>
       </div>
     </div>
     <div

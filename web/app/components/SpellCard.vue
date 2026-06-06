@@ -233,7 +233,7 @@ watch(
   <div
     v-for="(page, index) in pages"
     :key="index"
-    class="relative w-[2.5in] h-[3.5in] inline-block mr-px mb-px">
+    class="relative w-[63mm] h-[88mm] inline-block mr-px mb-px">
     <div class="w-full h-full border-8 border-transparent hyphens-auto">
       <div class="flex flex-col h-full">
         <div class="flex shrink-0 w-full items-baseline font-bold py-1">
