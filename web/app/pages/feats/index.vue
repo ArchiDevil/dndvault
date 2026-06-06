@@ -7,25 +7,23 @@ import {makeGroups, type GroupTypers} from '~/utils/filters'
 
 const {data: feats} = await useFetch('/api/feats')
 
-if (import.meta.server) {
-  useHead({
-    link: [
-      {
-        rel: 'canonical',
-        href: `https://dndvault.ru/feats`,
-      },
-    ],
-  })
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: `https://dndvault.ru/feats`,
+    },
+  ],
+})
 
-  useSeoMeta({
-    title: 'Черты | DnD Vault',
-    description: 'Каталог черт DnD 2024 на русском языке',
-    ogTitle: 'Черты | DnD Vault',
-    ogDescription: 'Каталог черт DnD 2024 на русском языке',
-    ogType: 'website',
-    ogUrl: 'https://dndvault.ru/feats',
-  })
-}
+useSeoMeta({
+  title: 'Черты | DnD Vault',
+  description: 'Каталог черт DnD 2024 на русском языке',
+  ogTitle: 'Черты | DnD Vault',
+  ogDescription: 'Каталог черт DnD 2024 на русском языке',
+  ogType: 'website',
+  ogUrl: 'https://dndvault.ru/feats',
+})
 
 const categoryItems = computed(() => {
   if (feats.value === undefined) return []

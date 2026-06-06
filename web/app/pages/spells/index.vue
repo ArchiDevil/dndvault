@@ -7,25 +7,23 @@ import {makeGroups, type GroupTypers} from '~/utils/filters'
 
 const {data: spells} = await useFetch('/api/spells')
 
-if (import.meta.server) {
-  useHead({
-    link: [
-      {
-        rel: 'canonical',
-        href: `https://dndvault.ru/spells`,
-      },
-    ],
-  })
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: `https://dndvault.ru/spells`,
+    },
+  ],
+})
 
-  useSeoMeta({
-    title: 'Заклинания | DnD Vault',
-    description: 'Каталог заклинаний DnD 2024 на русском языке',
-    ogTitle: 'Заклинания | DnD Vault',
-    ogDescription: 'Каталог заклинаний DnD 2024 на русском языке',
-    ogType: 'website',
-    ogUrl: 'https://dndvault.ru/spells',
-  })
-}
+useSeoMeta({
+  title: 'Заклинания | DnD Vault',
+  description: 'Каталог заклинаний DnD 2024 на русском языке',
+  ogTitle: 'Заклинания | DnD Vault',
+  ogDescription: 'Каталог заклинаний DnD 2024 на русском языке',
+  ogType: 'website',
+  ogUrl: 'https://dndvault.ru/spells',
+})
 
 // Levels filter
 const levelItems = [

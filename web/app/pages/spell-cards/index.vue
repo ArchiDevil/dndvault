@@ -12,32 +12,30 @@ const {data: spells} = await useFetch('/api/spell-cards', {
   lazy: true,
 })
 
-if (import.meta.server) {
-  useHead({
-    link: [
-      {
-        rel: 'canonical',
-        href: `https://dndvault.ru/spell-cards`,
-      },
-      {
-        rel: 'preload',
-        as: 'font',
-        type: 'font/woff2',
-        href: '/fonts/Roboto-Italic.woff2',
-        crossorigin: 'anonymous',
-      },
-    ],
-  })
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: `https://dndvault.ru/spell-cards`,
+    },
+    {
+      rel: 'preload',
+      as: 'font',
+      type: 'font/woff2',
+      href: '/fonts/Roboto-Italic.woff2',
+      crossorigin: 'anonymous',
+    },
+  ],
+})
 
-  useSeoMeta({
-    title: 'Карты заклинаний | DnD Vault',
-    description: 'Карты заклинаний DnD 2024 на русском языке',
-    ogTitle: 'Карты заклинаний | DnD Vault',
-    ogDescription: 'Карты заклинаний DnD 2024 на русском языке',
-    ogType: 'website',
-    ogUrl: 'https://dndvault.ru/spell-cards',
-  })
-}
+useSeoMeta({
+  title: 'Карты заклинаний | DnD Vault',
+  description: 'Карты заклинаний DnD 2024 на русском языке',
+  ogTitle: 'Карты заклинаний | DnD Vault',
+  ogDescription: 'Карты заклинаний DnD 2024 на русском языке',
+  ogType: 'website',
+  ogUrl: 'https://dndvault.ru/spell-cards',
+})
 
 // Levels filter
 const levelItems = [

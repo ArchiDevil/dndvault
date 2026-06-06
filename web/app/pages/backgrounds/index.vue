@@ -7,25 +7,23 @@ import type {ShortBackgroundData} from '~~/shared/types/backgroundTypes'
 
 const {data: backgrounds} = await useFetch('/api/backgrounds')
 
-if (import.meta.server) {
-  useHead({
-    link: [
-      {
-        rel: 'canonical',
-        href: `https://dndvault.ru/backgrounds`,
-      },
-    ],
-  })
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: `https://dndvault.ru/backgrounds`,
+    },
+  ],
+})
 
-  useSeoMeta({
-    title: 'Предыстории | DnD Vault',
-    description: 'Каталог предысторий DnD 2024 на русском языке',
-    ogTitle: 'Предыстории | DnD Vault',
-    ogDescription: 'Каталог предысторий DnD 2024 на русском языке',
-    ogType: 'website',
-    ogUrl: 'https://dndvault.ru/backgrounds',
-  })
-}
+useSeoMeta({
+  title: 'Предыстории | DnD Vault',
+  description: 'Каталог предысторий DnD 2024 на русском языке',
+  ogTitle: 'Предыстории | DnD Vault',
+  ogDescription: 'Каталог предысторий DnD 2024 на русском языке',
+  ogType: 'website',
+  ogUrl: 'https://dndvault.ru/backgrounds',
+})
 
 // Abilities filters
 const abilityItems = computed(() => {

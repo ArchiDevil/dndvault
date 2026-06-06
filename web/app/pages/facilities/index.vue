@@ -7,25 +7,23 @@ import {mapFacilityOrder, mapFacilitySize} from '~~/shared/utils/language'
 
 const {data: facilities} = await useFetch('/api/facilities')
 
-if (import.meta.server) {
-  useHead({
-    link: [
-      {
-        rel: 'canonical',
-        href: `https://dndvault.ru/facilities`,
-      },
-    ],
-  })
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: `https://dndvault.ru/facilities`,
+    },
+  ],
+})
 
-  useSeoMeta({
-    title: 'Строения | DnD Vault',
-    description: 'Каталог строений DnD 2024 на русском языке',
-    ogTitle: 'Строения | DnD Vault',
-    ogDescription: 'Каталог строений DnD 2024 на русском языке',
-    ogType: 'website',
-    ogUrl: 'https://dndvault.ru/facilities',
-  })
-}
+useSeoMeta({
+  title: 'Строения | DnD Vault',
+  description: 'Каталог строений DnD 2024 на русском языке',
+  ogTitle: 'Строения | DnD Vault',
+  ogDescription: 'Каталог строений DnD 2024 на русском языке',
+  ogType: 'website',
+  ogUrl: 'https://dndvault.ru/facilities',
+})
 
 // Level filters
 const levelItems = computed(() => {
