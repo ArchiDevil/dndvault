@@ -18,19 +18,23 @@ export type ItemRarity =
   | 'artifact'
   | 'variable'
 
-export type MagicItemData = {
+export type ShortMagicItemData = {
   id: number
   title: string
   originalTitle: string
   category: ItemCategory
-  categoryDetails: string | null
   rarity: ItemRarity
-  rarityDetails: string | null
   attunement: boolean
-  attunementDetails: string | null
-  renderedDescription: string
+  slug: string
   source: {
     title: string
     description: string
   } | null
+}
+
+export type MagicItemData = Omit<ShortMagicItemData, 'slug'> & {
+  categoryDetails: string | null
+  rarityDetails: string | null
+  attunementDetails: string | null
+  renderedDescription: string
 }
