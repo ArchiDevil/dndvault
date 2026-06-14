@@ -92,7 +92,7 @@ const route = useRoute()
         Карточки заклинаний
       </NuxtLink>
       <NuxtLink
-        class="hover:font-semibold underline-offset-4 hidden lg:inline-block mr-4"
+        class="hover:font-semibold underline-offset-4 inline-block mr-4"
         :class="{'font-semibold': route.path.startsWith('/magic-items')}"
         to="/magic-items">
         Магические предметы
