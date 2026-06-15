@@ -17,7 +17,7 @@ if (magicItemId === undefined) {
   })
 }
 
-const {data: magicItem} = useFetch(`/api/magic-items/${magicItemId}`)
+const {data: magicItem} = await useFetch(`/api/magic-items/${magicItemId}`)
 
 useHead({
   link: [
