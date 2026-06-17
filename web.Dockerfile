@@ -1,5 +1,5 @@
 # build app
-FROM node:20-slim AS build-web
+FROM node:22-slim AS build-web
 RUN npm install -g pnpm
 COPY ./web/package.json /app/package.json
 COPY ./web/pnpm-workspace.yaml /app/pnpm-workspace.yaml
