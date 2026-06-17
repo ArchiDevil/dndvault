@@ -1,0 +1,16 @@
+services:
+  frontend:
+    build:
+      args:
+        HTTP_PROXY: ${HTTP_PROXY:-}
+        HTTPS_PROXY: ${HTTPS_PROXY:-}
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
+
+  proxy:
+    build:
+      args:
+        HTTP_PROXY: ${HTTP_PROXY:-}
+        HTTPS_PROXY: ${HTTPS_PROXY:-}
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
