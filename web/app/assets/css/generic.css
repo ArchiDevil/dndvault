@@ -9,6 +9,9 @@
   --spell-text-color: #166534;
   --spell-text-darker-color: #052e16;
 
+  --magic-item-text-color: #0f5cbc;
+  --magic-item-text-darker-color: #07264d;
+
   --heading-text-color: #57150d;
   --heading-underline-color: #caae6a;
 
@@ -119,6 +122,10 @@
 
   a[href^='/spells/'] {
     @apply text-[--spell-text-color] hover:text-[--spell-text-darker-color] italic;
+  }
+
+  a[href^='/magic-items/'] {
+    @apply text-[--magic-item-text-color] hover:text-[--magic-item-text-darker-color] italic;
   }
 
   .heading-link {
@@ -239,6 +246,7 @@
     }
 
     @apply xl:columns-2 rounded-xl border-[3px] border-double border-[--statblock-border-color] shadow-lg py-2;
+    @apply print:break-inside-avoid-page print:columns-2 print:shadow-none;
   }
 
   aside.rhyme {
