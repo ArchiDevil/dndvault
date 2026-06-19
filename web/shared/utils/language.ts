@@ -180,7 +180,7 @@ export const mapFacilityOrder = (original: string) => {
   } else if (original === 'empower') {
     return 'Усиление'
   } else {
-    return `Неизвестный размер ${original}`
+    return `Неизвестный приказ ${original}`
   }
 }
 
