@@ -1,65 +1,55 @@
 import {makeSlugLink} from '~~/shared/utils/links'
 
+type RedirectRule = {
+  pattern: RegExp
+  apiPath: string
+  routePrefix: string
+  // Needed when API returns original_title instead of originalTitle
+  mapResponse?: (data: any) => {id: number; originalTitle: string}
+}
+
+const rules: RedirectRule[] = [
+  {
+    pattern: /^\/feats\/(\d+)$/,
+    apiPath: '/api/feats',
+    routePrefix: '/feats',
+  },
+  {
+    pattern: /^\/backgrounds\/(\d+)$/,
+    apiPath: '/api/backgrounds',
+    routePrefix: '/backgrounds',
+  },
+  {
+    pattern: /^\/spells\/(\d+)$/,
+    apiPath: '/api/spells',
+    routePrefix: '/spells',
+    mapResponse: (data) => ({
+      id: data.id,
+      originalTitle: data.original_title,
+    }),
+  },
+  {
+    pattern: /^\/facilities\/(\d+)$/,
+    apiPath: '/api/facilities',
+    routePrefix: '/facilities',
+  },
+  {
+    pattern: /^\/magic-items\/(\d+)$/,
+    apiPath: '/api/magic-items',
+    routePrefix: '/magic-items',
+  },
+]
+
 export default defineNuxtRouteMiddleware(async (to) => {
-  {
-    const regex = '^/feats/(\\d+)$'
-    const match = to.path.match(regex)
-    if (match != null) {
-      const featId = match[1]
-      const featData = await $fetch(`/api/feats/${featId}`)
-      return navigateTo(`/feats/${makeSlugLink(featData)}`, {
-        redirectCode: 308,
-      })
-    }
-  }
-  {
-    const regex = '^/backgrounds/(\\d+)$'
-    const match = to.path.match(regex)
-    if (match != null) {
-      const backgroundId = match[1]
-      const backgroundData = await $fetch(`/api/backgrounds/${backgroundId}`)
-      return navigateTo(`/backgrounds/${makeSlugLink(backgroundData)}`, {
-        redirectCode: 308,
-      })
-    }
-  }
-  {
-    const regex = '^/spells/(\\d+)$'
-    const match = to.path.match(regex)
-    if (match != null) {
-      const spellId = match[1]
-      const spellData = await $fetch(`/api/spells/${spellId}`)
-      return navigateTo(
-        `/spells/${makeSlugLink({
-          id: spellData.id,
-          originalTitle: spellData.original_title,
-        })}`,
-        {
-          redirectCode: 308,
-        }
-      )
-    }
-  }
-  {
-    const regex = '^/facilities/(\\d+)$'
-    const match = to.path.match(regex)
-    if (match != null) {
-      const facilityId = match[1]
-      const facilityData = await $fetch(`/api/facilities/${facilityId}`)
-      return navigateTo(`/facilities/${makeSlugLink(facilityData)}`, {
-        redirectCode: 308,
-      })
-    }
-  }
-  {
-    const regex = '^/magic-items/(\\d+)$'
-    const match = to.path.match(regex)
-    if (match != null) {
-      const magicItemId = match[1]
-      const magicItemData = await $fetch(`/api/magic-items/${magicItemId}`)
-      return navigateTo(`/magic-items/${makeSlugLink(magicItemData)}`, {
-        redirectCode: 308,
-      })
-    }
+  for (const rule of rules) {
+    const match = to.path.match(rule.pattern)
+    if (!match) continue
+
+    const id = match[1]
+    const data = await $fetch(`${rule.apiPath}/${id}`)
+    const entity = rule.mapResponse ? rule.mapResponse(data) : data
+    return navigateTo(`${rule.routePrefix}/${makeSlugLink(entity)}`, {
+      redirectCode: 308,
+    })
   }
 })
