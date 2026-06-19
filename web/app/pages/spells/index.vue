@@ -3,6 +3,7 @@ import EntitiesCollectionList from '~/components/EntitiesCollectionList.vue'
 import FilterPopover from '~/components/FilterPopover.vue'
 import {mapSchoolName} from '~~/shared/utils/language'
 import {useRouteConfig} from '~/composables/useRouteConfig'
+import {useSpellFilters} from '~/composables/useSpellFilters'
 import {makeGroups, type GroupTypers} from '~/utils/filters'
 
 const {data: spells} = await useFetch('/api/spells')
@@ -25,74 +26,7 @@ useSeoMeta({
   ogUrl: 'https://dndvault.ru/spells',
 })
 
-// Levels filter
-const levelItems = [
-  {label: 'Заговор (0 уровень)', value: 0},
-  {label: '1 уровень', value: 1},
-  {label: '2 уровень', value: 2},
-  {label: '3 уровень', value: 3},
-  {label: '4 уровень', value: 4},
-  {label: '5 уровень', value: 5},
-  {label: '6 уровень', value: 6},
-  {label: '7 уровень', value: 7},
-  {label: '8 уровень', value: 8},
-  {label: '9 уровень', value: 9},
-]
-
-// School filters
-const schoolItems = computed(() => {
-  if (spells.value === undefined) return []
-
-  const output: {label: string; value: string}[] = []
-  for (const spell of spells.value) {
-    if (output.findIndex((o) => o.value === spell.school) === -1) {
-      output.push({
-        label: mapSchoolName(spell.school),
-        value: spell.school,
-      })
-    }
-  }
-  return output.sort((a, b) => a.label.localeCompare(b.label))
-})
-
-// Source filters
-const sourceItems = computed(() => {
-  if (spells.value === undefined) return []
-
-  const output: {label: string; value: string}[] = []
-  for (const spell of spells.value) {
-    const spellSrc = spell.source
-    if (
-      spellSrc !== undefined &&
-      spellSrc !== null &&
-      output.findIndex((o) => o.value === spellSrc.title) === -1
-    ) {
-      output.push({
-        label: spellSrc.description,
-        value: spellSrc.title,
-      })
-    }
-  }
-  return output.sort((a, b) => a.label.localeCompare(b.label))
-})
-
-// Class filters
-const classItems = computed(() => {
-  if (spells.value === undefined) return []
-
-  const output: {label: string; value: string}[] = []
-  for (const spell of spells.value) {
-    for (const class_ of spell.classes) {
-      if (output.findIndex((o) => o.value == class_) === -1) {
-        output.push({
-          label: class_,
-          value: class_,
-        })
-      }
-    }
-  }
-  return output.sort((a, b) => a.label.localeCompare(b.label))
-})
+const {levelItems, schoolItems, sourceItems, classItems} = useSpellFilters(spells)
 
 type Groupings = 'none' | 'alphabet' | 'levels' | 'sources' | 'schools'
 const groupTypers: GroupTypers<Groupings, ShortSpellData> = {
