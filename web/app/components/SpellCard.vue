@@ -24,29 +24,33 @@ import ParameterBubble from './ParameterBubble.vue'
 
 const {data} = defineProps<{data: SpellData}>()
 
-const footnotes: string[] = []
 const reComponents = new RegExp('(В)?(?:, )?(С)?(?:, )?(?:М \\((.*)\\))?')
-const materialComponentFootnote = ref<number>()
+
+const componentMatch = computed(() => reComponents.exec(data.components))
+
+const materialComponent = computed(() =>
+  componentMatch.value?.slice(1).find(
+    (comp) => comp !== undefined && comp !== 'В' && comp !== 'С'
+  )
+)
+
 const components = computed(() => {
-  const components: string[] = []
-  reComponents
-    .exec(data.components)
+  const result: string[] = []
+  componentMatch.value
     ?.slice(1)
     .filter((comp) => comp !== undefined)
     .forEach((comp) => {
       switch (comp) {
         case 'В':
         case 'С':
-          components.push(comp)
+          result.push(comp)
           break
         default:
-          footnotes.push(comp)
-          components.push('М')
-          materialComponentFootnote.value = footnotes.length
+          result.push('М')
           break
       }
     })
-  return components
+  return result
 })
 
 const schoolIcon = computed(() => {
@@ -72,30 +76,45 @@ const schoolIcon = computed(() => {
   }
 })
 
-const castTimesFootnote = ref<number>()
-const castTimes = computed(() => {
+const castTimeInfo = computed(() => {
   if (data.casting_time.startsWith('Реакция,')) {
-    footnotes.push(data.casting_time)
-    castTimesFootnote.value = footnotes.length
-    return 'Реакция'
+    return {label: 'Реакция', footnote: data.casting_time}
   } else if (data.casting_time.startsWith('Бонусное действие,')) {
-    footnotes.push(data.casting_time)
-    castTimesFootnote.value = footnotes.length
-    return 'Бонусное действие'
+    return {label: 'Бонусное действие', footnote: data.casting_time}
   } else if (data.casting_time == 'Бонусное действие') {
-    return data.casting_time
+    return {label: data.casting_time, footnote: undefined}
   } else {
     const common = new RegExp(
       /^((?:\d+)(?: )(?:л|г|м|д|ч|м|с|р)|(?:Действие))\p{L}*(?: или )?(Ритуал)?$/gu
     ).exec(data.casting_time)
     if (common) {
-      return data.casting_time
+      return {label: data.casting_time, footnote: undefined}
     } else {
-      footnotes.push(data.casting_time)
-      castTimesFootnote.value = footnotes.length
-      return 'Особое'
+      return {label: 'Особое', footnote: data.casting_time}
     }
   }
+})
+
+const castTimes = computed(() => castTimeInfo.value.label)
+
+const footnotes = computed(() => {
+  const notes: string[] = []
+  if (materialComponent.value) {
+    notes.push(materialComponent.value)
+  }
+  if (castTimeInfo.value.footnote) {
+    notes.push(castTimeInfo.value.footnote)
+  }
+  return notes
+})
+
+const materialComponentFootnote = computed(() =>
+  materialComponent.value ? 1 : undefined
+)
+
+const castTimesFootnote = computed(() => {
+  if (!castTimeInfo.value.footnote) return undefined
+  return materialComponent.value ? 2 : 1
 })
 
 const classIcons = computed(() =>
@@ -219,7 +238,6 @@ onMounted(() => {
 watch(
   () => data,
   () => {
-    footnotes.length = 0
     pages.length = 0
     pages.push(data.renderedDescription)
     pageRefs.length = 0
