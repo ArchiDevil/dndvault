@@ -67,7 +67,6 @@ export default defineEventHandler(async (): Promise<ApiBook[]> => {
           'chapters',
           'tags.book_tags_id.*',
         ].join(','),
-        sort: 'title',
         deep: {
           chapters: {
             _filter: {
