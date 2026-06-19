@@ -39,7 +39,7 @@ const tagItems = computed(() => {
 })
 
 const defaultConfig = {
-  tags: [] as string[],
+  tags: tagItems.value.map((t) => t.value),
   search: '',
 }
 
@@ -112,7 +112,9 @@ const filteredBooks = computed(() => {
       :slug="book.slug"
       :supplementaries="book.supplementaries" />
   </main>
-  <div v-else class="text-zinc-600 py-8">
+  <div
+    v-else
+    class="text-zinc-600 py-8">
     По вашему фильтру ничего не найдено
   </div>
 </template>
