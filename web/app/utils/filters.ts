@@ -34,14 +34,18 @@ export const makeGroups = <GroupingT extends string, GroupElementT>(
 
   if (!typer) return undefined
 
-  const output: {type: string; elements: GroupElementT[]}[] = []
+  const groups = new Map<string, {type: string; elements: GroupElementT[]}>()
   for (const element of elements) {
-    const group = output.find((l) => l.type == typer(element))
-    if (!group) {
-      output.push({type: typer(element), elements: [element]})
-    } else {
+    const key = typer(element)
+    const group = groups.get(key)
+    if (group) {
       group.elements.push(element)
+    } else {
+      groups.set(key, {type: key, elements: [element]})
     }
   }
-  return output.sort((a, b) => a.type.localeCompare(b.type))
+
+  return [...groups.values()].sort((a, b) =>
+    a.type.localeCompare(b.type)
+  )
 }
