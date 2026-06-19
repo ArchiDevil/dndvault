@@ -4,7 +4,7 @@ import {createDirectives, presetDirectiveConfigs} from 'marked-directive'
 import {type SpellData} from '#shared/types/spellTypes'
 import {createSbHeaderDirective, sbStatsDirective} from '#shared/utils/markdown'
 
-import {getItemsCount} from '../utils/getCount'
+import {fetchAllPaginated} from '../utils/fetchAllPaginated'
 
 type DirectusSpell = {
   id: number
@@ -30,41 +30,25 @@ type DirectusSpell = {
 
 export default defineCachedEventHandler(
   async (): Promise<SpellData[]> => {
-    const {staticToken, backendAddress} = useRuntimeConfig()
-    const itemsCount = await getItemsCount(`${backendAddress}/items/spells`)
-
-    const itemsPerPage = 100
-    let totalItems: DirectusSpell[] = []
-    for (let page = 0; page < itemsCount / itemsPerPage; page += 1) {
-      const {data: spells} = await $fetch<{data: DirectusSpell[]}>(
-        `${backendAddress}/items/spells`,
-        {
-          headers: {
-            Authorization: `Bearer ${staticToken}`,
-          },
-          query: {
-            fields: [
-              'id',
-              'title',
-              'original_title',
-              'level',
-              'school',
-              'casting_time',
-              'range',
-              'components',
-              'duration',
-              'description',
-              'classes.classes_id.title',
-              'source.title',
-              'source.description',
-            ].join(','),
-            sort: 'title',
-            offset: itemsPerPage * page,
-          },
-        }
-      )
-      totalItems = totalItems.concat(spells)
-    }
+    const spells = await fetchAllPaginated<DirectusSpell, DirectusSpell>(
+      'spells',
+      [
+        'id',
+        'title',
+        'original_title',
+        'level',
+        'school',
+        'casting_time',
+        'range',
+        'components',
+        'duration',
+        'description',
+        'classes.classes_id.title',
+        'source.title',
+        'source.description',
+      ],
+      (s) => s,
+    )
 
     const marked = new Marked(
       createDirectives([
@@ -99,7 +83,7 @@ export default defineCachedEventHandler(
     })
 
     return Promise.all(
-      totalItems.map(
+      spells.map(
         async (s): Promise<SpellData> => ({
           id: s.id,
           title: s.title,
