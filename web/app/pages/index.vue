@@ -38,12 +38,9 @@ const tagItems = computed(() => {
   return output.sort((a, b) => a.label.localeCompare(b.label))
 })
 
-type SortOption = 'title' | 'title-desc'
-
 const defaultConfig = {
   tags: [] as string[],
   search: '',
-  sort: 'title' as SortOption,
 }
 
 const route = useRoute()
@@ -81,11 +78,6 @@ const filteredBooks = computed(() => {
     )
   }
 
-  // Sort
-  if (config.value.sort === 'title-desc') {
-    result = [...result].sort((a, b) => b.title.localeCompare(a.title))
-  }
-
   return result
 })
 </script>
@@ -104,20 +96,6 @@ const filteredBooks = computed(() => {
       trigger-icon="solar:tag-linear"
       :items="tagItems"
       v-model="config.tags" />
-    <div class="flex flex-row gap-2">
-      <label
-        for="sort"
-        class="align-baseline py-1 text-nowrap"
-        >Сортировка:</label
-      >
-      <select
-        id="sort"
-        class="px-2 py-1 rounded cursor-pointer"
-        v-model="config.sort">
-        <option value="title">А-Я</option>
-        <option value="title-desc">Я-А</option>
-      </select>
-    </div>
   </div>
   <main
     v-if="filteredBooks.length > 0"
