@@ -1,3 +1,12 @@
+export type FeatCategory =
+  | 'origin'
+  | 'universal'
+  | 'martial-style'
+  | 'epic-feat'
+  | 'dragonmarked'
+  | 'planar-pact'
+  | 'dark-gift'
+
 export type ShortFeatData = {
   id: number
   title: string
@@ -7,7 +16,7 @@ export type ShortFeatData = {
     title: string
     description: string
   } | null
-  category: string
+  category: FeatCategory
 }
 
 export type FeatData = {
@@ -25,7 +34,7 @@ export type FeatData = {
     title: string
     description: string
   } | null
-  category: string
+  category: FeatCategory
   requirements: string | null
   renderedDescription: string
 }

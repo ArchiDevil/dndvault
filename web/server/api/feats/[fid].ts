@@ -1,5 +1,5 @@
 import {Marked} from 'marked'
-import {type FeatData} from '#shared/types/featTypes'
+import {FeatCategory, type FeatData} from '#shared/types/featTypes'
 import {createDirectives, presetDirectiveConfigs} from 'marked-directive'
 import {
   createSbHeaderDirective,
@@ -10,7 +10,7 @@ type DirectusFeat = {
   id: number
   title: string
   original_title: string
-  category: string
+  category: FeatCategory
   requirements: string | null
   description: string
   source: {
@@ -76,7 +76,11 @@ export default defineEventHandler(async (event): Promise<FeatData> => {
   })
 
   let backs: DirectusBackground[] | null = null
-  if (feat.category === 'origin' || feat.category === 'dragonmarked') {
+  if (
+    feat.category === 'origin' ||
+    feat.category === 'dragonmarked' ||
+    feat.category === 'dark-gift'
+  ) {
     const {data: backgrounds} = await $fetch<{data: DirectusBackground[]}>(
       `${backendAddress}/items/backgrounds`,
       {
