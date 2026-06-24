@@ -1,5 +1,6 @@
 import {type ShortSpellData} from '#shared/types/spellTypes'
-import {getItemsCount} from '../utils/getCount'
+import {makeSlugLink} from '~~/shared/utils/links'
+import {fetchAllPaginated} from '../utils/fetchAllPaginated'
 
 type DirectusSpell = {
   id: number
@@ -18,39 +19,17 @@ type DirectusSpell = {
   } | null
 }
 
-export default defineEventHandler(async (): Promise<ShortSpellData[]> => {
-  const {staticToken, backendAddress} = useRuntimeConfig()
-  const itemsCount = await getItemsCount(`${backendAddress}/items/spells`)
-
-  const itemsPerPage = 100
-  let totalItems: DirectusSpell[] = []
-  for (let page = 0; page < itemsCount / itemsPerPage; page += 1) {
-    const {data: spells} = await $fetch<{data: DirectusSpell[]}>(
-      `${backendAddress}/items/spells`,
-      {
-        headers: {
-          Authorization: `Bearer ${staticToken}`,
-        },
-        query: {
-          fields: [
-            'id',
-            'title',
-            'original_title',
-            'level',
-            'school',
-            'classes.classes_id.title',
-            'source.title',
-            'source.description',
-          ].join(','),
-          sort: 'title',
-          offset: itemsPerPage * page,
-        },
-      }
-    )
-    totalItems = totalItems.concat(spells)
-  }
-
-  return totalItems.map((s) => ({
+export default defineEventHandler(() =>
+  fetchAllPaginated<DirectusSpell, ShortSpellData>('spells', [
+    'id',
+    'title',
+    'original_title',
+    'level',
+    'school',
+    'classes.classes_id.title',
+    'source.title',
+    'source.description',
+  ], (s) => ({
     id: s.id,
     title: s.title,
     original_title: s.original_title,
@@ -60,4 +39,4 @@ export default defineEventHandler(async (): Promise<ShortSpellData[]> => {
     source: s.source,
     slug: makeSlugLink({id: s.id, originalTitle: s.original_title}),
   }))
-})
+)
