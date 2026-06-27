@@ -124,6 +124,10 @@ if (import.meta.browser) {
     .querySelectorAll('article > h1, article > h2, article > h3, article > h4')
     .forEach((e) => observer.observe(e))
 }
+
+const floater = useTemplateRef<HTMLElement>('floater')
+const {floatingStyles, data, status, referenceVisible} =
+  useEntityTooltip(floater)
 </script>
 
 <template>
@@ -140,5 +144,13 @@ if (import.meta.browser) {
       :class="bookData!.styling"
       v-html="renderedContent"
       v-once />
+
+    <EntityTooltip
+      ref="floater"
+      v-if="referenceVisible"
+      :style="floatingStyles"
+      :status="status"
+      :data="data"
+      :loading="status === 'pending'" />
   </div>
 </template>

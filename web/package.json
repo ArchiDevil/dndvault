@@ -16,6 +16,7 @@
     "nuxt": "^4.4.8"
   },
   "dependencies": {
+    "@floating-ui/vue": "^2.0.0",
     "@nuxtjs/robots": "^6.0.8",
     "@nuxtjs/sitemap": "^8.0.15",
     "marked": "^18.0.3",

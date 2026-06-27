@@ -42,6 +42,10 @@ const facilitySubtext = computed(() => {
 })
 
 const sourceDescription = useSourceDescription(facility.value)
+
+const floater = useTemplateRef<HTMLElement>('floater')
+const {floatingStyles, data, status, referenceVisible} =
+  useEntityTooltip(floater)
 </script>
 
 <template>
@@ -70,5 +74,13 @@ const sourceDescription = useSourceDescription(facility.value)
     <article
       class="cc mt-4"
       v-html="facility?.renderedDescription" />
+
+    <EntityTooltip
+      ref="floater"
+      :style="floatingStyles"
+      :class="{invisible: !referenceVisible}"
+      :status="status"
+      :data="data"
+      :loading="status === 'pending'" />
   </div>
 </template>

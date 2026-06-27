@@ -38,6 +38,10 @@ useSeoMeta({
 
 const spellSubtext = useSpellSubtext(() => spell.value)
 const sourceDescription = useSourceDescription(() => spell.value)
+
+const floater = useTemplateRef<HTMLElement>('floater')
+const {floatingStyles, data, status, referenceVisible} =
+  useEntityTooltip(floater)
 </script>
 
 <template>
@@ -56,5 +60,13 @@ const sourceDescription = useSourceDescription(() => spell.value)
     <article
       class="cc mt-4"
       v-html="spell?.renderedDescription" />
+
+    <EntityTooltip
+      ref="floater"
+      :style="floatingStyles"
+      :class="{invisible: !referenceVisible}"
+      :status="status"
+      :data="data"
+      :loading="status === 'pending'" />
   </div>
 </template>

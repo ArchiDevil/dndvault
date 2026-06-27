@@ -64,6 +64,10 @@ const magicItemSubtext = computed(() => {
 })
 
 const sourceDescription = useSourceDescription(magicItem.value)
+
+const floater = useTemplateRef<HTMLElement>('floater')
+const {floatingStyles, data, status, referenceVisible} =
+  useEntityTooltip(floater)
 </script>
 
 <template>
@@ -78,5 +82,13 @@ const sourceDescription = useSourceDescription(magicItem.value)
     <article
       class="cc mt-4"
       v-html="magicItem?.renderedDescription" />
+
+    <EntityTooltip
+      ref="floater"
+      :style="floatingStyles"
+      :class="{invisible: !referenceVisible}"
+      :status="status"
+      :data="data"
+      :loading="status === 'pending'" />
   </div>
 </template>
