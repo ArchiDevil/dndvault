@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {mapSchoolName} from '~~/shared/utils/language'
 import '~/assets/css/generic.css'
 
 definePageMeta({
@@ -37,17 +36,7 @@ useSeoMeta({
   ogUrl: `https://dndvault.ru/spells/${spellSlug.value}`,
 })
 
-const spellSubtext = computed(() => {
-  if (!spell.value) return ''
-
-  const level =
-    spell.value.level === 0
-      ? `Заговор (0 уровень)`
-      : `${spell.value.level} уровень`
-  const classes = spell.value.classes.join(', ')
-  return `${level}, ${mapSchoolName(spell.value.school)} (${classes})`
-})
-
+const spellSubtext = useSpellSubtext(() => spell.value)
 const sourceDescription = useSourceDescription(() => spell.value)
 </script>
 
