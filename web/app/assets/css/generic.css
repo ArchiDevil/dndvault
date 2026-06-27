@@ -84,7 +84,7 @@
 
   /* tables */
   table {
-    @apply mb-6 text-sm;
+    @apply mb-6 text-sm block max-w-full overflow-x-auto;
 
     th {
       @apply text-left;
