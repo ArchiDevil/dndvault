@@ -26,10 +26,7 @@ export type ShortMagicItemData = {
   rarity: ItemRarity
   attunement: boolean
   slug: string
-  source: {
-    title: string
-    description: string
-  } | null
+  source: SourceData | null
 }
 
 export type MagicItemData = Omit<ShortMagicItemData, 'slug'> & {

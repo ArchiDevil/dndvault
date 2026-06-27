@@ -5,10 +5,7 @@ export type ShortBackgroundData = {
   slug: string
   abilities: string[]
   skills: string[]
-  source: {
-    title: string
-    description: string
-  } | null
+  source: SourceData | null
 }
 
 export type BackgroundData = {
@@ -23,8 +20,5 @@ export type BackgroundData = {
   toolProficiency: string
   equipment: string
   renderedDescription: string
-  source: {
-    title: string
-    description: string
-  } | null
+  source: SourceData | null
 }

@@ -12,10 +12,7 @@ export type ShortFeatData = {
   title: string
   original_title: string
   slug: `${number}-${string}`
-  source: {
-    title: string
-    description: string
-  } | null
+  source: SourceData | null
   category: FeatCategory
 }
 
@@ -30,10 +27,7 @@ export type FeatData = {
         originalTitle: string
       }[]
     | null
-  source: {
-    title: string
-    description: string
-  } | null
+  source: SourceData | null
   category: FeatCategory
   requirements: string | null
   renderedDescription: string

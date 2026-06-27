@@ -48,9 +48,7 @@ const spellSubtext = computed(() => {
   return `${level}, ${mapSchoolName(spell.value.school)} (${classes})`
 })
 
-const sourceDescription = computed(
-  (): string => spell.value?.source?.description || 'Неизвестный источник'
-)
+const sourceDescription = useSourceDescription(() => spell.value)
 </script>
 
 <template>

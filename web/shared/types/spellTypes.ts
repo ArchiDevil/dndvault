@@ -6,10 +6,7 @@ export type ShortSpellData = {
   level: number
   school: string
   classes: string[]
-  source: {
-    title: string
-    description: string
-  } | null
+  source: SourceData | null
 }
 
 export type SpellData = {
@@ -24,8 +21,5 @@ export type SpellData = {
   duration: string
   renderedDescription: string
   classes: string[]
-  source: {
-    title: string
-    description: string
-  } | null
+  source: SourceData | null
 }

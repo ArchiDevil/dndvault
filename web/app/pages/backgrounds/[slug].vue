@@ -37,9 +37,7 @@ useSeoMeta({
   ogUrl: `https://dndvault.ru/backgrounds/${backgroundSlug.value}`,
 })
 
-const sourceDescription = computed(
-  (): string => background.value?.source?.description || 'Неизвестный источник'
-)
+const sourceDescription = useSourceDescription(background.value)
 </script>
 
 <template>

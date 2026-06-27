@@ -63,9 +63,7 @@ const magicItemSubtext = computed(() => {
   ].join(', ')
 })
 
-const sourceDescription = computed(
-  (): string => magicItem.value?.source?.description || 'Неизвестный источник'
-)
+const sourceDescription = useSourceDescription(magicItem.value)
 </script>
 
 <template>

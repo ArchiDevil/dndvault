@@ -41,9 +41,7 @@ const facilitySubtext = computed(() => {
   return `Сооружение Бастиона ${level}-го уровня`
 })
 
-const sourceDescription = computed(
-  (): string => facility.value?.source?.description || 'Неизвестный источник'
-)
+const sourceDescription = useSourceDescription(facility.value)
 </script>
 
 <template>

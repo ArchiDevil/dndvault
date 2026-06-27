@@ -43,9 +43,7 @@ const featSubtext = computed(() => {
   return requirements ? `${category} (Требования: ${requirements})` : category
 })
 
-const sourceDescription = computed(
-  (): string => feat.value?.source?.description || 'Неизвестный источник'
-)
+const sourceDescription = useSourceDescription(() => feat.value)
 </script>
 
 <template>
