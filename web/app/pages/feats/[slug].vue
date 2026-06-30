@@ -26,6 +26,33 @@ useHead({
       href: `https://dndvault.ru/feats/${featSlug.value}`,
     },
   ],
+  script: [
+    {
+      type: 'application/ld+json',
+      textContent: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            item: {
+              '@id': 'https://dndvault.ru/feats',
+              name: 'Черты',
+            },
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            item: {
+              '@id': `https://dndvault.ru/feats/${featSlug.value}`,
+              name: feat.value?.title,
+            },
+          },
+        ],
+      }),
+    },
+  ],
 })
 
 useSeoMeta({
