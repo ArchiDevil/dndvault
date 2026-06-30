@@ -25,8 +25,12 @@ const toc = useState<{text: string; level: number; link: string}[]>(
 
 // prerender content on the server
 if (import.meta.server) {
+  let suffix = ''
+  if ('version' in route.query && typeof route.query['version'] === 'string') {
+    suffix = `?version=${route.query['version']}`
+  }
   const chapter = await $fetch(
-    `/api/books/${bookSlug.value}/chapters/${chapterSlug.value}`
+    `/api/books/${bookSlug.value}/chapters/${chapterSlug.value}${suffix}`
   )
   renderedContent = chapter.content
   toc.value = chapter.toc
@@ -41,9 +45,9 @@ if (import.meta.server) {
   })
 
   useSeoMeta({
-    title: `${bookData.value.title} - ${chapter.title} | DnD Vault`,
+    title: `${chapter.title} | ${bookData.value.title} | DnD Vault`,
     description: `Содержимое главы: ${chapter.title} DnD 2024`,
-    ogTitle: `${bookData.value.title} - ${chapter.title} | DnD Vault`,
+    ogTitle: `${chapter.title} | ${bookData.value.title} | DnD Vault`,
     ogDescription: `Содержимое главы: ${chapter.title} DnD 2024`,
     ogType: 'article',
     ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
