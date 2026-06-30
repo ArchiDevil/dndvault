@@ -45,7 +45,7 @@ const {floatingStyles, data, status, referenceVisible} =
 </script>
 
 <template>
-  <div class="max-w-[750px]">
+  <div id="spell-description" class="max-w-[750px]">
     <h1 class="text-2xl md:text-3xl font-semibold mt-4">
       {{ spell?.title }} [{{ spell?.original_title }}]
     </h1>
