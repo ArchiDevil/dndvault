@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {mapItemCategory} from '~~/shared/utils/language'
 import '~/assets/css/generic.css'
 
 definePageMeta({
@@ -37,32 +36,7 @@ useSeoMeta({
   ogUrl: `https://dndvault.ru/magic-items/${magicItemSlug.value}`,
 })
 
-const magicItemSubtext = computed(() => {
-  if (!magicItem.value) return ''
-  const itemCategory = mapItemCategory(magicItem.value.category)
-  const itemCategorySuffix = magicItem.value.categoryDetails ?? undefined
-
-  const itemRarity = mapItemRarity(magicItem.value.rarity)
-  const raritySuffix = (
-    magicItem.value.rarityDetails ? [magicItem.value.rarityDetails] : []
-  )
-    .concat(
-      magicItem.value.attunement == true
-        ? ['требуется Настройка']
-            .concat(magicItem.value.attunementDetails ?? [])
-            .join(' ')
-        : []
-    )
-    .join(', ')
-
-  return [
-    itemCategorySuffix
-      ? `${itemCategory} (${itemCategorySuffix})`
-      : itemCategory,
-    raritySuffix ? `${itemRarity} (${raritySuffix})` : itemRarity,
-  ].join(', ')
-})
-
+const magicItemSubtext = useMagicItemSubtext(magicItem)
 const sourceDescription = useSourceDescription(magicItem.value)
 
 const floater = useTemplateRef<HTMLElement>('floater')

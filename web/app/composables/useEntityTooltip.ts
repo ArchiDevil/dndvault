@@ -16,6 +16,7 @@ const EntityData: Record<EntityTypes, {siteLinks: string; api: string}> = {
   background: {siteLinks: '/backgrounds', api: '/api/backgrounds/'},
   facility: {siteLinks: '/facilities', api: '/api/facilities/'},
   feat: {siteLinks: '/feats', api: '/api/feats/'},
+  magicItem: {siteLinks: '/magic-items', api: '/api/magic-items/'},
   spell: {siteLinks: '/spells', api: '/api/spells/'},
 }
 

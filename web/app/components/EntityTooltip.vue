@@ -3,12 +3,14 @@ import BackgroundEntity from './tooltip/BackgroundEntity.vue'
 import BaseEntity from './tooltip/BaseEntity.vue'
 import FacilityEntity from './tooltip/FacilityEntity.vue'
 import FeatEntity from './tooltip/FeatEntity.vue'
+import MagicItemEntity from './tooltip/MagicItemEntity.vue'
 import SpellEntity from './tooltip/SpellEntity.vue'
 
 type EntityDataTypes = {
   background: BackgroundData
   facility: FacilityData
   feat: FeatData
+  magicItem: MagicItemData
   spell: SpellData
 }
 
@@ -38,6 +40,9 @@ defineProps<{
       <FeatEntity
         v-if="data.type === 'feat'"
         :feat="data.data" />
+      <MagicItemEntity
+        v-if="data.type === 'magicItem'"
+        :magic-item="data.data" />
       <SpellEntity
         v-if="data.type === 'spell'"
         :spell="data.data" />
