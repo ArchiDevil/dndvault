@@ -13,6 +13,7 @@ import {
 } from '~/components/EntityTooltip.vue'
 
 const EntityData: Record<EntityTypes, {siteLinks: string; api: string}> = {
+  background: {siteLinks: '/backgrounds', api: '/api/backgrounds/'},
   feat: {siteLinks: '/feats', api: '/api/feats/'},
   spell: {siteLinks: '/spells', api: '/api/spells/'},
 }
