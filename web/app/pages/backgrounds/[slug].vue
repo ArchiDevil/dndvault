@@ -38,15 +38,23 @@ useSeoMeta({
 })
 
 const sourceDescription = useSourceDescription(background.value)
+
+const floater = useTemplateRef<HTMLElement>('floater')
+const {floatingStyles, data, status, referenceVisible} = useEntityTooltip(
+  floater,
+  '#background-description'
+)
 </script>
 
 <template>
-  <div class="max-w-[750px]">
+  <div
+    id="background-description"
+    class="max-w-[750px]">
     <h1 class="text-2xl md:text-3xl font-semibold mt-4">
       {{ background?.title }} [{{ background?.originalTitle }}]
     </h1>
     <h3 class="text-sm text-zinc-700">Источник: {{ sourceDescription }}</h3>
-    <ul class="mt-4">
+    <ul class="my-4">
       <li>
         <strong class="whitespace-pre">Значения характеристик:</strong>
         {{ background?.abilities.map((a) => mapAbility(a)).join(', ') }}
@@ -55,7 +63,7 @@ const sourceDescription = useSourceDescription(background.value)
         <strong>Черта: </strong>
         <NuxtLink
           v-if="background?.featLink"
-          class="font-bold text-red-900 hover:text-red-950"
+          class="font-semibold text-red-900 hover:text-red-950"
           :href="background?.featLink">
           {{ background?.featName }}
           <template v-if="background?.featComment !== null">{{
@@ -77,8 +85,16 @@ const sourceDescription = useSourceDescription(background.value)
       </li>
     </ul>
     <article
-      class="cc mt-4"
+      class="cc"
       v-html="background?.renderedDescription" />
+
+    <EntityTooltip
+      ref="floater"
+      :style="floatingStyles"
+      :class="{invisible: !referenceVisible}"
+      :status="status"
+      :data="data"
+      :loading="status === 'pending'" />
   </div>
 </template>
 

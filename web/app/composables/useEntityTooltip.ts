@@ -27,7 +27,10 @@ const fetchEntityData = async (
   return {type, data: await $fetch(url)} as EntityDataUnion
 }
 
-export const useEntityTooltip = (floater: TemplateRef<HTMLElement>) => {
+export const useEntityTooltip = (
+  floater: TemplateRef<HTMLElement>,
+  selector: string = 'article.cc'
+) => {
   const reference = ref<Element>()
   const {floatingStyles} = useFloating(reference, floater, {
     placement: 'bottom-start',
@@ -67,7 +70,7 @@ export const useEntityTooltip = (floater: TemplateRef<HTMLElement>) => {
 
   const addEntityEvents = (entity: EntityTypes) => {
     const links = document.querySelectorAll(
-      `article.cc a[href^="${EntityData[entity].siteLinks}"]`
+      `${selector} a[href^="${EntityData[entity].siteLinks}"]`
     )
     const entityRegex = /\/(\d+)/
     links.forEach((e) => {

@@ -67,12 +67,16 @@ const featSubtext = useFeatSubtext(feat)
 const sourceDescription = useSourceDescription(() => feat.value)
 
 const floater = useTemplateRef<HTMLElement>('floater')
-const {floatingStyles, data, status, referenceVisible} =
-  useEntityTooltip(floater)
+const {floatingStyles, data, status, referenceVisible} = useEntityTooltip(
+  floater,
+  '#feat-description'
+)
 </script>
 
 <template>
-  <div class="max-w-[750px]">
+  <div
+    id="feat-description"
+    class="max-w-[750px]">
     <h1 class="text-2xl md:text-3xl font-semibold mt-4">
       {{ feat?.title }} [{{ feat?.originalTitle }}]
     </h1>
