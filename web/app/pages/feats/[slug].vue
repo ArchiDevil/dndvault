@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {mapFeatCategory} from '~~/shared/utils/language'
 import '~/assets/css/generic.css'
 
 definePageMeta({
@@ -64,12 +63,7 @@ useSeoMeta({
   ogUrl: `https://dndvault.ru/feats/${featSlug.value}`,
 })
 
-const featSubtext = computed(() => {
-  const category = feat.value ? mapFeatCategory(feat.value?.category) : ''
-  const requirements = feat.value?.requirements || undefined
-  return requirements ? `${category} (Требования: ${requirements})` : category
-})
-
+const featSubtext = useFeatSubtext(feat)
 const sourceDescription = useSourceDescription(() => feat.value)
 
 const floater = useTemplateRef<HTMLElement>('floater')

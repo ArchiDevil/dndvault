@@ -3,7 +3,7 @@ const {spell} = defineProps<{
   spell?: SpellData
 }>()
 
-const spellSubtext = useSpellSubtext(() => spell)
+const spellSubtext = useSpellSubtext(spell)
 </script>
 
 <template>

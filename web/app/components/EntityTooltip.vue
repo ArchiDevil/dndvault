@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import BaseEntity from './tooltip/BaseEntity.vue'
+import FeatEntity from './tooltip/FeatEntity.vue'
 import SpellEntity from './tooltip/SpellEntity.vue'
 
-export type EntityTypes = 'spell'
-
-export type SpellEntityData = {
-  type: 'spell'
-  data: SpellData
+type EntityDataTypes = {
+  feat: FeatData
+  spell: SpellData
 }
 
-export type SupportedEntityData = SpellEntityData | undefined
+export type EntityTypes = keyof EntityDataTypes
+
+export type SupportedEntityData =
+  | {
+      [K in EntityTypes]: {type: K; data: EntityDataTypes[K]}
+    }[EntityTypes]
+  | undefined
 
 defineProps<{
   status: 'idle' | 'pending' | 'success' | 'error'
@@ -20,6 +25,9 @@ defineProps<{
 <template>
   <BaseEntity class="text-sm">
     <template v-if="status === 'success' && data">
+      <FeatEntity
+        v-if="data.type === 'feat'"
+        :feat="data.data" />
       <SpellEntity
         v-if="data.type === 'spell'"
         :spell="data.data" />
