@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import BackgroundEntity from './tooltip/BackgroundEntity.vue'
 import BaseEntity from './tooltip/BaseEntity.vue'
+import FacilityEntity from './tooltip/FacilityEntity.vue'
 import FeatEntity from './tooltip/FeatEntity.vue'
 import SpellEntity from './tooltip/SpellEntity.vue'
 
 type EntityDataTypes = {
   background: BackgroundData
+  facility: FacilityData
   feat: FeatData
   spell: SpellData
 }
@@ -30,6 +32,9 @@ defineProps<{
       <BackgroundEntity
         v-if="data.type === 'background'"
         :background="data.data" />
+      <FacilityEntity
+        v-if="data.type === 'facility'"
+        :facility="data.data" />
       <FeatEntity
         v-if="data.type === 'feat'"
         :feat="data.data" />

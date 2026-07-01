@@ -36,11 +36,7 @@ useSeoMeta({
   ogUrl: `https://dndvault.ru/facilities/${facilitySlug.value}`,
 })
 
-const facilitySubtext = computed(() => {
-  const level = facility.value?.level
-  return `Сооружение Бастиона ${level}-го уровня`
-})
-
+const facilitySubtext = useFacilitySubtext(facility)
 const sourceDescription = useSourceDescription(facility.value)
 
 const floater = useTemplateRef<HTMLElement>('floater')
