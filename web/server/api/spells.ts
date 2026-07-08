@@ -1,4 +1,4 @@
-import {type ShortSpellData} from '#shared/types/spellTypes'
+import type {SpellSchool, ShortSpellData} from '#shared/types/spellTypes'
 import {getItemsCount} from '../utils/getCount'
 
 type DirectusSpell = {
@@ -6,7 +6,7 @@ type DirectusSpell = {
   title: string
   original_title: string
   level: number
-  school: string
+  school: SpellSchool
   classes: {
     classes_id: {
       title: string

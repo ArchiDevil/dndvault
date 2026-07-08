@@ -8,7 +8,7 @@ export const sluggify = (original: string) => {
 export const makeSlugLink = (entity: {
   id: number
   originalTitle: string
-}): `${number}-${string}` => {
+}): SlugString => {
   const slug = sluggify(entity.originalTitle)
   return `${entity.id}-${slug}`
 }

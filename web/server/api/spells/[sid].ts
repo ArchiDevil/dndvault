@@ -1,6 +1,6 @@
 import {Marked} from 'marked'
 import {createDirectives, presetDirectiveConfigs} from 'marked-directive'
-import {type SpellData} from '#shared/types/spellTypes'
+import type {SpellSchool, SpellData} from '#shared/types/spellTypes'
 import {
   createSbHeaderDirective,
   sbStatsDirective,
@@ -11,7 +11,7 @@ type DirectusSpell = {
   title: string
   original_title: string
   level: number
-  school: string
+  school: SpellSchool
   casting_time: string
   range: string
   components: string

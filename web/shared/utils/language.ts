@@ -72,7 +72,7 @@ export const mapFeatCategory = (category: FeatCategory) => {
   }
 }
 
-export const mapSchoolName = (school: string) => {
+export const mapSchoolName = (school: SpellSchool) => {
   if (school === 'evocation') {
     return 'Воплощение'
   } else if (school === 'illusion') {
@@ -94,7 +94,7 @@ export const mapSchoolName = (school: string) => {
   }
 }
 
-export const mapAbility = (original: string) => {
+export const mapAbility = (original: Ability) => {
   if (original === 'strength') {
     return 'Сила'
   } else if (original === 'dexterity') {
@@ -112,7 +112,7 @@ export const mapAbility = (original: string) => {
   }
 }
 
-export const mapSkill = (original: string) => {
+export const mapSkill = (original: Skill) => {
   if (original === 'acrobatics') {
     return 'Акробатика'
   } else if (original === 'athletics') {
@@ -154,7 +154,7 @@ export const mapSkill = (original: string) => {
   }
 }
 
-export const mapFacilitySize = (original: string) => {
+export const mapFacilitySize = (original: FacilitySize) => {
   if (original === 'cramped') {
     return 'Тесное'
   } else if (original === 'roomy') {
@@ -166,7 +166,7 @@ export const mapFacilitySize = (original: string) => {
   }
 }
 
-export const mapFacilityOrder = (original: string) => {
+export const mapFacilityOrder = (original: FacilityOrder) => {
   if (original === 'recruit') {
     return 'Вербовка'
   } else if (original === 'craft') {

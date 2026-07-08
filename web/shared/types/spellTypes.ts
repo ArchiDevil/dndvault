@@ -1,25 +1,30 @@
+import type {SlugString} from './commonTypes'
+
+export type SpellSchool =
+  | 'evocation'
+  | 'illusion'
+  | 'necromancy'
+  | 'abjuration'
+  | 'enchantment'
+  | 'transmutation'
+  | 'conjuration'
+  | 'divination'
+
 export type ShortSpellData = {
   id: number
   title: string
   original_title: string
-  slug: string
+  slug: SlugString
   level: number
-  school: string
+  school: SpellSchool
   classes: string[]
   source: SourceData | null
 }
 
-export type SpellData = {
-  id: number
-  title: string
-  original_title: string
-  level: number
-  school: string
+export type SpellData = Omit<ShortSpellData, 'slug'> & {
   casting_time: string
   range: string
   components: string
   duration: string
   renderedDescription: string
-  classes: string[]
-  source: SourceData | null
 }

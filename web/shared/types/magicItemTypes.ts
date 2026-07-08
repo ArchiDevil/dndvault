@@ -1,3 +1,5 @@
+import type {SlugString} from './commonTypes'
+
 export type ItemCategory =
   | 'armor'
   | 'potion'
@@ -25,7 +27,7 @@ export type ShortMagicItemData = {
   category: ItemCategory
   rarity: ItemRarity
   attunement: boolean
-  slug: string
+  slug: SlugString
   source: SourceData | null
 }
 

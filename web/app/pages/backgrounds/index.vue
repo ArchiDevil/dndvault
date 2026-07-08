@@ -3,7 +3,11 @@ import EntitiesCollectionList from '~/components/EntitiesCollectionList.vue'
 import FilterPopover from '~/components/FilterPopover.vue'
 import {useRouteConfig} from '~/composables/useRouteConfig'
 import {makeGroups, type GroupTypers} from '~/utils/filters'
-import type {ShortBackgroundData} from '~~/shared/types/backgroundTypes'
+import type {
+  Ability,
+  Skill,
+  ShortBackgroundData,
+} from '~~/shared/types/backgroundTypes'
 
 const {data: backgrounds} = await useFetch('/api/backgrounds')
 
@@ -29,7 +33,7 @@ useSeoMeta({
 const abilityItems = computed(() => {
   if (backgrounds.value === undefined) return []
 
-  const output: {label: string; value: string}[] = [
+  const output: {label: string; value: Ability}[] = [
     {label: 'Сила', value: 'strength'},
     {label: 'Ловкость', value: 'dexterity'},
     {label: 'Телосложение', value: 'constitution'},
@@ -44,7 +48,7 @@ const abilityItems = computed(() => {
 const skillItems = computed(() => {
   if (backgrounds.value === undefined) return []
 
-  const output: {label: string; value: string}[] = [
+  const output: {label: string; value: Skill}[] = [
     {label: 'Акробатика', value: 'acrobatics'},
     {label: 'Атлетика', value: 'athletics'},
     {label: 'Восприятие', value: 'perception'},

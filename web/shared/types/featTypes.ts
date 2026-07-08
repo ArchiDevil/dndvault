@@ -1,3 +1,5 @@
+import type {SlugString} from './commonTypes'
+
 export type FeatCategory =
   | 'origin'
   | 'universal'
@@ -11,7 +13,7 @@ export type ShortFeatData = {
   id: number
   title: string
   original_title: string
-  slug: `${number}-${string}`
+  slug: SlugString
   source: SourceData | null
   category: FeatCategory
 }

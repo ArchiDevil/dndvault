@@ -1,10 +1,10 @@
 import {mapSchoolName} from '~~/shared/utils/language'
-import type {ShortSpellData} from '#shared/types/spellTypes'
+import type {SpellSchool} from '#shared/types/spellTypes'
 
 export function useSpellFilters(
   spells: Ref<
     | {
-        school: string
+        school: SpellSchool
         source: SourceData | undefined | null
         classes: string[]
       }[]

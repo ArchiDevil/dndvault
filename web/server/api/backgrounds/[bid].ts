@@ -1,4 +1,8 @@
-import {type BackgroundData} from '#shared/types/backgroundTypes'
+import type {
+  Ability,
+  BackgroundData,
+  Skill,
+} from '#shared/types/backgroundTypes'
 import {Marked} from 'marked'
 import {createDirectives, presetDirectiveConfigs} from 'marked-directive'
 import {makeSlugLink} from '~~/shared/utils/links'
@@ -7,14 +11,14 @@ type DirectusBackground = {
   id: number
   title: string
   original_title: string
-  abilities: string[]
+  abilities: Ability[]
   feat: {
     id: number
     title: string
     original_title: string
   } | null
   feat_comment: string | null
-  skills: string[]
+  skills: Skill[]
   tool_proficiency: string
   equipment: string
   description: string

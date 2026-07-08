@@ -1,4 +1,8 @@
-import {type ShortBackgroundData} from '#shared/types/backgroundTypes'
+import type {
+  Ability,
+  Skill,
+  ShortBackgroundData,
+} from '#shared/types/backgroundTypes'
 import {makeSlugLink} from '~~/shared/utils/links'
 import {getItemsCount} from '../utils/getCount'
 
@@ -6,8 +10,8 @@ type DirectusBackground = {
   id: number
   title: string
   original_title: string
-  abilities: string[]
-  skills: string[]
+  abilities: Ability[]
+  skills: Skill[]
   source: {
     title: string
     description: string

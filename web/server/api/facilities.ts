@@ -1,4 +1,8 @@
-import {type ShortFacilityData} from '#shared/types/facilityTypes'
+import type {
+  FacilityOrder,
+  FacilitySize,
+  ShortFacilityData,
+} from '#shared/types/facilityTypes'
 import {makeSlugLink} from '~~/shared/utils/links'
 import {getItemsCount} from '../utils/getCount'
 
@@ -11,8 +15,8 @@ type DirectusFacility = {
     description: string
   } | null
   level: number
-  order: string
-  size: string
+  order: FacilityOrder
+  size: FacilitySize
 }
 
 export default defineEventHandler(async (): Promise<ShortFacilityData[]> => {

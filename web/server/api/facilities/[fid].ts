@@ -1,5 +1,9 @@
 import {Marked} from 'marked'
-import {type FacilityData} from '#shared/types/facilityTypes'
+import type {
+  FacilityOrder,
+  FacilityData,
+  FacilitySize,
+} from '#shared/types/facilityTypes'
 import {createDirectives, presetDirectiveConfigs} from 'marked-directive'
 import {
   createSbHeaderDirective,
@@ -16,8 +20,8 @@ type DirectusFacility = {
   } | null
   level: number
   requirements: string | null
-  order: string
-  size: string
+  order: FacilityOrder
+  size: FacilitySize
   hirelings: number
   description: string
 }
