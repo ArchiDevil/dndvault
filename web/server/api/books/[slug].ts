@@ -42,18 +42,20 @@ export default defineEventHandler(async (event): Promise<ApiBook> => {
     })
   }
 
+  const book = data[0]!
+
   const styling = []
-  if (data[0].styling !== null) {
+  if (book.styling !== null) {
     // currently it is just a string, but is extensible for the future
-    styling.push(data[0].styling)
+    styling.push(book.styling)
   }
 
   return {
-    id: data[0].id,
-    slug: data[0].slug,
-    title: data[0].title,
-    description: data[0].description,
+    id: book.id,
+    slug: book.slug,
+    title: book.title,
+    description: book.description,
     styling,
-    translators: data[0].translators,
+    translators: book.translators,
   }
 })

@@ -1,5 +1,5 @@
 import {Marked} from 'marked'
-import {FeatCategory, type FeatData} from '#shared/types/featTypes'
+import type {FeatCategory, FeatData} from '#shared/types/featTypes'
 import {createDirectives, presetDirectiveConfigs} from 'marked-directive'
 import {
   createSbHeaderDirective,

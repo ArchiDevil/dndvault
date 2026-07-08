@@ -1,4 +1,4 @@
-import {DefaultStatus} from '#shared/types/backendTypes'
+import {type DefaultStatus} from '#shared/types/backendTypes'
 
 type DirectusBook = {
   id: number

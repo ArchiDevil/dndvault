@@ -1,5 +1,5 @@
-import {DefaultStatus} from '#shared/types/backendTypes'
-import {Marked, Token} from 'marked'
+import {type DefaultStatus} from '#shared/types/backendTypes'
+import {Marked, type Token} from 'marked'
 
 type DirectusChapter = {
   id: number

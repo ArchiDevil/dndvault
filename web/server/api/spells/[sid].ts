@@ -71,6 +71,8 @@ export default defineEventHandler(async (event): Promise<SpellData> => {
     })
   }
 
+  const spell = spells[0]!
+
   const marked = new Marked(
     createDirectives([
       ...presetDirectiveConfigs,
@@ -80,22 +82,22 @@ export default defineEventHandler(async (event): Promise<SpellData> => {
     ])
   )
 
-  const renderedDescription = await marked.parse(spells[0].description, {
+  const renderedDescription = await marked.parse(spell.description, {
     async: true,
   })
 
   return {
-    id: spells[0].id,
-    title: spells[0].title,
-    original_title: spells[0].original_title,
-    level: spells[0].level,
-    school: spells[0].school,
-    casting_time: spells[0].casting_time,
-    range: spells[0].range,
-    components: spells[0].components,
-    duration: spells[0].duration,
+    id: spell.id,
+    title: spell.title,
+    original_title: spell.original_title,
+    level: spell.level,
+    school: spell.school,
+    casting_time: spell.casting_time,
+    range: spell.range,
+    components: spell.components,
+    duration: spell.duration,
     renderedDescription,
-    classes: spells[0].classes.map((c) => c.classes_id.title),
-    source: spells[0].source,
+    classes: spell.classes.map((c) => c.classes_id.title),
+    source: spell.source,
   }
 })

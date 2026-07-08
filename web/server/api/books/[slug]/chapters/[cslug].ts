@@ -3,7 +3,7 @@ import {createDirectives, presetDirectiveConfigs} from 'marked-directive'
 import {
   createSbHeaderDirective,
   sbStatsDirective,
-  TocRecord,
+  type TocRecord,
 } from '#shared/utils/markdown'
 
 type DirectusChapter = {

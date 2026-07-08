@@ -1,7 +1,16 @@
 import {mapSchoolName} from '~~/shared/utils/language'
 import type {ShortSpellData} from '#shared/types/spellTypes'
 
-export function useSpellFilters(spells: Ref<ShortSpellData[] | undefined>) {
+export function useSpellFilters(
+  spells: Ref<
+    | {
+        school: string
+        source: SourceData | undefined | null
+        classes: string[]
+      }[]
+    | undefined
+  >
+) {
   const levelItems = [
     {label: 'Заговор (0 уровень)', value: 0},
     {label: '1 уровень', value: 1},

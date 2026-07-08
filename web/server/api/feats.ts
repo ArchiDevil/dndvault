@@ -1,4 +1,4 @@
-import {type ShortFeatData} from '#shared/types/featTypes'
+import type {FeatCategory, ShortFeatData} from '#shared/types/featTypes'
 import {makeSlugLink} from '~~/shared/utils/links'
 import {getItemsCount} from '../utils/getCount'
 
@@ -6,7 +6,7 @@ type DirectusFeat = {
   id: number
   title: string
   original_title: string
-  category: string
+  category: FeatCategory
   source: {
     title: string
     description: string
