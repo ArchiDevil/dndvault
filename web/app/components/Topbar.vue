@@ -8,8 +8,8 @@ const route = useRoute()
     <div
       id="main-row"
       class="flex flex-row gap-8 font-semibold items-center">
-      <div class="flex-grow h-9 flex flex-row gap-2 md:gap-4 items-center mb-3">
-        <div class="size-14">
+      <div class="flex-grow h-9 flex flex-row gap-2 md:gap-4 items-center md:mb-3">
+        <div class="size-9 md:size-14">
           <a href="/">
             <img
               src="/android-chrome-192x192.png"
@@ -23,7 +23,7 @@ const route = useRoute()
             to="/">
             D&amp;D Vault
           </NuxtLink>
-          <p class="text-zinc-700 font-normal text-sm md:text-base">Проект dungeonsanddragons.ru</p>
+          <p class="text-zinc-700 font-normal text-base hidden md:block">Проект dungeonsanddragons.ru</p>
         </div>
       </div>
       <div class="grow-0 flex flex-row gap-2 items-center">
