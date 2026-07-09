@@ -99,14 +99,14 @@ const filteredBooks = computed(() => {
   </div>
   <main
     v-if="filteredBooks.length > 0"
-    class="grid xl:grid-cols-2 gap-8">
+    class="grid 2xl:grid-cols-2 gap-4 md:gap-6 2xl:gap-8">
     <Book
       v-for="book in filteredBooks"
       :key="book.id"
       :title="book.title"
       :cover="book.cover"
       :tags="book.tags"
-      :description="book.description"
+      :card-description="book.card_description"
       :download-link="book.file"
       :chapters="book.chapters"
       :slug="book.slug"

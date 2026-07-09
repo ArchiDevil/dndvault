@@ -4,12 +4,12 @@ const route = useRoute()
 
 <template>
   <nav
-    class="my-2 md:my-8 py-2 md:pt-4 md:pb-2 border-b-2 flex flex-col gap-2 print:hidden">
+    class="my-2 md:my-6 py-2 md:pt-4 md:pb-2 border-b-2 flex flex-col gap-2 print:hidden">
     <div
       id="main-row"
       class="flex flex-row gap-8 font-semibold items-center">
-      <div class="flex-grow h-9 flex flex-row gap-2 md:gap-3 items-center">
-        <div class="size-9">
+      <div class="flex-grow h-9 flex flex-row gap-2 md:gap-4 items-center mb-3">
+        <div class="size-14">
           <a href="/">
             <img
               src="/android-chrome-192x192.png"
@@ -17,11 +17,14 @@ const route = useRoute()
               alt="Логотип DnD Vault" />
           </a>
         </div>
-        <NuxtLink
-          class="text-xl md:text-3xl underline-offset-4 decoration-2 hover:underline"
-          to="/">
-          D&amp;D Vault
-        </NuxtLink>
+        <div class="flex flex-col gap-0">
+          <NuxtLink
+            class="text-xl md:text-3xl underline-offset-4 decoration-2 hover:underline"
+            to="/">
+            D&amp;D Vault
+          </NuxtLink>
+          <p class="text-zinc-700 font-normal text-sm md:text-base">Проект dungeonsanddragons.ru</p>
+        </div>
       </div>
       <div class="grow-0 flex flex-row gap-2 items-center">
         <div class="w-8 md:w-9">

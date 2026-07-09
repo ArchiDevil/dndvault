@@ -5,6 +5,7 @@ type DirectusBook = {
   slug: string
   title: string
   description: string
+  card_description: string
   chapters: number[] | null
   status: DefaultStatus
   file: string | null
@@ -35,6 +36,7 @@ type ApiBook = {
   slug: string
   title: string
   description: string
+  card_description: string
   cover?: string
   file?: string
   chapters: number[]
@@ -61,6 +63,7 @@ export default defineEventHandler(async (): Promise<ApiBook[]> => {
           'slug',
           'title',
           'description',
+          'card_description',
           'status',
           'file',
           'cover',
@@ -107,6 +110,7 @@ export default defineEventHandler(async (): Promise<ApiBook[]> => {
         id: b.id,
         slug: b.slug,
         description: b.description,
+        card_description: b.card_description,
         title: b.title,
         chapters: b.chapters || [],
         tags:
