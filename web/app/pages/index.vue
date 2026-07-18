@@ -62,21 +62,17 @@ const filteredBooks = computed(() => {
   let result = books.value ?? []
 
   // Tag filter
-  if (config.value.tags.length > 0) {
-    result = result.filter((b) =>
-      b.tags.some((t) => config.value.tags.includes(t.name))
-    )
-  }
+  result = result.filter((b) =>
+    b.tags.some((t) => config.value.tags.includes(t.name))
+  )
 
   // Search filter
-  if (config.value.search) {
-    const query = config.value.search.toLowerCase()
-    result = result.filter(
-      (b) =>
-        b.title.toLowerCase().includes(query) ||
-        b.description.toLowerCase().includes(query)
-    )
-  }
+  const query = config.value.search.toLowerCase()
+  result = result.filter(
+    (b) =>
+      b.title.toLowerCase().includes(query) ||
+      b.description.toLowerCase().includes(query)
+  )
 
   return result
 })
@@ -114,7 +110,7 @@ const filteredBooks = computed(() => {
   </main>
   <div
     v-else
-    class="text-zinc-600 py-8">
+    class="text-zinc-600 py-2">
     По вашему фильтру ничего не найдено
   </div>
 </template>
