@@ -4,6 +4,7 @@ import '~/assets/css/phb.css'
 import '~/assets/css/dmg.css'
 import '~/assets/css/efota.css'
 import '~/assets/css/aboh.css'
+import '~/assets/css/wthc.css'
 
 const route = useRoute()
 const bookSlug = computed(() => route.params.slug)

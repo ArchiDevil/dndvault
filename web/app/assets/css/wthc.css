@@ -1,0 +1,6 @@
+.cc.wthc {
+  aside.author {
+    @apply text-[#566388]  italic text-base bg-slate-200;
+    @apply border-t-2 border-b-4 shadow-xl;
+  }
+}
