@@ -223,7 +223,7 @@ export const mapItemRarity = (rarity: ItemRarity) => {
   } else if (rarity === 'uncommon') {
     return 'Необычный'
   } else if (rarity === 'variable') {
-    return 'редкость варьируется'
+    return 'Редкость варьируется'
   } else if (rarity === 'very_rare') {
     return 'Очень редкий'
   } else {
