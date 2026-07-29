@@ -226,6 +226,10 @@
 
       table {
         @apply mb-1 table;
+
+        td {
+          @apply min-w-[auto];
+        }
       }
 
       table:nth-of-type(1) > tbody > tr {
