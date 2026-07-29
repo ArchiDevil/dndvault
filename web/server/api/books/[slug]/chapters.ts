@@ -1,5 +1,6 @@
 import {type DefaultStatus} from '#shared/types/backendTypes'
-import {Marked, type Token} from 'marked'
+import {Marked} from 'marked'
+import {createDirectives, presetDirectiveConfigs} from 'marked-directive'
 
 type DirectusChapter = {
   id: number
@@ -7,6 +8,7 @@ type DirectusChapter = {
   title: string
   status: DefaultStatus
   parent: number
+  parse_titles: boolean
 }
 
 export type TocData = {title: string; link: string}
@@ -48,17 +50,33 @@ const cachedToc = defineCachedFunction(
     const content = data[0]!.content
 
     const toc: TocData[] = []
-    const marked = new Marked({
-      walkTokens: (token: Token) => {
-        // We just parse level-2 tokens
-        if (token.type === 'heading' && token.depth == 2) {
-          toc.push({
-            title: token.text,
-            link: transliterate(token.text),
-          })
-        }
-      },
-    })
+    const marked = new Marked(
+      createDirectives([
+        ...presetDirectiveConfigs,
+        {level: 'container', marker: '::::'},
+        createSbHeaderDirective((record) => {
+          if (record.level === 2) {
+            toc.push({
+              title: record.text,
+              link: transliterate(record.text),
+            })
+          }
+        }),
+      ]),
+      {
+        renderer: {
+          heading: (token) => {
+            if (token.depth === 2) {
+              toc.push({
+                title: token.text,
+                link: transliterate(token.text),
+              })
+            }
+            return false
+          },
+        },
+      }
+    )
     await marked.parse(content, {async: true})
     return toc
   },
@@ -86,7 +104,7 @@ export default defineEventHandler(async (event): Promise<ChapterData[]> => {
       },
       sort: 'sort',
       // Must be in sync with DirectusChapter
-      fields: 'id,title,slug,status,parent',
+      fields: 'id,title,slug,status,parent,parse_titles',
     },
   })
 
@@ -94,12 +112,9 @@ export default defineEventHandler(async (event): Promise<ChapterData[]> => {
   const tocs: Record<string, {title: string; link: string}[]> = {}
 
   for (const chapter of publishedChapters) {
-    tocs[chapter.slug] = await cachedToc(
-      chaptersLink,
-      bookData.id,
-      chapter.slug,
-      staticToken
-    )
+    tocs[chapter.slug] = chapter.parse_titles
+      ? await cachedToc(chaptersLink, bookData.id, chapter.slug, staticToken)
+      : []
   }
 
   return publishedChapters

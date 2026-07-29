@@ -70,7 +70,7 @@ export default defineEventHandler(async (event): Promise<FacilityData> => {
     createDirectives([
       ...presetDirectiveConfigs,
       {level: 'container', marker: '::::'},
-      createSbHeaderDirective([]),
+      createSbHeaderDirective(),
       sbStatsDirective,
     ])
   )

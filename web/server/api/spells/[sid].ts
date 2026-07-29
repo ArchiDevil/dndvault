@@ -77,7 +77,7 @@ export default defineEventHandler(async (event): Promise<SpellData> => {
     createDirectives([
       ...presetDirectiveConfigs,
       {level: 'container', marker: '::::'},
-      createSbHeaderDirective([]),
+      createSbHeaderDirective(),
       sbStatsDirective,
     ])
   )

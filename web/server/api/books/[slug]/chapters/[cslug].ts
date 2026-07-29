@@ -92,7 +92,7 @@ export default defineEventHandler(async (event): Promise<ChapterData> => {
     createDirectives([
       ...presetDirectiveConfigs,
       {level: 'container', marker: '::::'},
-      createSbHeaderDirective(toc),
+      createSbHeaderDirective((record) => toc.push(record)),
       sbStatsDirective,
     ])
   )

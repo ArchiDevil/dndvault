@@ -70,7 +70,7 @@ export default defineCachedEventHandler(
       createDirectives([
         ...presetDirectiveConfigs,
         {level: 'container', marker: '::::'},
-        createSbHeaderDirective([]),
+        createSbHeaderDirective(),
         sbStatsDirective,
       ])
     ).use({

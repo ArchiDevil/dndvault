@@ -6,14 +6,16 @@ export type TocRecord = {
   link: string
 }
 
-export const createSbHeaderDirective = (toc: TocRecord[]): DirectiveConfig => {
+export const createSbHeaderDirective = (
+  tocCb?: (record: TocRecord) => void
+): DirectiveConfig => {
   return {
     level: 'block',
     marker: '::',
     renderer(token) {
       if (token.meta.name !== 'sbheader' || !token.attrs) return false
       const transliteration = transliterate(token.attrs.title as string)
-      toc.push({
+      tocCb?.({
         level: Number(token.attrs.level),
         text: token.attrs.title as string,
         link: `#${transliteration}`,

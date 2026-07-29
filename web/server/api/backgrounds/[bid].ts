@@ -75,7 +75,7 @@ export default defineEventHandler(async (event): Promise<BackgroundData> => {
     createDirectives([
       ...presetDirectiveConfigs,
       {level: 'container', marker: '::::'},
-      createSbHeaderDirective([]),
+      createSbHeaderDirective(),
       sbStatsDirective,
     ])
   )
