@@ -92,7 +92,7 @@
 
     th,
     td {
-      @apply py-1 px-2;
+      @apply py-1 px-2 min-w-[80px];
     }
 
     tbody {
@@ -225,17 +225,39 @@
       @apply grid grid-cols-2 gap-1;
 
       table {
-        @apply mb-1;
+        @apply mb-1 table;
+      }
+
+      table:nth-of-type(1) > tbody > tr {
+        > td:nth-of-type(1),
+        > td:nth-of-type(2) {
+          @apply bg-[#ede6d9];
+        }
+
+        > td:nth-of-type(3),
+        > td:nth-of-type(4) {
+          @apply bg-[#ded4cc];
+        }
+      }
+
+      table:nth-of-type(2) > tbody > tr {
+        > td:nth-of-type(1),
+        > td:nth-of-type(2) {
+          @apply bg-[#d8dad1];
+        }
+
+        > td:nth-of-type(3),
+        > td:nth-of-type(4) {
+          @apply bg-[#d0caca];
+        }
       }
 
       thead {
         @apply text-xs text-[--statblock-secondary-text-color];
       }
 
-      tbody {
-        td:nth-of-type(1) {
-          @apply font-semibold text-[--strong-text-darker-color];
-        }
+      tbody td:nth-of-type(1) {
+        @apply font-semibold;
       }
 
       td:nth-of-type(2),
