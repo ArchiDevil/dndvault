@@ -1,24 +1,18 @@
-import {type Tokens, Marked} from 'marked'
-import {createDirectives, presetDirectiveConfigs} from 'marked-directive'
-import {
-  createSbHeaderDirective,
-  sbStatsDirective,
-  type TocRecord,
-} from '#shared/utils/markdown'
+import {type DefaultStatus} from '~~/shared/types/backendTypes'
 
 type DirectusChapter = {
+  id: number
+  status: DefaultStatus
+  date_updated: string
   title: string
-  content: string
 }
 
 type ChapterData = {
+  id: number
+  status: DefaultStatus
+  dateUpdated: string
   title: string
-  toc: TocRecord[]
-  content: string
 }
-
-const isHeading = (token: Tokens.Generic): token is Tokens.Heading =>
-  token.type === 'heading'
 
 const hasVersion = (
   q: object
@@ -60,50 +54,17 @@ export default defineEventHandler(async (event): Promise<ChapterData> => {
       ...commonParams,
       query: {
         // Must be in sync with DirectusChapter
-        fields: 'title,content',
+        fields: 'id,status,date_updated,title',
         ...version,
       },
     }
   )
 
   chapterData = data
-
-  const toc: TocRecord[] = []
-
-  const marked = new Marked(
-    {
-      extensions: [
-        {
-          name: 'heading',
-          renderer(token) {
-            if (!isHeading(token)) return
-            const transliteration = transliterate(token.text)
-            toc.push({
-              level: token.depth,
-              text: token.text,
-              link: `#${transliteration}`,
-            })
-            const link = `<a class="heading-link" href="#${transliteration}">#</a>`
-            return `<h${token.depth} id="${transliteration}">${token.text} ${link}</h${token.depth}>`
-          },
-        },
-      ],
-    },
-    createDirectives([
-      ...presetDirectiveConfigs,
-      {level: 'container', marker: '::::'},
-      createSbHeaderDirective((record) => toc.push(record)),
-      sbStatsDirective,
-    ])
-  )
-
-  const renderedContent = marked.parse(chapterData.content, {
-    async: false,
-  })
-
   return {
+    id: chapterData.id,
+    status: chapterData.status,
+    dateUpdated: chapterData.date_updated,
     title: chapterData.title,
-    toc: toc,
-    content: renderedContent,
   }
 })

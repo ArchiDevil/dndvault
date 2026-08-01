@@ -8,7 +8,7 @@ import '~/assets/css/wthc.css'
 
 const route = useRoute()
 const bookSlug = computed(() => route.params.slug)
-const chapterSlug = ref(route.params.cslug)
+const chapterSlug = computed(() => route.params.cslug)
 
 const {data: bookData} = await useFetch(`/api/books/${bookSlug.value}`)
 if (!bookData.value) {
@@ -18,44 +18,47 @@ if (!bookData.value) {
   })
 }
 
-let renderedContent = ''
-const toc = useState<{text: string; level: number; link: string}[]>(
-  'toc',
-  () => []
+const {version, urlSuffix} = useContentVersion()
+
+const {data: chapterData} = await useFetch(
+  `/api/books/${bookSlug.value}/chapters/${chapterSlug.value}${urlSuffix.value}`
 )
-
-// prerender content on the server
-if (import.meta.server) {
-  let suffix = ''
-  if ('version' in route.query && typeof route.query['version'] === 'string') {
-    suffix = `?version=${route.query['version']}`
-  }
-  const chapter = await $fetch(
-    `/api/books/${bookSlug.value}/chapters/${chapterSlug.value}${suffix}`
-  )
-  renderedContent = chapter.content
-  toc.value = chapter.toc
-
-  useHead({
-    link: [
-      {
-        rel: 'canonical',
-        href: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
-      },
-    ],
-  })
-
-  useSeoMeta({
-    title: `${chapter.title} | ${bookData.value.title} | DnD Vault`,
-    description: `Содержимое главы: ${chapter.title} DnD 2024`,
-    ogTitle: `${chapter.title} | ${bookData.value.title} | DnD Vault`,
-    ogDescription: `Содержимое главы: ${chapter.title} DnD 2024`,
-    ogType: 'article',
-    ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
+if (!chapterData.value) {
+  throw createError({
+    status: 404,
+    statusText: 'Page not found :(',
   })
 }
 
-const {data: chapterData} = await useFetch(
+const {data: toc} = await useFetch(
+  `/api/books/${bookSlug.value}/chapters/${chapterSlug.value}/toc${urlSuffix.value}`
+)
+if (!toc.value) {
+  throw createError({
+    status: 404,
+    statusText: 'Page not found :(',
+  })
+}
+
+useSeoMeta({
+  title: `${chapterData.value?.title} | ${bookData.value.title} | DnD Vault`,
+  description: `Содержимое главы: ${chapterData.value?.title} DnD 2024`,
+  ogTitle: `${chapterData.value?.title} | ${bookData.value.title} | DnD Vault`,
+  ogDescription: `Содержимое главы: ${chapterData.value?.title} DnD 2024`,
+  ogType: 'article',
+  ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
+})
+
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
+    },
+  ],
+})
+
+const {data: chaptersData} = await useFetch(
   `/api/books/${bookSlug.value}/chapters`
 )
 const flattenedChapters = computed(() => {
@@ -63,7 +66,7 @@ const flattenedChapters = computed(() => {
     slug: string
     title: string
   }[] = []
-  chapterData.value?.forEach((c) => {
+  chaptersData.value?.forEach((c) => {
     output.push({
       slug: c.slug,
       title: c.title,
@@ -133,22 +136,28 @@ if (import.meta.browser) {
 const floater = useTemplateRef<HTMLElement>('floater')
 const {floatingStyles, data, status, referenceVisible} =
   useEntityTooltip(floater)
+
+const islandProps = computed(() => ({
+  'book-slug': bookSlug.value,
+  'chapter-slug': chapterSlug.value,
+  styling: bookData.value?.styling,
+  version: version.value,
+}))
 </script>
 
 <template>
   <div
     class="mt-2 mb-16 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-8 print:mt-0 print:block">
     <ChapterToc
-      :toc="toc"
+      :toc="toc || []"
       :chapters-link="bookTocLink"
       :active-link="visibleLink"
       :previous="prevChapter"
       :next="nextChapter" />
-    <article
-      class="cc max-w-[750px]"
-      :class="bookData!.styling"
-      v-html="renderedContent"
-      v-once />
+
+    <NuxtIsland
+      name="ChapterContent"
+      :props="islandProps" />
 
     <EntityTooltip
       ref="floater"

@@ -1,7 +1,7 @@
 export default defineEventHandler(async (event) => {
   const {backendAddress} = useRuntimeConfig()
   const newPath = event.path.replace(/^\/api/, backendAddress)
-  return await $fetch(newPath, {
+  return await $fetch<ArrayBuffer>(newPath, {
     headers: {
       ...event.headers,
     },

@@ -12,13 +12,21 @@ import {
   type SupportedEntityData,
 } from '~/components/EntityTooltip.vue'
 
-const EntityData: Record<EntityTypes, {siteLinks: string; api: string}> = {
+type EntityEntry = {siteLinks: string; api: string}
+
+const defineEntityData = <const T extends Record<EntityTypes, EntityEntry>>(
+  data: T & {
+    [K in keyof T]: K extends EntityTypes ? EntityEntry : never
+  }
+): T => data
+
+const EntityData = defineEntityData({
   background: {siteLinks: '/backgrounds', api: '/api/backgrounds/'},
   facility: {siteLinks: '/facilities', api: '/api/facilities/'},
   feat: {siteLinks: '/feats', api: '/api/feats/'},
   magicItem: {siteLinks: '/magic-items', api: '/api/magic-items/'},
   spell: {siteLinks: '/spells', api: '/api/spells/'},
-}
+})
 
 type EntityDataUnion = Exclude<SupportedEntityData, undefined>
 
@@ -26,8 +34,9 @@ const fetchEntityData = async (
   type: EntityTypes,
   id: number
 ): Promise<EntityDataUnion> => {
-  const url = `${EntityData[type].api}${id}`
-  return {type, data: await $fetch(url)} as EntityDataUnion
+  const url = `${EntityData[type].api}${id}` as const
+  const data = await $fetch(url)
+  return {type, data} as EntityDataUnion
 }
 
 export const useEntityTooltip = (
