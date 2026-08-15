@@ -80,7 +80,9 @@ const {floatingStyles, data, status, referenceVisible} = useEntityTooltip(
     <h1 class="text-2xl md:text-3xl font-semibold mt-4">
       {{ feat?.title }} [{{ feat?.originalTitle }}]
     </h1>
-    <h2 class="text-lg md:text-xl italic text-zinc-700">{{ featSubtext }}</h2>
+    <h2
+      class="text-lg md:text-xl italic text-zinc-700 subtext"
+      v-html="featSubtext" />
     <h3 class="text-sm text-zinc-700">Источник: {{ sourceDescription }}</h3>
     <p
       v-if="
@@ -115,3 +117,14 @@ const {floatingStyles, data, status, referenceVisible} = useEntityTooltip(
       :loading="status === 'pending'" />
   </div>
 </template>
+
+<style scoped>
+.subtext {
+  --strong-text-color: #7f1d1d;
+  --strong-text-darker-color: #450a0a;
+
+  :deep(a) {
+    @apply text-[--strong-text-color] hover:text-[--strong-text-darker-color] font-semibold;
+  }
+}
+</style>

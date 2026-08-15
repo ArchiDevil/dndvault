@@ -8,7 +8,9 @@ const featSubtext = useFeatSubtext(feat)
 
 <template>
   <h2 class="font-semibold">{{ feat?.title }} [{{ feat?.originalTitle }}]</h2>
-  <h3 class="italic text-zinc-700">{{ featSubtext }}</h3>
+  <h3
+    class="italic text-zinc-700"
+    v-html="featSubtext" />
   <p
     v-if="
       feat?.backgrounds !== undefined &&
