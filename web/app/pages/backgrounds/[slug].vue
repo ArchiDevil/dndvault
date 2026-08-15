@@ -88,6 +88,8 @@ const {floatingStyles, data, status, referenceVisible} = useEntityTooltip(
       class="cc"
       v-html="background?.renderedDescription" />
 
+    <ErrorReport class="mt-6 print:hidden" />
+
     <EntityTooltip
       ref="floater"
       :style="floatingStyles"
