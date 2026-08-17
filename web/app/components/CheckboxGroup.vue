@@ -9,17 +9,21 @@ defineProps<{
 }>()
 
 const values = defineModel<T[]>({required: true})
+const idFromValue = (id: T) => {
+  return `${id}`
+}
 </script>
 
 <template>
   <CheckboxGroupRoot
-    class="flex flex-col gap-1"
+    class="flex flex-col gap-1 max-w-[440px]"
     v-model="values">
     <div
       v-for="item in items"
       class="flex flex-row gap-2">
       <CheckboxRoot
-        class="size-6 border border-zinc-400 rounded hover:bg-zinc-300 transition"
+        :id="idFromValue(item.value)"
+        class="size-6 border border-zinc-400 rounded hover:bg-zinc-300 transition shrink-0"
         :value="item.value">
         <CheckboxIndicator class="size-6">
           <Icon
@@ -28,8 +32,10 @@ const values = defineModel<T[]>({required: true})
             class="text-zinc-800" />
         </CheckboxIndicator>
       </CheckboxRoot>
-      <label>
-        <span>{{ item.label }}</span>
+      <label
+        :for="idFromValue(item.value)"
+        class="cursor-pointer grow truncate">
+        {{ item.label }}
       </label>
     </div>
   </CheckboxGroupRoot>
