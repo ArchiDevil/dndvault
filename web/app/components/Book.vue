@@ -69,7 +69,9 @@ const tagsJoined = computed(() => tags.map((t) => `#${t.name}`).join(' '))
         <a
           v-if="downloadLink !== undefined"
           class="mr-2"
-          :href="downloadPath">
+          :href="downloadPath"
+          data-umami-event="download-book"
+          :data-umami-event-book="slug">
           Скачать
         </a>
         <NuxtLink
@@ -81,7 +83,9 @@ const tagsJoined = computed(() => tags.map((t) => `#${t.name}`).join(' '))
         <a
           v-for="supp in supplementaryLinks"
           class="mr-2"
-          :href="supp.link">
+          :href="supp.link"
+          data-umami-event="download-supplementary"
+          :data-umami-event-supp="slug + ':' + supp.title">
           {{ supp.title }}
         </a>
       </div>
