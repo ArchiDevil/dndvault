@@ -154,6 +154,23 @@ const filteredItems = computed(() => {
 const groups = computed(() =>
   makeGroups(config.value.groupBy, groupTypers, filteredItems.value)
 )
+
+const trackFilterUpdate = () => {
+  // This should be moved to some composable like useUmami()
+  if (window.umami === undefined) {
+    return
+  }
+
+  window.umami.track('magic-items-filters', {
+    sources: config.value.sources,
+    categories: config.value.categories,
+    rarities: config.value.rarities,
+    attunement: config.value.attunement,
+    grouping: config.value.groupBy,
+  })
+}
+
+watch(config, trackFilterUpdate, {deep: true})
 </script>
 
 <template>
@@ -170,17 +187,20 @@ const groups = computed(() =>
         trigger-text="Категории"
         trigger-icon="solar:notes-minimalistic-linear"
         :items="categoryItems"
-        v-model="config.categories" />
+        v-model="config.categories"
+        @close="trackFilterUpdate()" />
       <FilterPopover
         trigger-text="Редкость"
         trigger-icon="solar:atom-linear"
         :items="rarityItems"
-        v-model="config.rarities" />
+        v-model="config.rarities"
+        @close="trackFilterUpdate()" />
       <FilterPopover
         trigger-text="Источники"
         trigger-icon="solar:export-linear"
         :items="sourceItems"
-        v-model="config.sources" />
+        v-model="config.sources"
+        @close="trackFilterUpdate()" />
       <div class="flex flex-row gap-2">
         <label
           for="attunement"

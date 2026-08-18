@@ -21,11 +21,19 @@ const {
   triggerIcon?: string
 }>()
 
+const emit = defineEmits<{close: [void]}>()
+
+const onUpdate = (v: boolean) => {
+  if (v === false) {
+    emit('close')
+  }
+}
+
 const values = defineModel<T[]>({required: true})
 </script>
 
 <template>
-  <PopoverRoot>
+  <PopoverRoot @update:open="(v) => onUpdate(v)">
     <PopoverTrigger as-child>
       <VaultButton
         :text="`${triggerText} (${values.length})`"
