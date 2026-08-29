@@ -18,7 +18,9 @@
     }
 
     handle {
-        reverse_proxy frontend:3000
+        reverse_proxy frontend:3000 {
+            trusted_proxies {$TRUSTED_PROXIES:private_ranges}
+        }
         encode
     }
 }
