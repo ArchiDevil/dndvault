@@ -70,7 +70,7 @@ export default defineEventHandler(async (event): Promise<{ok: true}> => {
     (t) => now - t < RATE_WINDOW_MS
   )
   if (hits.length >= RATE_MAX_REPORTS) {
-    setResponseHeader(event, 'Retry-After', '3600')
+    setResponseHeader(event, 'Retry-After', 3600)
     throw createError({statusCode: 429, message: 'Too many reports'})
   }
   hits.push(now)
