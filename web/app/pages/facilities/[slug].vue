@@ -71,6 +71,8 @@ const {floatingStyles, data, status, referenceVisible} =
       class="cc mt-4"
       v-html="facility?.renderedDescription" />
 
+    <ErrorReport class="mt-6 print:hidden" />
+
     <EntityTooltip
       ref="floater"
       :style="floatingStyles"

@@ -11,6 +11,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     backendAddress: 'http://backend:8055',
     staticToken: '',
+    reportsIpSalt: '',
   },
   app: {
     head: {

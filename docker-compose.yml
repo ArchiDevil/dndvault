@@ -58,6 +58,7 @@ services:
     environment:
       NITRO_BACKEND_ADDRESS: http://backend:8055
       NITRO_STATIC_TOKEN: ${SERVER_STATIC_TOKEN}
+      NITRO_REPORTS_IP_SALT: ${NITRO_REPORTS_IP_SALT:-}
     depends_on:
       - backend
 

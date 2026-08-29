@@ -167,4 +167,6 @@ const islandProps = computed(() => ({
       :data="data"
       :loading="status === 'pending'" />
   </div>
+
+  <ErrorReport class="print:hidden" />
 </template>
