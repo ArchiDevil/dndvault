@@ -19,6 +19,9 @@
   --table-medium-bg-color: #dbeafe;
   --table-darker-bg-color: #bfdbfe;
 
+  --habitat-bg-color: #f0e9da;
+
+  --statblock-bg-color: #f6f3ee;
   --statblock-title-text-color: #793a2e;
   --statblock-strong-text-color: #481e24;
   --statblock-accent-text-color: #481e24;
@@ -86,7 +89,7 @@
   table {
     @apply mb-6 text-sm block max-w-full overflow-x-auto;
 
-    th {
+    th:not([align]) {
       @apply text-left;
     }
 
@@ -201,7 +204,7 @@
     }
 
     p {
-      @apply mb-0 text-[--statblock-accent-text-color];
+      @apply mb-1 text-[--statblock-accent-text-color];
     }
 
     p > strong {
@@ -271,11 +274,19 @@
       }
     }
 
-    @apply xl:columns-2 rounded-xl border-[3px] border-double border-[--statblock-border-color] shadow-lg py-2;
+    .legendary-rules p {
+      @apply text-[--statblock-secondary-text-color] italic font-semibold;
+    }
+
+    @apply xl:columns-2 rounded-xl border-[3px] border-double border-[--statblock-border-color] shadow-lg py-2 bg-[--statblock-bg-color];
     @apply print:break-inside-avoid-page print:columns-2 print:shadow-none;
   }
 
   aside.rhyme {
     @apply w-full text-center font-semibold;
+  }
+
+  .monster-habitat {
+    @apply border-t-2 border-[--heading-underline-color] bg-[--habitat-bg-color] p-2 my-2;
   }
 }
