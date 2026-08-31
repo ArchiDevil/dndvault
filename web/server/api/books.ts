@@ -6,6 +6,8 @@ type DirectusBook = {
   title: string
   description: string
   card_description: string
+  release_date: string
+  pinned: boolean
   chapters: number[] | null
   status: DefaultStatus
   file: string | null
@@ -35,6 +37,8 @@ type ApiBook = {
   id: number
   slug: string
   title: string
+  release_date: Date
+  pinned: boolean
   description: string
   card_description: string
   cover?: string
@@ -64,6 +68,8 @@ export default defineEventHandler(async (): Promise<ApiBook[]> => {
           'title',
           'description',
           'card_description',
+          'release_date',
+          'pinned',
           'status',
           'file',
           'cover',
@@ -79,6 +85,7 @@ export default defineEventHandler(async (): Promise<ApiBook[]> => {
             },
           },
         },
+        sort: '-pinned,-release_date',
       },
     }
   )
@@ -112,6 +119,8 @@ export default defineEventHandler(async (): Promise<ApiBook[]> => {
         description: b.description,
         card_description: b.card_description,
         title: b.title,
+        release_date: new Date(b.release_date),
+        pinned: b.pinned,
         chapters: b.chapters || [],
         tags:
           b.tags?.map((t) => ({
