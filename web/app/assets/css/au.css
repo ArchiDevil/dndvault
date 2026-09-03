@@ -5,6 +5,8 @@
   --statblock-title-text-color: #3455a5;
   --statblock-strong-text-color: #3455a5;
 
+  --rules-bg-color: #ddd7eb;
+
   aside.author {
     @apply from-[#f2e7e6] to-[#f5edec] bg-gradient-to-r italic;
     @apply shadow-xl px-8 py-6;
