@@ -5,6 +5,7 @@ import '~/assets/css/dmg.css'
 import '~/assets/css/efota.css'
 import '~/assets/css/aboh.css'
 import '~/assets/css/wthc.css'
+import '~/assets/css/au.css'
 
 const route = useRoute()
 const bookSlug = computed(() => route.params.slug)
