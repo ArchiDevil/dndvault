@@ -40,7 +40,7 @@
   > h2,
   > h3,
   > h4 {
-    @apply font-semibold;
+    @apply font-semibold text-balance;
   }
 
   > h2,
@@ -151,6 +151,10 @@
     &:last-child {
       @apply m-0;
     }
+
+    &:has(img:only-child) {
+      @apply flex justify-center;
+    }
   }
 
   p > em:first-of-type > strong,
@@ -183,7 +187,23 @@
   }
 
   aside.read-aloud {
-    @apply border-x border-y-0 border-solid px-8 bg-[--quote-box-bg-color] border-[--quote-box-border-color];
+    @apply border-x border-y-0 border-solid px-8 bg-[--quote-box-bg-color] border-[--quote-box-border-color] relative;
+
+    @apply before:content-[''] before:block before:bg-[--quote-box-border-color] before:rounded-full before:absolute;
+    @apply before:size-2 before:left-0 before:-ml-1 before:top-0 before:-mt-1;
+
+    @apply after:content-[''] after:block after:bg-[--quote-box-border-color] after:rounded-full after:absolute;
+    @apply after:size-2 after:left-0 after:-ml-1 after:bottom-0 after:-mb-1;
+
+    p:first-child {
+      @apply before:content-[''] before:block before:bg-[--quote-box-border-color] before:rounded-full before:absolute;
+      @apply before:size-2 before:right-0 before:-mr-1 before:top-0 before:-mt-1;
+    }
+
+    p:last-child {
+      @apply after:content-[''] after:block after:bg-[--quote-box-border-color] after:rounded-full after:absolute;
+      @apply after:size-2 after:right-0 after:-mr-1 after:bottom-0 after:-mb-1;
+    }
   }
 
   aside.statblock {
@@ -199,7 +219,7 @@
     }
 
     h6 {
-      @apply font-semibold text-lg text-[--statblock-strong-text-color] pt-2 pb-1;
+      @apply font-semibold text-lg text-[--statblock-strong-text-color] pt-2 pb-1 break-inside-avoid-column;
       @apply after:content-[''] after:w-full after:bg-[--statblock-strong-text-color] after:h-0.5 after:block;
     }
 
@@ -288,5 +308,23 @@
 
   .monster-habitat {
     @apply border-t-2 border-[--heading-underline-color] bg-[--habitat-bg-color] p-2 my-2;
+  }
+
+  .duplet {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+  }
+
+  .triplet {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+  }
+
+  .left {
+    @apply md:float-left md:max-w-[50%];
+    @apply flex justify-center md:block;
+  }
+
+  .right {
+    @apply md:float-right md:max-w-[50%];
+    @apply flex justify-center md:block;
   }
 }
