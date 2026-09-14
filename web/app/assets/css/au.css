@@ -1,11 +1,14 @@
 .cc.au {
   --heading-text-color: #3455a5;
-  --heading-underline-color: color-mix(in oklch,#613c97,#fff 55%);
+  --heading-underline-color: color-mix(in oklch, #613c97, #fff 55%);
 
   --statblock-title-text-color: #3455a5;
   --statblock-strong-text-color: #3455a5;
 
   --rules-bg-color: #ddd7eb;
+
+  --quote-box-bg-color: color-mix(in oklch, #f89926, #fff 80%);
+  --quote-box-border-color: color-mix(in oklch, #f89926, #fff 30%);
 
   aside.author {
     @apply from-[#f2e7e6] to-[#f5edec] bg-gradient-to-r italic;
@@ -13,6 +16,28 @@
 
     p {
       @apply last:text-right last:font-semibold last:text-lg;
+    }
+  }
+
+  .first-paragraph {
+    @apply mt-6 italic;
+
+    p::first-line {
+      @apply uppercase;
+    }
+
+    p::first-letter {
+      @apply float-left text-[3.25rem] mr-[0.1rem] mt-[-1.1rem] leading-[0.9] text-[--heading-text-color] font-semibold;
+    }
+  }
+
+  .rev-pad-list {
+    ul {
+      @apply px-8
+    }
+
+    li {
+      @apply indent-0;
     }
   }
 }
