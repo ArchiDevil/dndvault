@@ -1,6 +1,6 @@
 # build app
 FROM node:22-slim AS build-web
-RUN npm install -g pnpm
+RUN npm install -g pnpm@11.8.0
 COPY ./web/package.json /app/package.json
 COPY ./web/pnpm-workspace.yaml /app/pnpm-workspace.yaml
 COPY ./web/pnpm-lock.yaml /app/pnpm-lock.yaml
