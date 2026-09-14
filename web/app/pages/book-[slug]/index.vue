@@ -34,9 +34,9 @@ useHead({
 
 useSeoMeta({
   title: `${bookData.value.title} | DnD Vault`,
-  description: `Оглавление и краткое описание книги ${bookData.value.title} DnD 2024`,
+  description: `Оглавление и краткое описание книги ${bookData.value.title}`,
   ogTitle: `${bookData.value.title} | DnD Vault`,
-  ogDescription: `Оглавление и краткое описание книги ${bookData.value.title} DnD 2024`,
+  ogDescription: `Оглавление и краткое описание книги ${bookData.value.title}`,
   ogType: 'book',
   ogUrl: `https://dndvault.ru/book-${slug.value}`,
 })

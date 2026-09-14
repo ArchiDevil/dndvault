@@ -28,10 +28,10 @@ useHead({
 })
 
 useSeoMeta({
-  title: `${magicItem.value?.title} (${magicItem.value?.originalTitle}) | Магические предметы DnD 2024 | DnD Vault`,
-  description: `Магический предмет ${magicItem.value?.title} (${magicItem.value?.originalTitle}) DnD 2024`,
-  ogTitle: `${magicItem.value?.title} (${magicItem.value?.originalTitle}) | Магические предметы DnD 2024 | DnD Vault`,
-  ogDescription: `Магический предмет ${magicItem.value?.title} (${magicItem.value?.originalTitle}) DnD 2024`,
+  title: `${magicItem.value?.title} (${magicItem.value?.originalTitle}) | DnD Vault`,
+  description: `Магический предмет ${magicItem.value?.title} (${magicItem.value?.originalTitle})`,
+  ogTitle: `${magicItem.value?.title} (${magicItem.value?.originalTitle}) | DnD Vault`,
+  ogDescription: `Магический предмет ${magicItem.value?.title} (${magicItem.value?.originalTitle})`,
   ogType: 'article',
   ogUrl: `https://dndvault.ru/magic-items/${magicItemSlug.value}`,
 })

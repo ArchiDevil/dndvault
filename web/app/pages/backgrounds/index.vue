@@ -22,9 +22,9 @@ useHead({
 
 useSeoMeta({
   title: 'Предыстории | DnD Vault',
-  description: 'Каталог предысторий DnD 2024 на русском языке',
+  description: 'Каталог предысторий DnD 2024',
   ogTitle: 'Предыстории | DnD Vault',
-  ogDescription: 'Каталог предысторий DnD 2024 на русском языке',
+  ogDescription: 'Каталог предысторий DnD 2024',
   ogType: 'website',
   ogUrl: 'https://dndvault.ru/backgrounds',
 })

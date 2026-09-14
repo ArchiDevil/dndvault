@@ -30,9 +30,9 @@ useHead({
 
 useSeoMeta({
   title: 'Карты заклинаний | DnD Vault',
-  description: 'Карты заклинаний DnD 2024 на русском языке',
+  description: 'Печатаемые карточки DnD 2024',
   ogTitle: 'Карты заклинаний | DnD Vault',
-  ogDescription: 'Карты заклинаний DnD 2024 на русском языке',
+  ogDescription: 'Печатаемые карточки заклинаний DnD 2024',
   ogType: 'website',
   ogUrl: 'https://dndvault.ru/spell-cards',
 })

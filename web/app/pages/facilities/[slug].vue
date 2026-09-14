@@ -28,10 +28,10 @@ useHead({
 })
 
 useSeoMeta({
-  title: `${facility.value?.title} (${facility.value?.originalTitle}) | Бастионы DnD 2024 | DnD Vault`,
-  description: `Сооружение ${facility.value?.title} (${facility.value?.originalTitle}) DnD 2024`,
-  ogTitle: `${facility.value?.title} (${facility.value?.originalTitle}) | Бастионы DnD 2024 | DnD Vault`,
-  ogDescription: `Сооружение ${facility.value?.title} (${facility.value?.originalTitle}) DnD 2024`,
+  title: `${facility.value?.title} (${facility.value?.originalTitle}) | DnD Vault`,
+  description: `Сооружение ${facility.value?.title} (${facility.value?.originalTitle})`,
+  ogTitle: `${facility.value?.title} (${facility.value?.originalTitle}) | DnD Vault`,
+  ogDescription: `Сооружение ${facility.value?.title} (${facility.value?.originalTitle})`,
   ogType: 'article',
   ogUrl: `https://dndvault.ru/facilities/${facilitySlug.value}`,
 })

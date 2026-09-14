@@ -43,9 +43,9 @@ if (!toc.value) {
 
 useSeoMeta({
   title: `${chapterData.value?.title} | ${bookData.value.title} | DnD Vault`,
-  description: `Содержимое главы: ${chapterData.value?.title} DnD 2024`,
+  description: `Содержимое главы: ${chapterData.value?.title}`,
   ogTitle: `${chapterData.value?.title} | ${bookData.value.title} | DnD Vault`,
-  ogDescription: `Содержимое главы: ${chapterData.value?.title} DnD 2024`,
+  ogDescription: `Содержимое главы: ${chapterData.value?.title}`,
   ogType: 'article',
   ogUrl: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
 })

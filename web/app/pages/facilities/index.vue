@@ -18,9 +18,9 @@ useHead({
 
 useSeoMeta({
   title: 'Строения | DnD Vault',
-  description: 'Каталог строений DnD 2024 на русском языке',
+  description: 'Каталог строений бастионов DnD 2024',
   ogTitle: 'Строения | DnD Vault',
-  ogDescription: 'Каталог строений DnD 2024 на русском языке',
+  ogDescription: 'Каталог строений бастионов DnD 2024',
   ogType: 'website',
   ogUrl: 'https://dndvault.ru/facilities',
 })

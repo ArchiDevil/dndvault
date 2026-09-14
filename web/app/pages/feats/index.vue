@@ -18,9 +18,9 @@ useHead({
 
 useSeoMeta({
   title: 'Черты | DnD Vault',
-  description: 'Каталог черт DnD 2024 на русском языке',
+  description: 'Каталог черт DnD 2024',
   ogTitle: 'Черты | DnD Vault',
-  ogDescription: 'Каталог черт DnD 2024 на русском языке',
+  ogDescription: 'Каталог черт DnD 2024',
   ogType: 'website',
   ogUrl: 'https://dndvault.ru/feats',
 })

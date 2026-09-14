@@ -55,10 +55,10 @@ useHead({
 })
 
 useSeoMeta({
-  title: `${feat.value?.title} (${feat.value?.originalTitle}) | Черты DnD 2024 | DnD Vault`,
-  description: `Черта ${feat.value?.title} (${feat.value?.originalTitle}) DnD 2024`,
-  ogTitle: `${feat.value?.title} (${feat.value?.originalTitle}) | Черты DnD 2024 | DnD Vault`,
-  ogDescription: `Черта ${feat.value?.title} (${feat.value?.originalTitle}) DnD 2024`,
+  title: `${feat.value?.title} (${feat.value?.originalTitle}) | DnD Vault`,
+  description: `Черта ${feat.value?.title} (${feat.value?.originalTitle})`,
+  ogTitle: `${feat.value?.title} (${feat.value?.originalTitle}) | DnD Vault`,
+  ogDescription: `Черта ${feat.value?.title} (${feat.value?.originalTitle})`,
   ogType: 'article',
   ogUrl: `https://dndvault.ru/feats/${featSlug.value}`,
 })

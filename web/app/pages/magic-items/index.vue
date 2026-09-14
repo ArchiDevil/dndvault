@@ -10,9 +10,9 @@ useHead({
 
 useSeoMeta({
   title: 'Магические предметы | DnD Vault',
-  description: 'Каталог магических предметов DnD 2024 на русском языке',
+  description: 'Каталог магических предметов DnD 2024',
   ogTitle: 'Магические предметы | DnD Vault',
-  ogDescription: 'Каталог магических предметов DnD 2024 на русском языке',
+  ogDescription: 'Каталог магических предметов DnD 2024',
   ogType: 'website',
   ogUrl: 'https://dndvault.ru/magic-items',
 })
