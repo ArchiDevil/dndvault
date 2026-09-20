@@ -21,7 +21,7 @@ services:
       start_interval: 5s
 
   backend:
-    image: directus/directus:11.14
+    image: directus/directus:11.17
     restart: unless-stopped
     depends_on:
       db:
