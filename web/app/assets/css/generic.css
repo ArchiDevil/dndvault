@@ -208,6 +208,7 @@
 
   aside.statblock {
     /* TODO: this is crap, it should be done somehow better */
+    h1,
     h2,
     h3,
     h4,

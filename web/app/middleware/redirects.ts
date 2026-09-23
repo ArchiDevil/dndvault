@@ -38,6 +38,11 @@ const rules: RedirectRule[] = [
     apiPath: '/api/magic-items',
     routePrefix: '/magic-items',
   },
+  {
+    pattern: /^\/monsters\/(\d+)$/,
+    apiPath: '/api/monsters',
+    routePrefix: '/monsters',
+  },
 ]
 
 export default defineNuxtRouteMiddleware(async (to) => {

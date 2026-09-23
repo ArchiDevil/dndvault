@@ -230,3 +230,69 @@ export const mapItemRarity = (rarity: ItemRarity) => {
     return 'Неизвестная редкость'
   }
 }
+
+export const mapMonsterHabitat = (habitat: MonsterHabitat) => {
+  if (habitat === 'arctic') {
+    return 'Приполярье'
+  } else if (habitat === 'coastal') {
+    return 'Побережье'
+  } else if (habitat === 'desert') {
+    return 'Пустыня'
+  } else if (habitat === 'forest') {
+    return 'Лес'
+  } else if (habitat === 'grassland') {
+    return 'Степь'
+  } else if (habitat === 'hills') {
+    return 'Холмы'
+  } else if (habitat === 'mountain') {
+    return 'Горы'
+  } else if (habitat === 'planar') {
+    return 'Планы'
+  } else if (habitat === 'swamp') {
+    return 'Болото'
+  } else if (habitat === 'underdark') {
+    return 'Подземье'
+  } else if (habitat === 'underwater') {
+    return 'Подводный мир'
+  } else if (habitat === 'urban') {
+    return 'Город'
+  } else {
+    return 'Неизвестная среда обитания'
+  }
+}
+
+export const mapMonsterTreasure = (treasure: MonsterTreasure) => {
+  if (treasure === 'any') {
+    return 'Любые'
+  } else if (treasure === 'arcana') {
+    return 'Тайная магия'
+  } else if (treasure === 'arnaments') {
+    return 'Вооружение'
+  } else if (treasure === 'implements') {
+    return 'Принадлежности'
+  } else if (treasure === 'individual') {
+    return 'Личные'
+  } else if (treasure === 'relics') {
+    return 'Реликвии'
+  } else {
+    return 'Неизвестный тип сокровища'
+  }
+}
+
+export const mapMonsterTreasureLink = (treasure: MonsterTreasure) => {
+  if (treasure === 'any') {
+    return '/book-dmg-2024/chapter-7-random-items'
+  } else if (treasure === 'arcana') {
+    return '/book-dmg-2024/chapter-7-random-items#tablici_taynoy_magii'
+  } else if (treasure === 'arnaments') {
+    return '/book-dmg-2024/chapter-7-random-items#tablici_vooruzheniya'
+  } else if (treasure === 'implements') {
+    return '/book-dmg-2024/chapter-7-random-items#tablici_prinadlezhnostey'
+  } else if (treasure === 'individual') {
+    return undefined
+  } else if (treasure === 'relics') {
+    return '/book-dmg-2024/chapter-7-random-items#tablici_relikviy'
+  } else {
+    return undefined
+  }
+}

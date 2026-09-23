@@ -7,7 +7,8 @@ export type TocRecord = {
 }
 
 export const createSbHeaderDirective = (
-  tocCb?: (record: TocRecord) => void
+  tocCb?: (record: TocRecord) => void,
+  overrideLevel?: number
 ): DirectiveConfig => {
   return {
     level: 'block',
@@ -21,7 +22,9 @@ export const createSbHeaderDirective = (
         link: `#${transliteration}`,
       })
 
-      const title = `<h${token.attrs.level} id="${transliteration}">${token.attrs.title}</h${token.attrs.level}>`
+      const level =
+        overrideLevel !== undefined ? overrideLevel : token.attrs.level
+      const title = `<h${level} id="${transliteration}">${token.attrs.title}</h${level}>`
       const type = `<p class="creature-type">${token.attrs.type}</p>`
       return `${title}${type}`
     },
