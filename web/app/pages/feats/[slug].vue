@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import EntitySource from '~/components/entities/EntitySource.vue'
+
 import '~/assets/css/generic.css'
 
 definePageMeta({
@@ -64,7 +66,6 @@ useSeoMeta({
 })
 
 const featSubtext = useFeatSubtext(feat)
-const sourceDescription = useSourceDescription(() => feat.value)
 
 const floater = useTemplateRef<HTMLElement>('floater')
 const {floatingStyles, data, status, referenceVisible} = useEntityTooltip(
@@ -83,14 +84,13 @@ const {floatingStyles, data, status, referenceVisible} = useEntityTooltip(
     <h2
       class="text-lg md:text-xl italic text-zinc-700 subtext"
       v-html="featSubtext" />
-    <h3 class="text-sm text-zinc-700">Источник: {{ sourceDescription }}</h3>
     <p
       v-if="
         feat?.backgrounds !== undefined &&
         feat.backgrounds !== null &&
         feat.backgrounds.length > 0
       "
-      class="mt-4 italic">
+      class="mt-2 italic">
       Эту черту дают следующие происхождения:
     </p>
     <ul class="list-disc list-inside">
@@ -105,10 +105,12 @@ const {floatingStyles, data, status, referenceVisible} = useEntityTooltip(
       </li>
     </ul>
     <article
-      class="cc mt-4"
+      class="cc mt-2"
       v-html="feat?.renderedDescription" />
 
-    <ErrorReport class="mt-6 print:hidden" />
+    <EntitySource :entity="feat" />
+
+    <ErrorReport class="mt-2 print:hidden" />
 
     <EntityTooltip
       ref="floater"

@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import '~/assets/css/generic.css'
+import EntitySource from '~/components/entities/EntitySource.vue'
 import {mapAbility, mapSkill} from '~~/shared/utils/language'
+
+import '~/assets/css/generic.css'
 
 definePageMeta({
   middleware: 'redirects',
@@ -37,8 +39,6 @@ useSeoMeta({
   ogUrl: `https://dndvault.ru/backgrounds/${backgroundSlug.value}`,
 })
 
-const sourceDescription = useSourceDescription(background.value)
-
 const floater = useTemplateRef<HTMLElement>('floater')
 const {floatingStyles, data, status, referenceVisible} = useEntityTooltip(
   floater,
@@ -53,8 +53,7 @@ const {floatingStyles, data, status, referenceVisible} = useEntityTooltip(
     <h1 class="text-2xl md:text-3xl font-semibold mt-4">
       {{ background?.title }} [{{ background?.originalTitle }}]
     </h1>
-    <h3 class="text-sm text-zinc-700">Источник: {{ sourceDescription }}</h3>
-    <ul class="my-4">
+    <ul class="my-2">
       <li>
         <strong class="whitespace-pre">Значения характеристик:</strong>
         {{ background?.abilities.map((a) => mapAbility(a)).join(', ') }}
@@ -88,7 +87,9 @@ const {floatingStyles, data, status, referenceVisible} = useEntityTooltip(
       class="cc"
       v-html="background?.renderedDescription" />
 
-    <ErrorReport class="mt-6 print:hidden" />
+    <EntitySource :entity="background" />
+
+    <ErrorReport class="mt-2 print:hidden" />
 
     <EntityTooltip
       ref="floater"

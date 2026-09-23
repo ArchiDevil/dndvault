@@ -77,7 +77,7 @@ const inputClass =
       <VaultButton
         text="Сообщить об ошибке"
         icon="solar:danger-triangle-linear"
-        class="mt-6" />
+        v-bind="$attrs" />
     </DialogTrigger>
     <DialogPortal>
       <DialogOverlay class="fixed inset-0 z-40 bg-zinc-900/50 print:hidden" />

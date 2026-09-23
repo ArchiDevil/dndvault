@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import EntitySource from '~/components/entities/EntitySource.vue'
+
 import '~/assets/css/generic.css'
 
 definePageMeta({
@@ -37,7 +39,6 @@ useSeoMeta({
 })
 
 const magicItemSubtext = useMagicItemSubtext(magicItem)
-const sourceDescription = useSourceDescription(magicItem.value)
 
 const floater = useTemplateRef<HTMLElement>('floater')
 const {floatingStyles, data, status, referenceVisible} =
@@ -52,12 +53,13 @@ const {floatingStyles, data, status, referenceVisible} =
     <h2 class="text-lg md:text-xl italic text-zinc-700">
       {{ magicItemSubtext }}
     </h2>
-    <h3 class="text-sm text-zinc-700">Источник: {{ sourceDescription }}</h3>
     <article
-      class="cc mt-4"
+      class="cc mt-2"
       v-html="magicItem?.renderedDescription" />
 
-    <ErrorReport class="mt-6 print:hidden" />
+    <EntitySource :entity="magicItem" />
+
+    <ErrorReport class="mt-2 print:hidden" />
 
     <EntityTooltip
       ref="floater"

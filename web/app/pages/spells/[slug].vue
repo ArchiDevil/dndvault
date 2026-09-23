@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import EntitySource from '~/components/entities/EntitySource.vue'
+
 import '~/assets/css/generic.css'
 
 definePageMeta({
@@ -37,7 +39,6 @@ useSeoMeta({
 })
 
 const spellSubtext = useSpellSubtext(() => spell.value)
-const sourceDescription = useSourceDescription(() => spell.value)
 
 const floater = useTemplateRef<HTMLElement>('floater')
 const {floatingStyles, data, status, referenceVisible} =
@@ -45,23 +46,25 @@ const {floatingStyles, data, status, referenceVisible} =
 </script>
 
 <template>
-  <div id="spell-description" class="max-w-[750px]">
+  <div
+    id="spell-description"
+    class="max-w-[750px]">
     <h1 class="text-2xl md:text-3xl font-semibold mt-4">
       {{ spell?.title }} [{{ spell?.original_title }}]
     </h1>
     <h2 class="text-lg md:text-xl italic text-zinc-700">{{ spellSubtext }}</h2>
-    <h3 class="text-sm text-zinc-700">Источник: {{ sourceDescription }}</h3>
-    <ul class="mt-4">
+    <ul class="my-2">
       <li><strong>Время сотворения:</strong> {{ spell?.casting_time }}</li>
       <li><strong>Дистанция:</strong> {{ spell?.range }}</li>
       <li><strong>Компоненты:</strong> {{ spell?.components }}</li>
       <li><strong>Длительность:</strong> {{ spell?.duration }}</li>
     </ul>
     <article
-      class="cc mt-4"
+      class="cc"
       v-html="spell?.renderedDescription" />
+    <EntitySource :entity="spell" />
 
-    <ErrorReport class="mt-6 print:hidden" />
+    <ErrorReport class="mt-2 print:hidden" />
 
     <EntityTooltip
       ref="floater"

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import EntitySource from '~/components/entities/EntitySource.vue'
+
 import '~/assets/css/generic.css'
 
 definePageMeta({
@@ -37,7 +39,6 @@ useSeoMeta({
 })
 
 const facilitySubtext = useFacilitySubtext(facility)
-const sourceDescription = useSourceDescription(facility.value)
 
 const floater = useTemplateRef<HTMLElement>('floater')
 const {floatingStyles, data, status, referenceVisible} =
@@ -52,8 +53,7 @@ const {floatingStyles, data, status, referenceVisible} =
     <h2 class="text-lg md:text-xl italic text-zinc-700">
       {{ facilitySubtext }}
     </h2>
-    <h3 class="text-sm text-zinc-700">Источник: {{ sourceDescription }}</h3>
-    <ul class="mt-4">
+    <ul class="my-2">
       <li>
         <strong>Требования:</strong> {{ facility?.requirements ?? 'нет' }}
       </li>
@@ -68,10 +68,12 @@ const {floatingStyles, data, status, referenceVisible} =
       </li>
     </ul>
     <article
-      class="cc mt-4"
+      class="cc"
       v-html="facility?.renderedDescription" />
 
-    <ErrorReport class="mt-6 print:hidden" />
+    <EntitySource :entity="facility" />
+
+    <ErrorReport class="mt-2 print:hidden" />
 
     <EntityTooltip
       ref="floater"
