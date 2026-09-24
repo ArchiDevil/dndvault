@@ -16,16 +16,16 @@ const idFromValue = (id: T) => {
 
 <template>
   <CheckboxGroupRoot
-    class="flex flex-col gap-1 max-w-[440px]"
+    class="flex flex-col gap-1 max-w-[440px] max-h-[40vh] overflow-y-auto"
     v-model="values">
     <div
       v-for="item in items"
       class="flex flex-row gap-2">
       <CheckboxRoot
         :id="idFromValue(item.value)"
-        class="size-6 border border-zinc-400 rounded hover:bg-zinc-300 transition shrink-0"
+        class="size-6 border border-zinc-400 rounded hover:bg-zinc-300 transition shrink-0 overflow-y-hidden"
         :value="item.value">
-        <CheckboxIndicator class="size-6">
+        <CheckboxIndicator>
           <Icon
             name="solar:unread-linear"
             :size="22"
