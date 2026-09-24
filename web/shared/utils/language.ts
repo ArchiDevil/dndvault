@@ -256,6 +256,8 @@ export const mapMonsterHabitat = (habitat: MonsterHabitat) => {
     return 'Подводный мир'
   } else if (habitat === 'urban') {
     return 'Город'
+  } else if (habitat === 'any') {
+    return 'Любая'
   } else {
     return 'Неизвестная среда обитания'
   }

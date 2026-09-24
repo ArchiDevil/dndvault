@@ -13,6 +13,7 @@ export type MonsterHabitat =
   | 'desert'
   | 'grassland'
   | 'hills'
+  | 'any'
 
 export type MonsterTreasure =
   | 'any'
