@@ -5,6 +5,7 @@ import FacilityEntity from './tooltip/FacilityEntity.vue'
 import FeatEntity from './tooltip/FeatEntity.vue'
 import MagicItemEntity from './tooltip/MagicItemEntity.vue'
 import SpellEntity from './tooltip/SpellEntity.vue'
+import MonsterEntity from './tooltip/MonsterEntity.vue'
 
 type EntityDataTypes = {
   background: BackgroundData
@@ -12,6 +13,7 @@ type EntityDataTypes = {
   feat: FeatData
   magicItem: MagicItemData
   spell: SpellData
+  monster: MonsterData
 }
 
 export type EntityTypes = keyof EntityDataTypes
@@ -46,6 +48,9 @@ defineProps<{
       <SpellEntity
         v-if="data.type === 'spell'"
         :spell="data.data" />
+      <MonsterEntity
+        v-if="data.type === 'monster'"
+        :monster="data.data" />
     </template>
     <div
       v-else-if="status === 'pending'"

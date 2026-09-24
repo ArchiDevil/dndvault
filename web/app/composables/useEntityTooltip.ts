@@ -26,6 +26,7 @@ const EntityData = defineEntityData({
   feat: {siteLinks: '/feats', api: '/api/feats/'},
   magicItem: {siteLinks: '/magic-items', api: '/api/magic-items/'},
   spell: {siteLinks: '/spells', api: '/api/spells/'},
+  monster: {siteLinks: '/monsters', api: '/api/monsters/'},
 })
 
 type EntityDataUnion = Exclude<SupportedEntityData, undefined>
