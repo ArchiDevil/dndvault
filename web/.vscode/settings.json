@@ -1,0 +1,12 @@
+{
+  "tailwindCSS.experimental.configFile": ".nuxt/tailwind/postcss.mjs",
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.indentSize": 2,
+  "editor.detectIndentation": false,
+  "[typescript]": {"editor.defaultFormatter": "esbenp.prettier-vscode"}
+}
