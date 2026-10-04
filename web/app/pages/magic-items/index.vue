@@ -179,7 +179,7 @@ watch(config, trackFilterUpdate, {deep: true})
       <input
         id="search"
         v-model="config.search"
-        class="py-1 px-2 rounded bg-zinc-50 hover:bg-zinc-100 border border-zinc-500 transition w-full"
+        class="py-1 px-2 rounded bg-zinc-50 hover:bg-zinc-100 border border-zinc-500 transition w-full outline-none"
         placeholder="Поиск предмета" />
     </div>
     <div class="flex flex-row gap-2 flex-wrap">

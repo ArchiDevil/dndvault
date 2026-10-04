@@ -16,7 +16,7 @@ const idFromValue = (id: T) => {
 
 <template>
   <CheckboxGroupRoot
-    class="flex flex-col gap-1 max-w-[440px] max-h-[40vh] overflow-y-auto"
+    class="flex flex-col gap-1 max-w-[384px] max-h-[40vh] overflow-y-auto"
     v-model="values">
     <div
       v-for="item in items"

@@ -95,7 +95,7 @@ const tagsJoined = computed(() => tags.map((t) => `#${t.name}`).join(' '))
 
 <style scoped>
 a {
-  @apply no-underline inline-block my-1 px-2 py-1 rounded;
+  @apply no-underline inline-block my-1 px-2 py-1 rounded transition-colors;
   @apply bg-zinc-300 hover:bg-zinc-500 hover:text-zinc-100;
 }
 </style>
