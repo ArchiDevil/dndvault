@@ -50,7 +50,7 @@ export default defineEventHandler(
     if (!Object.keys(query).includes('q')) return []
 
     const searchQuery = query['q']
-    if (typeof searchQuery !== 'string' || searchQuery.length < 4) return []
+    if (typeof searchQuery !== 'string' || searchQuery.length < 3) return []
 
     for (const entity of entities) {
       const {data: entities} = await $fetch<{data: DirectusEntity[]}>(
@@ -78,6 +78,7 @@ export default defineEventHandler(
           originalTitleScore: score(searchQuery, s.original_title),
           title: s.title,
           originalTitle: s.original_title,
+          slug: makeSlugLink({id: s.id, originalTitle: s.original_title}),
         })
       )
     }
@@ -92,6 +93,7 @@ export default defineEventHandler(
         type: r.type,
         title: r.title,
         originalTitle: r.originalTitle,
+        slug: r.slug,
       }))
   }
 )

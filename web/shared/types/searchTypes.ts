@@ -10,4 +10,5 @@ export type ShortSearchResult = {
     | 'equipment'
   title: string
   originalTitle: string
+  slug: string
 }
