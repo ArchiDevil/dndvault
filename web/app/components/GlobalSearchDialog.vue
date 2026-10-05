@@ -102,7 +102,8 @@ const handleEnter = () => {
           class="text-base"
           @keydown.up="handleUpDown(true)"
           @keydown.down="handleUpDown(false)"
-          @keydown.enter="handleEnter()">
+          @keydown.enter="handleEnter()"
+          @click.stop>
           <SearchInputBox
             v-model="debounceSearchTerm"
             :pending="pending" />
