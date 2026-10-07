@@ -19,12 +19,12 @@
     "vue-tsc": "^3.3.8"
   },
   "dependencies": {
-    "@floating-ui/vue": "^2.0.0",
+    "@floating-ui/vue": "^2.0.1",
     "@nuxtjs/robots": "^6.0.8",
     "@nuxtjs/sitemap": "^8.0.15",
     "marked": "^18.0.3",
     "marked-directive": "^1.0.7",
-    "reka-ui": "^2.9.7"
+    "reka-ui": "^2.11.0"
   },
   "overrides": {
     "vue": "latest"
