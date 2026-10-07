@@ -75,9 +75,7 @@ const {data: chapterData} = await useFetch(`/api/books/${slug.value}/chapters`)
 </template>
 
 <style scoped>
-.descriptions {
-  :deep(a) {
-    @apply font-semibold text-red-900 hover:text-red-950;
-  }
+.descriptions :deep(a) {
+  @apply font-semibold text-red-900 hover:text-red-950;
 }
 </style>

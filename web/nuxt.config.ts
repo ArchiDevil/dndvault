@@ -1,12 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: [
-    '@nuxtjs/tailwindcss',
-    '@nuxtjs/sitemap',
-    '@nuxtjs/robots',
-    '@nuxt/icon',
-    'reka-ui/nuxt',
-  ],
+  modules: ['@nuxtjs/sitemap', '@nuxtjs/robots', '@nuxt/icon', 'reka-ui/nuxt'],
   compatibilityDate: '2025-12-21',
   runtimeConfig: {
     backendAddress: 'http://backend:8055',
@@ -71,22 +65,13 @@ export default defineNuxtConfig({
       '/api/__sitemap__/spells',
     ],
   },
-  tailwindcss: {
-    config: {
-      theme: {
-        extend: {
-          container: {
-            padding: '2rem',
-            center: true,
-          },
-        },
-        fontFamily: {
-          sans: ['Roboto', 'sans-serif'],
-        },
-      },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
     },
-    cssPath: ['~/assets/css/styles.css', {injectPosition: 'first'}],
   },
+  css: ['~/assets/css/styles.css'],
   nitro: {
     serveStatic: false,
     devStorage: {
