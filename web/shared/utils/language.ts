@@ -233,7 +233,7 @@ export const mapItemRarity = (rarity: ItemRarity) => {
 
 export const mapMonsterHabitat = (habitat: MonsterHabitat) => {
   if (habitat === 'arctic') {
-    return 'Приполярье'
+    return 'Арктика'
   } else if (habitat === 'coastal') {
     return 'Побережье'
   } else if (habitat === 'desert') {
@@ -241,7 +241,7 @@ export const mapMonsterHabitat = (habitat: MonsterHabitat) => {
   } else if (habitat === 'forest') {
     return 'Лес'
   } else if (habitat === 'grassland') {
-    return 'Степь'
+    return 'Луга'
   } else if (habitat === 'hills') {
     return 'Холмы'
   } else if (habitat === 'mountain') {
