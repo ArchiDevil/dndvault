@@ -22,11 +22,12 @@ const defineEntityData = <const T extends Record<EntityTypes, EntityEntry>>(
 
 const EntityData = defineEntityData({
   background: {siteLinks: '/backgrounds', api: '/api/backgrounds/'},
+  equipment: {siteLinks: '/equipment', api: '/api/equipment/'},
   facility: {siteLinks: '/facilities', api: '/api/facilities/'},
   feat: {siteLinks: '/feats', api: '/api/feats/'},
   magicItem: {siteLinks: '/magic-items', api: '/api/magic-items/'},
-  spell: {siteLinks: '/spells', api: '/api/spells/'},
   monster: {siteLinks: '/monsters', api: '/api/monsters/'},
+  spell: {siteLinks: '/spells', api: '/api/spells/'},
 })
 
 type EntityDataUnion = Exclude<SupportedEntityData, undefined>

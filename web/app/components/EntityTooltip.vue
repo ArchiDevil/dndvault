@@ -1,19 +1,21 @@
 <script setup lang="ts">
 import BackgroundEntity from './tooltip/BackgroundEntity.vue'
 import BaseEntity from './tooltip/BaseEntity.vue'
+import EquipmentEntity from './tooltip/EquipmentEntity.vue'
 import FacilityEntity from './tooltip/FacilityEntity.vue'
 import FeatEntity from './tooltip/FeatEntity.vue'
 import MagicItemEntity from './tooltip/MagicItemEntity.vue'
-import SpellEntity from './tooltip/SpellEntity.vue'
 import MonsterEntity from './tooltip/MonsterEntity.vue'
+import SpellEntity from './tooltip/SpellEntity.vue'
 
 type EntityDataTypes = {
   background: BackgroundData
+  equipment: EquipmentData
   facility: FacilityData
   feat: FeatData
   magicItem: MagicItemData
-  spell: SpellData
   monster: MonsterData
+  spell: SpellData
 }
 
 export type EntityTypes = keyof EntityDataTypes
@@ -36,6 +38,9 @@ defineProps<{
       <BackgroundEntity
         v-if="data.type === 'background'"
         :background="data.data" />
+      <EquipmentEntity
+        v-if="data.type === 'equipment'"
+        :equipment="data.data" />
       <FacilityEntity
         v-if="data.type === 'facility'"
         :facility="data.data" />
