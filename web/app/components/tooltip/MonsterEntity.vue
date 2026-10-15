@@ -11,13 +11,11 @@ const {monster} = defineProps<{
 </template>
 
 <style scoped>
-.cc {
-  :deep(p) {
-    @apply text-sm;
-  }
+.cc :deep(p) {
+  @apply text-sm;
+}
 
-  :deep(aside.statblock) {
-    @apply mt-0 columns-1;
-  }
+.cc :deep(aside.statblock) {
+  @apply mt-0 columns-1 p-0 border-none bg-transparent shadow-none;
 }
 </style>
