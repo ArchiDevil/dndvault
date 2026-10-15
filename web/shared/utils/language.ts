@@ -298,3 +298,17 @@ export const mapMonsterTreasureLink = (treasure: MonsterTreasure) => {
     return undefined
   }
 }
+
+export const mapEquipmentType = (type: EquipmentType) => {
+  if (type === 'armor') {
+    return 'Доспех'
+  } else if (type === 'gear') {
+    return 'Снаряжение'
+  } else if (type === 'tool') {
+    return 'Инструменты'
+  } else if (type === 'weapon') {
+    return 'Оружие'
+  } else {
+    return undefined
+  }
+}

@@ -58,6 +58,7 @@ export default defineNuxtConfig({
     sources: [
       '/api/__sitemap__/backgrounds',
       '/api/__sitemap__/books',
+      '/api/__sitemap__/equipment',
       '/api/__sitemap__/facilities',
       '/api/__sitemap__/feats',
       '/api/__sitemap__/magic-items',
@@ -86,12 +87,13 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    '/spells/**': {swr: 3600},
-    '/feats/**': {swr: 3600},
     '/backgrounds/**': {swr: 3600},
+    '/equipment/**': {swr: 3600},
     '/facilities/**': {swr: 3600},
+    '/feats/**': {swr: 3600},
     '/magic-items/**': {swr: 3600},
     '/monsters/**': {swr: 3600},
     '/spell-cards/**': {sitemap: false},
+    '/spells/**': {swr: 3600},
   },
 })

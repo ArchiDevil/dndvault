@@ -43,6 +43,11 @@ const rules: RedirectRule[] = [
     apiPath: '/api/monsters',
     routePrefix: '/monsters',
   },
+  {
+    pattern: /^\/equipment\/(\d+)$/,
+    apiPath: '/api/equipment',
+    routePrefix: '/equipment',
+  },
 ]
 
 export default defineNuxtRouteMiddleware(async (to) => {
