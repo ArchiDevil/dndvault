@@ -1,42 +1,9 @@
 import type {SitemapUrlInput} from '#sitemap/types'
-import {makeSlugLink} from '~~/shared/utils/links'
+import {getSitemapItems} from '~~/server/utils/sitemapHelpers'
 
-type ItemData = {
-  id: number
-  original_title: string
-  date_updated: string
-}
-
-export default defineSitemapEventHandler(async () => {
-  const {staticToken, backendAddress} = useRuntimeConfig()
-  const itemsCount = await getItemsCount(`${backendAddress}/items/facilities`)
-
-  let totalItems: ItemData[] = []
-  const itemsPerPage = 100
-  for (let page = 0; page < itemsCount / itemsPerPage; page += 1) {
-    const {data: items} = await $fetch<{data: ItemData[]}>(
-      `${backendAddress}/items/facilities`,
-      {
-        headers: {Authorization: `Bearer ${staticToken}`},
-        query: {
-          fields: 'id,date_updated,original_title',
-          offset: itemsPerPage * page,
-        },
-      }
-    )
-    totalItems = totalItems.concat(items)
+export default defineSitemapEventHandler(
+  async (): Promise<SitemapUrlInput[]> => {
+    const {backendAddress} = useRuntimeConfig()
+    return getSitemapItems('facilities', `${backendAddress}/items/facilities`)
   }
-
-  const output: SitemapUrlInput[] = []
-  for (const item of totalItems) {
-    const lastUpdate = new Date(item.date_updated)
-    output.push({
-      loc: `/facilities/${makeSlugLink({id: item.id, originalTitle: item.original_title})}`,
-      changefreq: 'monthly',
-      lastmod: lastUpdate,
-      _sitemap: 'pages',
-    })
-  }
-
-  return output
-})
+)
