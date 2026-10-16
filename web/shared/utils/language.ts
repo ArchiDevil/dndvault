@@ -312,3 +312,19 @@ export const mapEquipmentType = (type: EquipmentType) => {
     return undefined
   }
 }
+
+export const mapRuleType = (type: RuleType) => {
+  if (type === 'action') {
+    return 'Действие'
+  } else if (type === 'area_of_effect') {
+    return 'Область воздействия'
+  } else if (type === 'condition') {
+    return 'Состояние'
+  } else if (type === 'definition') {
+    return 'Определение'
+  } else if (type === 'hazard') {
+    return 'Угроза'
+  } else {
+    return undefined
+  }
+}

@@ -27,6 +27,7 @@ const EntityData = defineEntityData({
   feat: {siteLinks: '/feats', api: '/api/feats/'},
   magicItem: {siteLinks: '/magic-items', api: '/api/magic-items/'},
   monster: {siteLinks: '/monsters', api: '/api/monsters/'},
+  rule: {siteLinks: '/rules', api: '/api/rules/'},
   spell: {siteLinks: '/spells', api: '/api/spells/'},
 })
 

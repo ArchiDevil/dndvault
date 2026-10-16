@@ -6,6 +6,7 @@ import FacilityEntity from './tooltip/FacilityEntity.vue'
 import FeatEntity from './tooltip/FeatEntity.vue'
 import MagicItemEntity from './tooltip/MagicItemEntity.vue'
 import MonsterEntity from './tooltip/MonsterEntity.vue'
+import RuleEntity from './tooltip/RuleEntity.vue'
 import SpellEntity from './tooltip/SpellEntity.vue'
 
 type EntityDataTypes = {
@@ -15,6 +16,7 @@ type EntityDataTypes = {
   feat: FeatData
   magicItem: MagicItemData
   monster: MonsterData
+  rule: RuleData
   spell: SpellData
 }
 
@@ -50,12 +52,15 @@ defineProps<{
       <MagicItemEntity
         v-if="data.type === 'magicItem'"
         :magic-item="data.data" />
-      <SpellEntity
-        v-if="data.type === 'spell'"
-        :spell="data.data" />
       <MonsterEntity
         v-if="data.type === 'monster'"
         :monster="data.data" />
+      <RuleEntity
+        v-if="data.type === 'rule'"
+        :rule="data.data" />
+      <SpellEntity
+        v-if="data.type === 'spell'"
+        :spell="data.data" />
     </template>
     <div
       v-else-if="status === 'pending'"
