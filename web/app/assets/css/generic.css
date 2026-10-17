@@ -320,12 +320,12 @@
   }
 
   .left {
-    @apply md:float-left md:max-w-[50%];
+    @apply md:float-left md:max-w-[45%] md:mr-3;
     @apply flex justify-center md:block;
   }
 
   .right {
-    @apply md:float-right md:max-w-[50%];
+    @apply md:float-right md:max-w-[45%] md:ml-3;
     @apply flex justify-center md:block;
   }
 }

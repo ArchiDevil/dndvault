@@ -1,4 +1,15 @@
 .cc.aud {
+  --heading-text-color: #157977;
+
+  --table-light-bg-color: color-mix(in oklch, #ccab81, #fff 80%);
+  --table-medium-bg-color: color-mix(in oklch, #ccab81, #fff 55%);
+  --table-darker-bg-color: color-mix(in oklch, #ccab81, #fff 30%);
+
+  --rules-bg-color: color-mix(in oklch, #832d24, #fff 80%);
+
+  --quote-box-bg-color: color-mix(in oklch, #157977, #fff 78%);
+  --quote-box-border-color: #157977;
+
   .first-paragraph {
     @apply mt-6 italic;
 
