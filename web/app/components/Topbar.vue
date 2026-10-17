@@ -126,7 +126,9 @@ const route = useRoute()
         </NuxtLink>
       </div>
       <div class="w-full mt-1 md:mt-0 md:ml-auto md:w-auto shrink-0">
-        <GlobalSearchDialog />
+        <ClientOnly placeholder-tag="div">
+          <GlobalSearchDialog />
+        </ClientOnly>
       </div>
     </div>
   </nav>
