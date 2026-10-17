@@ -8,6 +8,7 @@ import '~/assets/css/efota.css'
 import '~/assets/css/aboh.css'
 import '~/assets/css/wthc.css'
 import '~/assets/css/au.css'
+import '~/assets/css/aud.css'
 
 const route = useRoute()
 const bookSlug = computed(() => route.params.slug)

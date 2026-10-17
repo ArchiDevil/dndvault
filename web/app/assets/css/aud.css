@@ -1,0 +1,13 @@
+.cc.aud {
+  .first-paragraph {
+    @apply mt-6 italic;
+
+    p::first-line {
+      @apply uppercase;
+    }
+
+    p::first-letter {
+      @apply float-left text-[3.25rem] mr-[0.1rem] mt-[-1.1rem] leading-[0.9] text-[--heading-text-color] font-semibold;
+    }
+  }
+}
