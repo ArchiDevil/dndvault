@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {breadcrumbSchema} from '~~/shared/utils/breadcrumb'
+
 import '~/assets/css/generic.css'
 import '~/assets/css/phb.css'
 import '~/assets/css/dmg.css'
@@ -55,6 +57,20 @@ useHead({
     {
       rel: 'canonical',
       href: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
+    },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      textContent: JSON.stringify(
+        breadcrumbSchema([
+          {name: bookData.value.title, path: `/book-${bookSlug.value}`},
+          {
+            name: chapterData.value.title,
+            path: `/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
+          },
+        ])
+      ),
     },
   ],
 })

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import EntitySource from '~/components/entities/EntitySource.vue'
+import {breadcrumbSchema} from '~~/shared/utils/breadcrumb'
+
 import '~/assets/css/generic.css'
 
 definePageMeta({
@@ -24,6 +26,20 @@ useHead({
     {
       rel: 'canonical',
       href: `https://dndvault.ru/monsters/${monsterSlug.value}`,
+    },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      textContent: JSON.stringify(
+        breadcrumbSchema([
+          {name: 'Чудовища', path: '/monsters'},
+          {
+            name: monster.value?.title,
+            path: `/monsters/${monsterSlug.value}`,
+          },
+        ])
+      ),
     },
   ],
 })

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import EntitySource from '~/components/entities/EntitySource.vue'
+import {breadcrumbSchema} from '~~/shared/utils/breadcrumb'
 
 import '~/assets/css/generic.css'
 
@@ -30,28 +31,15 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      textContent: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
+      textContent: JSON.stringify(
+        breadcrumbSchema([
+          {name: 'Черты', path: '/feats'},
           {
-            '@type': 'ListItem',
-            position: 1,
-            item: {
-              '@id': 'https://dndvault.ru/feats',
-              name: 'Черты',
-            },
+            name: feat.value?.title,
+            path: `/feats/${featSlug.value}`,
           },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            item: {
-              '@id': `https://dndvault.ru/feats/${featSlug.value}`,
-              name: feat.value?.title,
-            },
-          },
-        ],
-      }),
+        ])
+      ),
     },
   ],
 })

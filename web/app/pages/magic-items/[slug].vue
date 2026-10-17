@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import EntitySource from '~/components/entities/EntitySource.vue'
+import {breadcrumbSchema} from '~~/shared/utils/breadcrumb'
 
 import '~/assets/css/generic.css'
 
@@ -25,6 +26,20 @@ useHead({
     {
       rel: 'canonical',
       href: `https://dndvault.ru/magic-items/${magicItemSlug.value}`,
+    },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      textContent: JSON.stringify(
+        breadcrumbSchema([
+          {name: 'Магические предметы', path: '/magic-items'},
+          {
+            name: magicItem.value?.title,
+            path: `/magic-items/${magicItemSlug.value}`,
+          },
+        ])
+      ),
     },
   ],
 })
