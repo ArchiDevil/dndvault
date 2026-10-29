@@ -16,7 +16,7 @@
     "autoprefixer": "^10.6.1",
     "nuxt": "^4.6.3",
     "nuxtseo-devtools-host": "^1.0.2",
-    "postcss": "^8.5.29",
+    "postcss": "^8.5.32",
     "tailwindcss": "^3.4.19",
     "vue-tsc": "^3.3.8"
   },
