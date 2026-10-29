@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import EntitySource from '~/components/entities/EntitySource.vue'
 import {mapAbility, mapSkill} from '~~/shared/utils/language'
-import {breadcrumbSchema} from '~~/shared/utils/breadcrumb'
 
 import '~/assets/css/generic.css'
 
@@ -29,21 +28,22 @@ useHead({
       href: `https://dndvault.ru/backgrounds/${backgroundSlug.value}`,
     },
   ],
-  script: [
-    {
-      type: 'application/ld+json',
-      textContent: JSON.stringify(
-        breadcrumbSchema([
-          {name: 'Предыстории', path: '/backgrounds'},
-          {
-            name: background.value?.title,
-            path: `/backgrounds/${backgroundSlug.value}`,
-          },
-        ])
-      ),
-    },
-  ],
 })
+
+useSchemaOrg([
+  defineWebPage({
+    '@type': 'ItemPage',
+  }),
+  defineBreadcrumb({
+    itemListElement: [
+      {name: 'Предыстории', item: '/backgrounds'},
+      {
+        name: background.value?.title,
+        item: `/backgrounds/${backgroundSlug.value}`,
+      },
+    ],
+  }),
+])
 
 useSeoMeta({
   title: `${background.value?.title} (${background.value?.originalTitle}) | DnD Vault`,

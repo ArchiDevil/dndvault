@@ -16,6 +16,23 @@ useHead({
   ],
 })
 
+useSchemaOrg([
+  defineWebPage({
+    '@type': 'CollectionPage',
+    mainEntity: {
+      '@id': 'https://dndvault.ru/feats#list',
+      '@type': 'ItemList',
+      numberOfItems: feats.value?.length,
+      itemListElement: feats.value?.slice(0, 25).map((f, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: f.title,
+        url: `https://dndvault.ru/feats/${f.slug}`,
+      })),
+    },
+  }),
+])
+
 useSeoMeta({
   title: 'Черты | DnD Vault',
   description: 'Каталог черт DnD 2024',

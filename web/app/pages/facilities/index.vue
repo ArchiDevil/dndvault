@@ -16,6 +16,23 @@ useHead({
   ],
 })
 
+useSchemaOrg([
+  defineWebPage({
+    '@type': 'CollectionPage',
+    mainEntity: {
+      '@id': 'https://dndvault.ru/facilities#list',
+      '@type': 'ItemList',
+      numberOfItems: facilities.value?.length,
+      itemListElement: facilities.value?.slice(0, 25).map((f, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: f.title,
+        url: `https://dndvault.ru/facilities/${f.slug}`,
+      })),
+    },
+  }),
+])
+
 useSeoMeta({
   title: 'Строения | DnD Vault',
   description: 'Каталог строений бастионов DnD 2024',

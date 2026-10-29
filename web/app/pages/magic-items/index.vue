@@ -19,6 +19,23 @@ useSeoMeta({
 
 const {data: magicItems} = await useFetch('/api/magic-items')
 
+useSchemaOrg([
+  defineWebPage({
+    '@type': 'CollectionPage',
+    mainEntity: {
+      '@id': 'https://dndvault.ru/magic-items#list',
+      '@type': 'ItemList',
+      numberOfItems: magicItems.value?.length,
+      itemListElement: magicItems.value?.slice(0, 25).map((m, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: m.title,
+        url: `https://dndvault.ru/magic-items/${m.slug}`,
+      })),
+    },
+  }),
+])
+
 // Source filters
 const sourceItems = computed(() => {
   if (magicItems.value === undefined) return []

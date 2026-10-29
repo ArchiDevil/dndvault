@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import {breadcrumbSchema} from '~~/shared/utils/breadcrumb'
-
 import '~/assets/css/generic.css'
 import '~/assets/css/phb.css'
 import '~/assets/css/dmg.css'
@@ -60,21 +58,19 @@ useHead({
       href: `https://dndvault.ru/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
     },
   ],
-  script: [
-    {
-      type: 'application/ld+json',
-      textContent: JSON.stringify(
-        breadcrumbSchema([
-          {name: bookData.value.title, path: `/book-${bookSlug.value}`},
-          {
-            name: chapterData.value.title,
-            path: `/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
-          },
-        ])
-      ),
-    },
-  ],
 })
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      {name: bookData.value.title, item: `/book-${bookSlug.value}`},
+      {
+        name: chapterData.value.title,
+        item: `/book-${bookSlug.value}/chapter-${chapterSlug.value}`,
+      },
+    ],
+  }),
+])
 
 const {data: chaptersData} = await useFetch(
   `/api/books/${bookSlug.value}/chapters`

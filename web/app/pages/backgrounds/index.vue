@@ -20,6 +20,23 @@ useHead({
   ],
 })
 
+useSchemaOrg([
+  defineWebPage({
+    '@type': 'CollectionPage',
+    mainEntity: {
+      '@id': 'https://dndvault.ru/backgrounds#list',
+      '@type': 'ItemList',
+      numberOfItems: backgrounds.value?.length,
+      itemListElement: backgrounds.value?.slice(0, 25).map((b, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: b.title,
+        url: `https://dndvault.ru/backgrounds/${b.slug}`,
+      })),
+    },
+  }),
+])
+
 useSeoMeta({
   title: 'Предыстории | DnD Vault',
   description: 'Каталог предысторий DnD 2024',

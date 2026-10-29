@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import EntitySource from '~/components/entities/EntitySource.vue'
-import {breadcrumbSchema} from '~~/shared/utils/breadcrumb'
 
 import '~/assets/css/generic.css'
 
@@ -28,21 +27,22 @@ useHead({
       href: `https://dndvault.ru/monsters/${monsterSlug.value}`,
     },
   ],
-  script: [
-    {
-      type: 'application/ld+json',
-      textContent: JSON.stringify(
-        breadcrumbSchema([
-          {name: 'Чудовища', path: '/monsters'},
-          {
-            name: monster.value?.title,
-            path: `/monsters/${monsterSlug.value}`,
-          },
-        ])
-      ),
-    },
-  ],
 })
+
+useSchemaOrg([
+  defineWebPage({
+    '@type': 'ItemPage',
+  }),
+  defineBreadcrumb({
+    itemListElement: [
+      {name: 'Чудовища', item: '/monsters'},
+      {
+        name: monster.value?.title,
+        item: `/monsters/${monsterSlug.value}`,
+      },
+    ],
+  }),
+])
 
 useSeoMeta({
   title: `${monster.value?.title} (${monster.value?.originalTitle}) | DnD Vault`,

@@ -6,6 +6,16 @@ useSeoMeta({
   ogSiteName: 'DnD Vault',
   twitterCard: 'summary_large_image',
 })
+
+useSchemaOrg([
+  defineWebSite({
+    publisher: {
+      name: 'dungeonsanddragons.ru',
+      url: 'https://dungeonsanddragons.ru',
+    },
+    inLanguage: 'ru',
+  }),
+])
 </script>
 
 <template>

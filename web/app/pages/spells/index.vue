@@ -17,6 +17,23 @@ useHead({
   ],
 })
 
+useSchemaOrg([
+  defineWebPage({
+    '@type': 'CollectionPage',
+    mainEntity: {
+      '@id': 'https://dndvault.ru/spells#list',
+      '@type': 'ItemList',
+      numberOfItems: spells.value?.length,
+      itemListElement: spells.value?.slice(0, 25).map((s, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: s.title,
+        url: `https://dndvault.ru/spells/${s.slug}`,
+      })),
+    },
+  }),
+])
+
 useSeoMeta({
   title: 'Заклинания | DnD Vault',
   description: 'Каталог заклинаний DnD 2024',
@@ -26,7 +43,8 @@ useSeoMeta({
   ogUrl: 'https://dndvault.ru/spells',
 })
 
-const {levelItems, schoolItems, sourceItems, classItems} = useSpellFilters(spells)
+const {levelItems, schoolItems, sourceItems, classItems} =
+  useSpellFilters(spells)
 
 type Groupings = 'none' | 'alphabet' | 'levels' | 'sources' | 'schools'
 const groupTypers: GroupTypers<Groupings, ShortSpellData> = {

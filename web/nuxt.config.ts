@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/sitemap', '@nuxtjs/robots', '@nuxt/icon', 'reka-ui/nuxt'],
+  modules: [
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
+    'nuxt-schema-org',
+    '@nuxt/icon',
+    'reka-ui/nuxt',
+  ],
   compatibilityDate: '2025-12-21',
   runtimeConfig: {
     backendAddress: 'http://backend:8055',
@@ -51,6 +57,10 @@ export default defineNuxtConfig({
     buildAssetsDir: '/_vault/',
     rootId: '__vault',
   },
+  site: {
+    url: 'https://dndvault.ru',
+    name: 'DnD Vault',
+  },
   robots: {
     disallow: ['/_vault/builds/meta/*'],
   },
@@ -84,7 +94,7 @@ export default defineNuxtConfig({
   },
   vite: {
     optimizeDeps: {
-      include: ['marked', 'reka-ui'],
+      include: ['marked', 'reka-ui', '@floating-ui/vue'],
     },
   },
   routeRules: {
