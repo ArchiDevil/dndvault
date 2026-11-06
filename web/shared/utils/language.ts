@@ -324,6 +324,12 @@ export const mapRuleType = (type: RuleType) => {
     return 'Определение'
   } else if (type === 'hazard') {
     return 'Угроза'
+  } else if (type === 'weapon_property') {
+    return 'Свойство оружия'
+  } else if (type === 'weapon_mastery') {
+    return 'Свойство искусности'
+  } else if (type === 'attitude') {
+    return 'Отношение'
   } else {
     return undefined
   }

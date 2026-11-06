@@ -1,9 +1,12 @@
 export type RuleType =
-  | 'definition'
-  | 'condition'
   | 'action'
   | 'area_of_effect'
+  | 'attitude'
+  | 'condition'
+  | 'definition'
   | 'hazard'
+  | 'weapon_mastery'
+  | 'weapon_property'
 
 export type RuleData = {
   id: number
