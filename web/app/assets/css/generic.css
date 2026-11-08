@@ -328,4 +328,25 @@
     @apply md:float-right md:max-w-[45%] md:ml-3;
     @apply flex justify-center md:block;
   }
+
+  .adventure-prelude {
+    @apply mx-auto grid grid-cols-2 text-center items-center gap-4 py-8;
+    @apply border-[1px] border-x-4 border-[--quote-box-border-color] rounded-lg;
+    @apply text-lg max-w-[65%] shadow-xl relative;
+    @apply before:content-[''] before:block before:w-[2px] before:h-[80%];
+    @apply before:absolute before:bg-[--quote-box-border-color] before:left-2/4 before:translate-x-[-1px];
+    @apply text-balance;
+
+    background: linear-gradient(
+      to right,
+      var(--quote-box-bg-color) 0%,
+      transparent 10%,
+      transparent 90%,
+      var(--quote-box-bg-color) 100%
+    );
+
+    p {
+      @apply mb-0;
+    }
+  }
 }
